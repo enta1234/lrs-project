@@ -42,8 +42,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		/* Name RLPD TH */
 		.RLPD {
 			font-family: 'Trirong', serif;
-			font-size: 42;
-			
+			font-size: xx-large;
+			font-weight: bold;
+			color: #29ABA4;
 		}
 	</style>
 </head>
@@ -52,34 +53,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<header class="header">
     	<div class="text-vertical-center">
         	<div class="container">
-				<div class="row align-items-center" style="height: 200px;">
-			    	<div class="col"></div>
-				    <div class="col-6">    
-
+				<div class="row align-items-start justify-content-center" style="height: 180px;">
+			    	<div class="col-3"></div>
+				    <div class="col">
 				    	<?php 
 				    		$logo = array('src' => 'assets/images/RLPD_logo.png','width' => '140' , 'height' => '140');				    		
 				    	 ?>
-						<?php echo img($logo); echo nbs();?><div class="RLPD">กรมคุ้มครองสิทธิและเสรีภาพ</div>
+						<?php echo img($logo); echo nbs();?>
+					</div>
+					<div class="col-5 RLPD">
+						<div class="row align-items-center" style="height: 140px;">
+							<div class="col">
+								กรมคุ้มครองสิทธิและเสรีภาพ กระทรวงยุติธรรม
+							</div>
+						</div>
 					</div>
 				    <div class="col"></div>
 				</div>
-			</div>
-
-			<div class="container">
+			
 			    <div class="row">
-			    	<div class="col"></div>
+			    	<div class="col-3"></div>
 				    <div class="col-6">    
 				        <form>
 				        	<div class="form-group">
 				        		<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-				        			<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Username">
+				        			<input type="email" class="form-control" id="email" placeholder="Username" required>
 				        		</div>
 				        	</div>
 							<div class="form-group">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-									<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+									<input type="password" class="form-control" id="password" placeholder="Password" pattern=".{3,6}" required oninvalid="this.setCustomValidity('รหัสผ่านอย่างน้อย 3 ถึง 6 ตัวอักษร')">
 								</div>
 							</div>
 							<div class="form-row align-items-center">
@@ -97,7 +102,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						  	</div>
 				        </form>
 				    </div>
-				    <div class="col"></div>
+				    <div class="col-3"></div>
 				</div>
 		    </div>
   		</div>
