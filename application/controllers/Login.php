@@ -5,9 +5,8 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->helper('security');
-
 		$this->load->helper('html');
+		$this->load->helper('url');
 		$this->load->view('loginForm');
 	}
 }

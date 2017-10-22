@@ -7,46 +7,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Login Page</title>
 	<!--CSS-->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+	<link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>css/bootstrap.min.css">
 	<!--Font-->
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Trirong" rel="stylesheet">
-	<style>
-		/* Global Styles */
-		html, body {
-		  	width: 100%;
-		  	height: 100%;
-		  	background-color: #E9E0D6;
-		}
-
-		body {
-		  	font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-		}
-
-		.text-vertical-center {
-		  	display: table-cell;
-		  	vertical-align: middle;
-		}
-
-		/* Header */
-		.header {
-			position: relative;
-		  	display: table;
-		  	width: 100%;
-		  	height: 100%;
-		  	-webkit-background-size: cover;
-		  	-moz-background-size: cover;
-		  	-o-background-size: cover;
-		  	background-size: cover;
-		}
-
-		/* Name RLPD TH */
-		.RLPD {
-			font-family: 'Trirong', serif;
-			font-size: xx-large;
-			font-weight: bold;
-			color: #29ABA4;
-		}
-	</style>
+	<!-- Icon -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/ba567eae7a.css">
+	<!-- Custom Css -->
+	<link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>css/custom.css">
 </head>
 <body>
 
@@ -57,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    	<div class="col-3"></div>
 				    <div class="col">
 				    	<?php 
-				    		$logo = array('src' => 'assets/images/RLPD_logo.png','width' => '140' , 'height' => '140');				    		
+				    		$logo = array('src' => 'assets/dashboard/images/RLPD_logo.png','width' => '140' , 'height' => '140');				    		
 				    	 ?>
 						<?php echo img($logo); echo nbs();?>
 					</div>
@@ -109,9 +76,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </header>
 
 	<!-- Javascript files-->
-	<script src="https://use.fontawesome.com/ba567eae7a.js"></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/jquery-slim.min.js"></script>
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/popper.min.js"></script>
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/bootstrap.min.js"></script>
 </body>
 </html>
