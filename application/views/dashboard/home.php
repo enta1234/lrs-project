@@ -13,11 +13,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="https://use.fontawesome.com/ba567eae7a.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- materializecss Icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>themelte/css/AdminLTE.css">
-  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>themelte/css/skins/skin-blue.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>themelte/css/skins/skin-custom.css">
+  <!-- Custom Theme -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>css/custom.css">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Trirong" rel="stylesheet">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -26,9 +31,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">RLPD</span>
+      <?php 
+        $logomini = array('src' => 'assets/dashboard/images/RLPD_logo.png','width' => '40.2' , 'height' => '45');               
+      ?>
+      <span class="logo-mini">
+        <?php echo img($logomini); ?>
+      </span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>RLPD</b></span>
+      <?php 
+        $logolg = array('src' => 'assets/dashboard/images/dashboard-logo.png','width' => '200' , 'height' => '45');               
+      ?>
+      <span class="logo-lg text-center">
+        <?php echo img($logolg); ?>
+      </span>
     </a>
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -116,12 +131,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="active"><a href="#"><i class="fa fa-tachometer fa-lg"></i><span><?php echo nbs(2); ?>Dashboard</span></a></li>
+        <li><a href="#"><i class="fa fa-address-book-o fa-lg"></i> <span><?php echo nbs(2); ?>จัดการเจ้าหน้าที่</span></a></li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-link"></i> 
-            <span>Multilevel</span>
+            <i class="fa fa-file-text-o fa-lg"></i> 
+            <span><?php echo nbs(2); ?>จัดการหน้าเว็บ</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -131,6 +146,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <li><a href="#">Link in level 2</a></li>
           </ul>
         </li>
+        <li><a href="#"><i class="fa fa-users fa-lg"></i> <span><?php echo nbs(2); ?>จัดการเจ้าหน้าที่</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -142,7 +158,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Page Header
+        Dashboa
         <small>Optional description</small>
       </h1>
     </section>
@@ -153,7 +169,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <!--------------------------
         | Your Page Content Here |
         -------------------------->
-
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>150</h3>
+              <p>เจ้าหน้าที่</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-stalker"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <p>ที่ปรึกษา</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-address-book-o"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>44</h3>
+              <p>ที่ปรึกษาอายุใกล้ถึง 70</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-android-alarm-clock"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>65</h3>
+              <p>ผู้สมัครทั้งหมด</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+      </div>
+    
     </section>
     <!-- /.content -->
   </div>

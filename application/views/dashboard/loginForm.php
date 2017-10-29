@@ -20,18 +20,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<header class="header">
     	<div class="text-vertical-center">
         	<div class="container">
-				<div class="row align-items-start justify-content-center" style="height: 180px;">
+				<div class="row " style="height: 180px;">
 			    	<div class="col-3"></div>
-				    <div class="col">
-				    	<?php 
-				    		$logo = array('src' => 'assets/dashboard/images/RLPD_logo.png','width' => '140' , 'height' => '140');				    		
-				    	 ?>
-						<?php echo img($logo); echo nbs();?>
-					</div>
-					<div class="col-5 RLPD">
+					<div class="col-6 rlpd">
 						<div class="row align-items-center" style="height: 140px;">
-							<div class="col">
-								กรมคุ้มครองสิทธิและเสรีภาพ กระทรวงยุติธรรม
+							<div class="col-3">
+								<?php 
+						    		$logo = array('src' => 'assets/dashboard/images/RLPD_logo.png', 'height' => '140');				    		
+						    		echo img($logo);
+						    	?>
+							</div>
+							<div class="col-9">
+								<?php echo nbs(2); ?> กรมคุ้มครองสิทธิและเสรีภาพ <br> 
+								<?php echo nbs(2); ?> กระทรวงยุติธรรม
 							</div>
 						</div>
 					</div>

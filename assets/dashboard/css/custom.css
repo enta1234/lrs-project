@@ -1,3 +1,4 @@
+/***** Login Page *****/
 /* Global Styles */
 html, body {
   	width: 100%;
@@ -10,7 +11,7 @@ body {
 }
 
 .text-vertical-center {
-  	display: table-cell;
+    display: table-cell;
   	vertical-align: middle;
 }
 
@@ -27,9 +28,19 @@ body {
 }
 
 /* Name RLPD TH */
-.RLPD {
+.rlpd {
 	font-family: 'Trirong', serif;
 	font-size: xx-large;
 	font-weight: bold;
 	color: #29ABA4;
 }
+/***** End Login Page *****/
+
+/***** Dashboard *****/
+/* Name RLPD TH */
+.nameth {
+  font-family: 'Trirong', serif;
+  font-size: 5px;
+  color: #fff;
+}
+/***** End Dashboard *****/
