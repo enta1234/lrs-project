@@ -15,12 +15,16 @@ class Dashboard extends CI_Controller {
 
 	public function login()
 	{
-		$this->load->view('dashboard/loginForm');
+		$this->load->view('dashboard/loginPage');
 	}
 
 	public function home()
 	{
-		$this->load->view('dashboard/home');
+		$this->load->view('dashboard/home/header');
+		$this->load->view('dashboard/home/navbar');
+		$this->load->view('dashboard/home/sidebar');
+		$this->load->view('dashboard/home/content/main');
+		$this->load->view('dashboard/home/footer');
 	}
 }
 
