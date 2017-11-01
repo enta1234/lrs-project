@@ -1,8 +1,6 @@
 /***** Login Page *****/
 /* Global Styles */
-html, body {
-  	width: 100%;
-  	height: 100%;
+body {
   	background-color: #E9E0D6;
 }
 
@@ -29,9 +27,17 @@ body {
 
 /* Name RLPD TH */
 .rlpd {
+  font-family: 'Trirong', serif;
+  font-size: xx-large;
+  font-weight: bold;
+  color: #29ABA4;
+}
+.rlpd2 {
 	font-family: 'Trirong', serif;
-	font-size: xx-large;
-	font-weight: bold;
+	font-size: 28px;
+  text-align: left;
+  margin-bottom: 25px;
+  font-weight: 300;
 	color: #29ABA4;
 }
 /***** End Login Page *****/

@@ -8,6 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<title>Login Page</title>
 	<!-- Bootstrap 4 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<!-- Theme style -->
+ 	<link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>themelte/css/AdminLTE.css">
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Trirong" rel="stylesheet">
 	<!-- Font Awesome -->
@@ -15,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<!-- Custom Css -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>css/custom.css">
 </head>
-<body>
+<body class="hold-transition login-page">
 
 	<header class="header">
     	<div class="text-vertical-center">
@@ -31,8 +33,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						    	?>
 							</div>
 							<div class="col-9">
-								<?php echo nbs(2); ?> กรมคุ้มครองสิทธิและเสรีภาพ <br> 
-								<?php echo nbs(2); ?> กระทรวงยุติธรรม
+								<?php echo nbs(2);?> กรมคุ้มครองสิทธิและเสรีภาพ <br> 
+								<?php echo nbs(2);?> กระทรวงยุติธรรม
 							</div>
 						</div>
 					</div>
