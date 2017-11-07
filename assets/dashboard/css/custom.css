@@ -27,16 +27,9 @@ body {
 
 /* Name RLPD TH */
 .rlpd {
-  font-family: 'Trirong', serif;
-  font-size: xx-large;
-  font-weight: bold;
-  color: #29ABA4;
-}
-.rlpd2 {
 	font-family: 'Trirong', serif;
 	font-size: 28px;
   text-align: left;
-  margin-bottom: 25px;
   font-weight: 300;
 	color: #29ABA4;
 }

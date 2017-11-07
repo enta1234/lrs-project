@@ -15,7 +15,7 @@ class Dashboard extends CI_Controller {
 
 	public function login()
 	{
-		$this->load->view('dashboard/loginNew');
+		$this->load->view('dashboard/loginPage');
 	}
 
 	public function home()
