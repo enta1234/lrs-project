@@ -40,32 +40,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	 	</div>
 	 	<?php echo br(); ?>
   		<div>
-  			<form action="#" method="post">
+  			<!-- <form action="#" method="post"> -->
+  			<?php echo form_open('Dashboard/logincheck'); ?>
   				<div class="form-group">
+  					<?php echo validation_errors(); ?>
   					<div class="input-group">
   						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
- 						<input type="email" class="form-control" id="email" placeholder="Username" required>
+ 						<!-- <input type="text" class="form-control" id="email" name="email" placeholder="Username"> -->
+ 						<?php 
+							echo form_input('email',set_value('email'),'class="form-control" id="email" placeholder="E-Mail"');
+ 						 ?>
  					</div>
   				</div>
   				<div class="form-group">
 	  				<div class="input-group">
 	  					<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-	  					<input type="password" class="form-control" id="password" placeholder="Password" pattern=".{3,6}" required oninvalid="this.setCustomValidity('รหัสผ่านอย่างน้อย 3 ถึง 6 ตัวอักษร')">
+	  					<!-- <input type="password" class="form-control" id="password" name="password" placeholder="Password")> -->
+	  					<?php 
+							echo form_password('password',set_value('password'),'class="form-control" id="password" placeholder="Password"');
+ 						 ?>
 	  				</div>		
 	  			</div>
 	  			<div class="row">
 	  				<div class="col-xs-8">
 	  					<div class="checkbox icheck">
 	  						<label>
-	  							<input type="checkbox"> Remember Me
+	  							<!-- <input type="checkbox"> Remember Me -->
+	  							<?php echo form_checkbox(); ?> Remember Me
 	  						</label>
 	  					</div>
 	  				</div>
 	  				<div class="col-xs-4">
-	  					<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+	  					<!-- <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button> -->
+						<?php echo form_submit('submit', 'Sign In','class="btn btn-primary btn-block btn-flat"'); ?>
 	  				</div>
 	  			</div>
-  			</form>
+	  		<?php form_close(); ?>
+  			<!-- </form> -->
   		</div>
   	</div>
 	<!-- Javascript files-->
