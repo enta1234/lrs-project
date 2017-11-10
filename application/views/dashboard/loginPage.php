@@ -43,7 +43,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   			<!-- <form action="#" method="post"> -->
   			<?php echo form_open('Dashboard/logincheck'); ?>
   				<div class="form-group">
-  					<?php echo validation_errors(); ?>
+  					<?php echo validation_errors(); 
+  						if ($this->session->flashdata('msg_error')) {
+  							echo '<div class="alert alert-danger" role="alert">';
+  							echo $this->session->flashdata('msg_error');
+  							echo '</div>';
+  						}
+  					?>
   					<div class="input-group">
   						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
  						<!-- <input type="text" class="form-control" id="email" name="email" placeholder="Username"> -->
