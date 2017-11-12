@@ -14,5 +14,12 @@ class Dashboard_model extends CI_Model {
 					->count_all_results('officer');
 		return $result > 0 ? TRUE : FALSE;
 	}
+
+	//ข้อมูลผู้ใช้งาน
+	function _getUser($Username){
+		$cause = array('officer_username' => $Username);
+		$query =	$this->db->get_where('officer', $cause);
+		return $query->row();
+	}
 }
 ?>

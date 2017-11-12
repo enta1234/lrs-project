@@ -8,8 +8,8 @@
           <img src="<?php echo base_url('assets/dashboard/'); ?>images/default_profile.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
-          <a href="#">Position</a>
+          <p><?php echo $User->officer_name.' '.$User->officer_lastname; ?></p>
+          <small><?php echo ucfirst($User->officer_status); ?></small>
         </div>
       </div>
       <!-- search form (Optional) -->

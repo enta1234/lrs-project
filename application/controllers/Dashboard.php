@@ -25,8 +25,10 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
 		}else{
+			$Username = $this->session->userdata['username'];
+			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
-			$this->load->view('dashboard/home/navbar');
+			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar');
 			$this->load->view('dashboard/home/content/main');
 			$this->load->view('dashboard/home/footer');
@@ -49,11 +51,11 @@ class Dashboard extends CI_Controller {
 				$check = $this->db_model->_checkUser($Username, $Password);
 				if($check){
 					$data = array(
-						'username' => $username,
-						'Logged' => TRUE
+						'username' => $Username,
+						'Logged' => TRUE,
 					);
 					$this->session->set_userdata($data);
-					redirect('Dashboard');
+					redirect('Dashboard/home');
 				}else{
 					$this->session->set_flashdata('msg_error', 'E-mail หรือ Password ไม่ถูกต้อง');
 					$this->load->view('dashboard/loginPage');
