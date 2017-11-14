@@ -5,7 +5,7 @@ class Dashboard extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->helper(array('html','url','form','cookie'));
+		$this->load->helper(array('html','url','form','cookie','date'));
 		$this->load->library(array('form_validation','session'));
 		$this->load->model('Dashboard_model','db_model');
 	}
@@ -24,6 +24,7 @@ class Dashboard extends CI_Controller {
 		if ($this->input->cookie('username')){
 			$Username = get_cookie('username');
 			$getUser['User'] = $this->db_model->_getUser($Username);
+			$this->db_model->_updateTime($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar');
@@ -32,6 +33,7 @@ class Dashboard extends CI_Controller {
 		}elseif($this->session->userdata('Logged')){
 			$Username = $this->session->userdata['username'];
 			$getUser['User'] = $this->db_model->_getUser($Username);
+			$this->db_model->_updateTime($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar');

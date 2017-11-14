@@ -21,5 +21,13 @@ class Dashboard_model extends CI_Model {
 		$query =	$this->db->get_where('officer', $cause);
 		return $query->row();
 	}
+
+	//Update login time
+	function _updateTime($Username){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$this->db->where('officer_username', $Username)
+		->set('officer_lastLogin' , $now)
+		->update('officer');
+	}
 }
 ?>
