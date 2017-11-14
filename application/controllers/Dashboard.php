@@ -5,26 +5,31 @@ class Dashboard extends CI_Controller {
 
 	function __construct(){
 		parent::__construct();
-		$this->load->helper(array('html','url','form'));
+		$this->load->helper(array('html','url','form','cookie'));
 		$this->load->library(array('form_validation','session'));
 		$this->load->model('Dashboard_model','db_model');
 	}
 
 	public function index()
 	{
-		if(!$this->session->userdata('Logged')){
-			$this->load->view('dashboard/loginPage');
-		}else{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
 			redirect('dashboard/home');
+		}else{
+			$this->load->view('dashboard/loginPage');
 		}
 	}
 
 	public function home()
 	{
-		if(!$this->session->userdata('Logged')){
-			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
-			$this->load->view('dashboard/loginPage');
-		}else{
+		if ($this->input->cookie('username')){
+			$Username = get_cookie('username');
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar');
+			$this->load->view('dashboard/home/content/main');
+			$this->load->view('dashboard/home/footer');
+		}elseif($this->session->userdata('Logged')){
 			$Username = $this->session->userdata['username'];
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
@@ -32,6 +37,9 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/home/sidebar');
 			$this->load->view('dashboard/home/content/main');
 			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
 		}
 	}
 
@@ -44,34 +52,46 @@ class Dashboard extends CI_Controller {
 		$this->form_validation->set_message('min_length','รหัสผ่านอย่างน้อย 5 ตัวอักษร');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert">','</div>');
 
-		if ($this->input->post('submit')){
-			if ($this->form_validation->run()) {
-				$Username = $this->input->post('email');
-				$Password = $this->input->post('password');
-				$check = $this->db_model->_checkUser($Username, $Password);
-				if($check){
-					$data = array(
-						'username' => $Username,
-						'Logged' => TRUE,
-					);
-					$this->session->set_userdata($data);
-					redirect('Dashboard/home');
-				}else{
-					$this->session->set_flashdata('msg_error', 'E-mail หรือ Password ไม่ถูกต้อง');
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			redirect('dashboard/home');
+		}else{
+			if ($this->input->post('submit')){
+				if ($this->form_validation->run()) {
+					$Username = $this->input->post('email');
+					$Password = $this->input->post('password');
+					$check = $this->db_model->_checkUser($Username, $Password);
+					if($check){
+						$data = array(
+							'username' => $Username,
+							'Logged' => TRUE,
+						);
+						$this->session->set_userdata($data);
+						if($this->input->post('remember')){
+							set_cookie('username',$Username,'3600');
+						}
+						redirect('Dashboard/home');
+					}else{
+						$this->session->set_flashdata('msg_error', 'E-mail หรือ Password ไม่ถูกต้อง');
+						$this->load->view('dashboard/loginPage');
+					}	
+				}else {
 					$this->load->view('dashboard/loginPage');
-				}	
-			}else {
+				}
+			}else{
+				$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 				$this->load->view('dashboard/loginPage');
 			}
-		}else{
-			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
-			$this->load->view('dashboard/loginPage');
 		}
 	}
 
 	public function logout(){
-		$this->session->sess_destroy();
-		redirect('Dashboard');
+		if($this->input->cookie('username')){
+			delete_cookie('username');
+			redirect('Dashboard');
+		}else{
+			$this->session->sess_destroy();
+			redirect('Dashboard');
+		}
 	}
 }
 

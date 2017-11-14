@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	  					<div class="checkbox icheck">
 	  						<label>
 	  							<!-- <input type="checkbox"> Remember Me -->
-	  							<?php echo form_checkbox(); ?> Remember Me
+	  							<?php echo form_checkbox('remember','remember'); ?> Remember Me
 	  						</label>
 	  					</div>
 	  				</div>
