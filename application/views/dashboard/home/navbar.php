@@ -2,7 +2,7 @@
 <div class="wrapper">
   <header class="main-header">
     <!-- Logo -->
-    <a href="#" class="logo">
+    <a href="<?php echo base_url().'Dashboard'; ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <?php 
         $logomini = array('src' => 'assets/dashboard/images/RLPD_logo.png','width' => '40.2' , 'height' => '45');               
@@ -25,44 +25,35 @@
         <span class="sr-only">Toggle navigation</span>
       </a>
       <div class="navbar-custom-menu">
+        <?php 
+          if ($User->officer_image == '') {
+            $img = base_url('assets/dashboard/images/default_profile.png');
+          }else{
+            $img = base_url('assets/dashboard/upload/profile/'.$User->officer_image);
+          }
+        ?>
         <ul class="nav navbar-nav">
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="<?php echo base_url('assets/dashboard/'); ?>images/default_profile.png" class="user-image" alt="User Image">
+              <img src="<?php echo $img;?>" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
               <span class="hidden-xs"><?php echo $User->officer_name.' '.$User->officer_lastname; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="<?php echo base_url('assets/dashboard/'); ?>images/default_profile.png" class="img-circle" alt="User Image">
+                <img src="<?php echo $img; ?>" class="img-circle" alt="User Image">
                 <p>
                   <?php echo $User->officer_name.' '.$User->officer_lastname; ?>
                   <small><?php echo ucfirst($User->officer_status); ?></small>
                 </p>
               </li>
-              <!-- Menu Body -->
-              <!-- <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div> -->
-                <!-- /.row -->
-              <!-- </li> -->
-              <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="" class="btn btn-default btn-flat">Profile</a>
+                  <?php echo anchor('Dashboard/profile', 'Edit Profile', 'class="btn btn-default btn-flat"'); ?>
                 </div>
                 <div class="pull-right">
                   <?php echo anchor('Dashboard/logout', 'Sign out', 'class="btn btn-default btn-flat"'); ?>

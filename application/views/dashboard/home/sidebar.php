@@ -5,7 +5,14 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?php echo base_url('assets/dashboard/'); ?>images/default_profile.png" class="img-circle" alt="User Image">
+          <?php 
+            if ($User->officer_image == '') {
+              $img = base_url('assets/dashboard/images/default_profile.png');
+            }else{
+              $img = base_url('assets/dashboard/upload/profile/'.$User->officer_image);
+            }
+          ?>
+          <img src="<?php echo $img;?>" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $User->officer_name.' '.$User->officer_lastname; ?></p>

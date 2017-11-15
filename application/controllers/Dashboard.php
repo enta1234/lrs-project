@@ -21,24 +21,159 @@ class Dashboard extends CI_Controller {
 
 	public function home()
 	{
-		if ($this->input->cookie('username')){
-			$Username = get_cookie('username');
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$this->db_model->_updateTime($Username);
+			$this->db_model->_updateLogin($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar');
 			$this->load->view('dashboard/home/content/main');
 			$this->load->view('dashboard/home/footer');
-		}elseif($this->session->userdata('Logged')){
-			$Username = $this->session->userdata['username'];
+			
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+
+	public function profile()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$this->db_model->_updateTime($Username);
+			$this->db_model->_updateLogin($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar');
-			$this->load->view('dashboard/home/content/main');
+			$this->load->view('dashboard/home/content/profile');
 			$this->load->view('dashboard/home/footer');
+			
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+
+	public function updateProfile()
+	{
+		if ($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$name = $getUser['User']->officer_id.'_'.$getUser['User']->officer_name.'_'.'profile';
+			$config['upload_path'] = './assets/dashboard/upload/profile';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$config['file_name'] = $name;
+			$config['max_size'] = '2560';
+			$config['overwrite'] = TRUE;
+			$this->load->library('upload', $config);
+			$this->db_model->_updateLogin($Username);
+			if ($this->upload->do_upload('profile')) {
+				$img = $this->upload->data('file_name');
+				$this->db_model->_updateProfile($Username,$img);
+				$this->session->set_flashdata('msg_success_profileleft', 'บันทึกข้อมูลสำเร็จ');
+				redirect('Dashboard/profile');
+			}else {
+				$data['error'] = $this->upload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar');
+				$this->load->view('dashboard/home/content/profile', $data);
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}	
+
+	public function updateInfor()
+	{
+		$this->form_validation->set_rules('firstname', 'ชื่อ', 'required');
+		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required');
+		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required');
+		$this->form_validation->set_message('required','กรุณากรอก %s');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+
+		if ($this->input->post('submit')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$this->db_model->_updateLogin($Username);
+			if ($this->form_validation->run()) {
+				$firstname = $this->input->post('firstname');
+				$lastname = $this->input->post('lastname');
+				$idcard = $this->input->post('idcard');
+				$this->db_model->_updateInfor($Username,$firstname,$lastname,$idcard);
+				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
+				redirect('Dashboard/profile');
+			}else {
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar');
+				$this->load->view('dashboard/home/content/profile');
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}	
+
+	public function updatePassword()
+	{
+		$this->form_validation->set_rules('password', 'รหัสผ่านใหม่', 'required|min_length[5]');
+		$this->form_validation->set_rules('confirmpassword', 'ยืนยันรหัสผผ่านใหม่', 'required|min_length[5]');
+		$this->form_validation->set_rules('oldpassword', 'รหัสผ่านเก่า', 'required|min_length[5]');
+		$this->form_validation->set_message('min_length','รหัสผ่านอย่างน้อย 5 ตัวอักษร');
+		$this->form_validation->set_message('required','กรุณากรอก %s');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+
+		if ($this->input->post('submit')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$this->db_model->_updateLogin($Username);
+			if ($this->form_validation->run()) {
+				$Password = $this->input->post('password');
+				$confirmpassword = $this->input->post('confirmpassword');
+				$oldpassword = $this->input->post('oldpassword');
+				if ($Password != $confirmpassword) {
+					$this->session->set_flashdata('msg_error_right', 'ยืนยันรหัสผ่านไม่ตรงกัน');
+					redirect('Dashboard/profile');
+				}
+				if (md5($oldpassword) != $getUser['User']->officer_password) {
+					$this->session->set_flashdata('msg_error_right', 'รหัสผ่านเก่าไม่ถูกต้อง');
+					redirect('Dashboard/profile');
+				}
+				$this->db_model->_updatePassword($Username,$Password);
+				$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
+				redirect('Dashboard/profile');
+			}else {
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar');
+				$this->load->view('dashboard/home/content/profile');
+				$this->load->view('dashboard/home/footer');
+			}
 		}else{
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
@@ -52,7 +187,7 @@ class Dashboard extends CI_Controller {
 		$this->form_validation->set_message('required','กรุณากรอก %s');
 		$this->form_validation->set_message('valid_email','รูปแบบของ %s ไม่ถูกต้อง');
 		$this->form_validation->set_message('min_length','รหัสผ่านอย่างน้อย 5 ตัวอักษร');
-		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert">','</div>');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
 			redirect('dashboard/home');
@@ -88,9 +223,13 @@ class Dashboard extends CI_Controller {
 
 	public function logout(){
 		if($this->input->cookie('username')){
+			$Username = get_cookie('username');
+			$this->db_model->_updateLogout($Username);
 			delete_cookie('username');
 			redirect('Dashboard');
 		}else{
+			$Username = $this->session->userdata['username'];
+			$this->db_model->_updateLogout($Username);
 			$this->session->sess_destroy();
 			redirect('Dashboard');
 		}

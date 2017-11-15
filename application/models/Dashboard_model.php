@@ -23,11 +23,39 @@ class Dashboard_model extends CI_Model {
 	}
 
 	//Update login time
-	function _updateTime($Username){
+	function _updateLogin($Username){
 		$now = unix_to_human(now('+7'),TRUE,'eu');
 		$this->db->where('officer_username', $Username)
 		->set('officer_lastLogin' , $now)
 		->update('officer');
 	}
+
+	function _updateLogout($Username){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$this->db->where('officer_username', $Username)
+		->set('officer_lastLogout' , $now)
+		->update('officer');
+	}
+
+	function _updateProfile($Username,$img){
+		$result = $this->db->where('officer_username', $Username)
+		->set('officer_image' , $img)
+		->update('officer');
+	}
+
+	function _updateInfor($Username,$firstname,$lastname,$idcard){
+		$result = $this->db->where('officer_username', $Username)
+		->set('officer_name' , $firstname)
+		->set('officer_lastname' , $lastname)
+		->set('officer_idcard' , $idcard)
+		->update('officer');
+	}	
+
+	function _updatePassword($Username,$Password){
+		$result = $this->db->where('officer_username', $Username)
+		->set('officer_password' , md5($Password))
+		->update('officer');
+	}	
+
 }
 ?>
