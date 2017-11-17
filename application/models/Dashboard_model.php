@@ -29,20 +29,20 @@ class Dashboard_model extends CI_Model {
 		->set('officer_lastLogin' , $now)
 		->update('officer');
 	}
-
+	// Update Logout time
 	function _updateLogout($Username){
 		$now = unix_to_human(now('+7'),TRUE,'eu');
 		$this->db->where('officer_username', $Username)
 		->set('officer_lastLogout' , $now)
 		->update('officer');
 	}
-
+	// Update Avata
 	function _updateProfile($Username,$img){
 		$result = $this->db->where('officer_username', $Username)
 		->set('officer_image' , $img)
 		->update('officer');
 	}
-
+	// Update Information
 	function _updateInfor($Username,$firstname,$lastname,$idcard){
 		$result = $this->db->where('officer_username', $Username)
 		->set('officer_name' , $firstname)
@@ -50,7 +50,7 @@ class Dashboard_model extends CI_Model {
 		->set('officer_idcard' , $idcard)
 		->update('officer');
 	}	
-
+	// Update Password
 	function _updatePassword($Username,$Password){
 		$result = $this->db->where('officer_username', $Username)
 		->set('officer_password' , md5($Password))

@@ -18,7 +18,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/loginPage');
 		}
 	}
-
+	// Home
 	public function home()
 	{
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
@@ -28,10 +28,11 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_home' => 'active', 'ac_addStaff' => '');
 			$this->db_model->_updateLogin($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
-			$this->load->view('dashboard/home/sidebar');
+			$this->load->view('dashboard/home/sidebar', $active);
 			$this->load->view('dashboard/home/content/main');
 			$this->load->view('dashboard/home/footer');
 			
@@ -40,7 +41,8 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/loginPage');
 		}
 	}
-
+	// ./ Home
+	// Edit Peofile 
 	public function profile()
 	{
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
@@ -50,10 +52,11 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_home' => '', 'ac_addStaff' => '');
 			$this->db_model->_updateLogin($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
-			$this->load->view('dashboard/home/sidebar');
+			$this->load->view('dashboard/home/sidebar', $active);
 			$this->load->view('dashboard/home/content/profile');
 			$this->load->view('dashboard/home/footer');
 			
@@ -87,9 +90,10 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/profile');
 			}else {
 				$data['error'] = $this->upload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+				$active = array('ac_home' => '', 'ac_addStaff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
-				$this->load->view('dashboard/home/sidebar');
+				$this->load->view('dashboard/home/sidebar', $active);
 				$this->load->view('dashboard/home/content/profile', $data);
 				$this->load->view('dashboard/home/footer');
 			}
@@ -123,9 +127,10 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
+				$active = array('ac_home' => '', 'ac_addStaff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
-				$this->load->view('dashboard/home/sidebar');
+				$this->load->view('dashboard/home/sidebar', $active);
 				$this->load->view('dashboard/home/content/profile');
 				$this->load->view('dashboard/home/footer');
 			}
@@ -168,9 +173,10 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
+				$active = array('ac_home' => '', 'ac_addStaff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
-				$this->load->view('dashboard/home/sidebar');
+				$this->load->view('dashboard/home/sidebar', $active);
 				$this->load->view('dashboard/home/content/profile');
 				$this->load->view('dashboard/home/footer');
 			}
@@ -179,7 +185,34 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/loginPage');
 		}
 	}
+	// ./ Edit Profile
 
+	// Add Staff
+	public function addStaff()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_home' => '', 'ac_addStaff' => 'active');
+			$this->db_model->_updateLogin($Username);
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/addstaff');
+			$this->load->view('dashboard/home/footer');
+			
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// ./ Add Staff
+
+	// Login 
 	public function logincheck()
 	{
 		$this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email');
@@ -234,6 +267,7 @@ class Dashboard extends CI_Controller {
 			redirect('Dashboard');
 		}
 	}
+	// ./ Login
 }
 
 ?>

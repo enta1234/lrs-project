@@ -23,4 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link href="https://fonts.googleapis.com/css?family=Roboto|Trirong" rel="stylesheet">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>select2/css/select2.css">
 </head>

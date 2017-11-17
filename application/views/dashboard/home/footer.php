@@ -4,6 +4,7 @@
 <script src="<?php echo base_url('assets/dashboard/'); ?>bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dashboard/'); ?>themelte/js/adminlte.min.js"></script>
-
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/dashboard/'); ?>select2/js/select2.min.js"></script>
 </body>
 </html>

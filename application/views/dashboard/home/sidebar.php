@@ -35,10 +35,10 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-tachometer fa-lg"></i><span><?php echo nbs(2); ?>Dashboard</span></a></li>
-        <li><a href="#"><i class="fa fa-address-book-o fa-lg"></i> <span><?php echo nbs(2); ?>จัดการเจ้าหน้าที่</span></a></li>
+        <li class="<?php echo $ac_home; ?>" ><a href="#"><i class="fa fa-tachometer fa-lg"></i><span><?php echo nbs(2); ?>Dashboard</span></a></li>
+        <li><a href=""><i class="fa fa-address-book-o fa-lg"></i> <span><?php echo nbs(2); ?>จัดการที่ปรึกษา</span></a></li>
         <li class="treeview">
-          <a href="#">
+          <a href="">
             <i class="fa fa-file-text-o fa-lg"></i> 
             <span><?php echo nbs(2); ?>จัดการหน้าเว็บ</span>
             <span class="pull-right-container">
@@ -50,7 +50,19 @@
             <li><a href="#">Link in level 2</a></li>
           </ul>
         </li>
-        <li><a href="#"><i class="fa fa-users fa-lg"></i> <span><?php echo nbs(2); ?>จัดการเจ้าหน้าที่</span></a></li>
+        <li class="treeview <?php echo $ac_addStaff; ?>">
+          <a href="#">
+            <i class="fa fa-users fa-lg"></i> 
+            <span><?php echo nbs(2); ?>จัดการเจ้าหน้าที่</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="<?php echo $ac_addStaff; ?>"><?php echo anchor('Dashboard/addStaff','เพิ่มเจ้าหน้าที่'); ?></li>
+            <li><a href="#">Link in level 2</a></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
