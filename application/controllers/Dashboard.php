@@ -27,9 +27,9 @@ class Dashboard extends CI_Controller {
 			}else{
 				$Username = get_cookie('username');
 			}
+			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$active = array('ac_home' => 'active', 'ac_addStaff' => '');
-			$this->db_model->_updateLogin($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -51,9 +51,9 @@ class Dashboard extends CI_Controller {
 			}else{
 				$Username = get_cookie('username');
 			}
-			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_home' => '', 'ac_addStaff' => '');
 			$this->db_model->_updateLogin($Username);
+			$active = array('ac_home' => '', 'ac_addStaff' => '');
+			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -190,19 +190,88 @@ class Dashboard extends CI_Controller {
 	// Add Staff
 	public function addStaff()
 	{
+		$this->form_validation->set_rules('clinic', 'คลินิก', 'required');
+		$this->form_validation->set_rules('status', 'ตำแหน่ง', 'required');
+		$this->form_validation->set_rules('name', 'ชื่อ', 'required');
+		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required');
+		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|min_length[13]|max_length[13]');
+		$this->form_validation->set_rules('email', 'อีเมล', 'required|valid_email');
+		$this->form_validation->set_message('required','กรุณากรอก %s');
+		$this->form_validation->set_message('min_length','%s ไม่ครบ 13 หลัก');
+		$this->form_validation->set_message('max_length','%s เกิน 13 หลัก');
+		$this->form_validation->set_message('valid_email','รูปแบบของ %s ไม่ถูกต้อง');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
 			if($this->session->userdata('Logged')){
 				$Username = $this->session->userdata['username'];
 			}else{
 				$Username = get_cookie('username');
 			}
-			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_home' => '', 'ac_addStaff' => 'active');
 			$this->db_model->_updateLogin($Username);
+			$active = array('ac_home' => '', 'ac_addStaff' => 'active');
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$check = $this->input->post('check');
+			$getClinicArea['getArea'] = $this->db_model->_getArea();
+			if ($check =='checked') {
+				$getClinicArea['checkArea'] = $this->db_model->_checkArea($this->input->post('area'));
+				$getClinicArea['disabled'] =  '';
+			}else{
+				$getClinicArea['checkArea'] = $this->db_model->_checkArea('');
+				$getClinicArea['disabled'] =  'disabled';
+			}
+			if ($this->form_validation->run()) {
+				$clinic = $this->input->post('clinic');
+				$status = $this->input->post('status');
+				$name = $this->input->post('name');
+				$lastname = $this->input->post('lastname');
+				$email = $this->input->post('email');
+				$password = $this->input->post('password');
+				$idcard = $this->input->post('idcard');
+				if($this->db_model->_checkIdcard($idcard)){
+					$this->session->set_flashdata('msg_error', 'เลขบัตรประชาชนนี้มีในระบบแล้ว');
+					redirect('Dashboard/addStaff');
+				}
+				if($this->db_model->_checkEmail($email)){
+					$this->session->set_flashdata('msg_error', 'E-Mail นี้มีในระบบแล้ว');
+					redirect('Dashboard/addStaff');
+				}
+				$this->db_model->_addStaff($clinic, $status, $name, $lastname, $email, $password, $idcard);
+				$this->session->set_flashdata('msg_success', 'เพิ่มเจ้าหน้าที่สำเร็จ');
+				redirect('Dashboard/addStaff');
+			}else{
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar', $active);
+				$this->load->view('dashboard/home/content/addstaff', $getClinicArea);
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	public function checkArea()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$active = array('ac_home' => '', 'ac_addStaff' => 'active');
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$area = $this->input->post('area');
+			$getClinicArea['getArea'] = $this->db_model->_getArea();
+			$getClinicArea['checkArea'] = $this->db_model->_checkArea($area);
+			$getClinicArea['disabled'] =  '';
+			if($getClinicArea['checkArea']==FALSE){
+				redirect('Dashboard/addStaff');
+			}
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
-			$this->load->view('dashboard/home/content/addstaff');
+			$this->load->view('dashboard/home/content/addstaff', $getClinicArea);
 			$this->load->view('dashboard/home/footer');
 			
 		}else{
