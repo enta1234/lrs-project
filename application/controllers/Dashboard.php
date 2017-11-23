@@ -105,10 +105,13 @@ class Dashboard extends CI_Controller {
 
 	public function updateInfor()
 	{
-		$this->form_validation->set_rules('firstname', 'ชื่อ', 'required');
-		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required');
-		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required');
-		$this->form_validation->set_message('required','กรุณากรอก %s');
+		$this->form_validation->set_rules('firstname', 'ชื่อ', 'required|max_length[30]');
+		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[30]');
+		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|exact_length[13]|is_natural|callback_valid_citizen_id');
+		$this->form_validation->set_message('required','กรุณากรอก "%s"');
+		$this->form_validation->set_message('exact_length','"%s" ต้องมี 13 หลัก');
+		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
+		$this->form_validation->set_message('is_natural','"%s" ต้องเป็นตัวเลขเท่านั้น');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 
 		if ($this->input->post('submit')){
@@ -145,8 +148,8 @@ class Dashboard extends CI_Controller {
 		$this->form_validation->set_rules('password', 'รหัสผ่านใหม่', 'required|min_length[5]');
 		$this->form_validation->set_rules('confirmpassword', 'ยืนยันรหัสผผ่านใหม่', 'required|min_length[5]');
 		$this->form_validation->set_rules('oldpassword', 'รหัสผ่านเก่า', 'required|min_length[5]');
-		$this->form_validation->set_message('min_length','รหัสผ่านอย่างน้อย 5 ตัวอักษร');
-		$this->form_validation->set_message('required','กรุณากรอก %s');
+		$this->form_validation->set_message('min_length','"รหัสผ่าน" ต้องมีอย่างน้อย 5 ตัวอักษร');
+		$this->form_validation->set_message('required','กรุณากรอก "%s"');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 
 		if ($this->input->post('submit')){
@@ -192,14 +195,16 @@ class Dashboard extends CI_Controller {
 	{
 		$this->form_validation->set_rules('clinic', 'คลินิก', 'required');
 		$this->form_validation->set_rules('status', 'ตำแหน่ง', 'required');
-		$this->form_validation->set_rules('name', 'ชื่อ', 'required');
-		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required');
-		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|min_length[13]|max_length[13]');
-		$this->form_validation->set_rules('email', 'อีเมล', 'required|valid_email');
-		$this->form_validation->set_message('required','กรุณากรอก %s');
-		$this->form_validation->set_message('min_length','%s ไม่ครบ 13 หลัก');
-		$this->form_validation->set_message('max_length','%s เกิน 13 หลัก');
-		$this->form_validation->set_message('valid_email','รูปแบบของ %s ไม่ถูกต้อง');
+		$this->form_validation->set_rules('name', 'ชื่อ', 'required|max_length[30]');
+		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[30]');
+		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|exact_length[13]|is_natural|callback_valid_citizen_id');
+		$this->form_validation->set_rules('email', 'อีเมล', 'required|valid_email|max_length[50]');
+		$this->form_validation->set_rules('password', 'รหัสผ่าน', 'required|max_length[32]');
+		$this->form_validation->set_message('required','กรุณากรอก "%s"');
+		$this->form_validation->set_message('exact_length','"%s" ต้องมี 13 หลัก');
+		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
+		$this->form_validation->set_message('is_natural','"%s" ต้องเป็นตัวเลขเท่านั้น');
+		$this->form_validation->set_message('valid_email','รูปแบบของ "%s" ไม่ถูกต้อง');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
 			if($this->session->userdata('Logged')){
@@ -279,16 +284,44 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/loginPage');
 		}
 	}
+
+	public function valid_citizen_id($personID)
+	{
+		if (strlen($personID) != 13) {
+			return false;
+		}
+		$rev = strrev($personID); // reverse string ขั้นที่ 0 เตรียมตัว
+		$total = 0;
+		for($i=1;$i<13;$i++) // ขั้นตอนที่ 1 - เอาเลข 12 หลักมา เขียนแยกหลักกันก่อน
+			{
+				$mul = $i +1;
+				$count = $rev[$i]*$mul; // ขั้นตอนที่ 2 - เอาเลข 12 หลักนั้นมา คูณเข้ากับเลขประจำหลักของมัน
+				$total = $total + $count; // ขั้นตอนที่ 3 - เอาผลคูณทั้ง 12 ตัวมา บวกกันทั้งหมด
+			}
+			$mod = $total % 11; //ขั้นตอนที่ 4 - เอาเลขที่ได้จากขั้นตอนที่ 3 มา mod 11 (หารเอาเศษ)
+			$sub = 11 - $mod; //ขั้นตอนที่ 5 - เอา 11 ตั้ง ลบออกด้วย เลขที่ได้จากขั้นตอนที่ 4
+			$check_digit = $sub % 10; //ถ้าเกิด ลบแล้วได้ออกมาเป็นเลข 2 หลัก ให้เอาเลขในหลักหน่วยมาเป็น Check Digit
+			if($rev[0] == $check_digit)  // ตรวจสอบ ค่าที่ได้ กับ เลขตัวสุดท้ายของ บัตรประจำตัวประชาชน
+				return true; /// ถ้า ตรงกัน แสดงว่าถูก
+			else
+				$this->form_validation->set_message('valid_citizen_id','"%s" รูปแบบไม่ถูกต้อง');
+				return false; // ไม่ตรงกันแสดงว่าผิด
+    }
 	// ./ Add Staff
+
+    // Staff
+
+    // ./Staff
 
 	// Login 
 	public function logincheck()
 	{
-		$this->form_validation->set_rules('email', 'E-Mail', 'required|valid_email');
-		$this->form_validation->set_rules('password', 'Password', 'required|min_length[5]');
-		$this->form_validation->set_message('required','กรุณากรอก %s');
-		$this->form_validation->set_message('valid_email','รูปแบบของ %s ไม่ถูกต้อง');
-		$this->form_validation->set_message('min_length','รหัสผ่านอย่างน้อย 5 ตัวอักษร');
+		$this->form_validation->set_rules('email', 'อีเมล', 'required|valid_email|max_length[50]');
+		$this->form_validation->set_rules('password', 'รหัสผ่าน', 'required|min_length[5]');
+		$this->form_validation->set_message('required','กรุณากรอก "%s"');
+		$this->form_validation->set_message('valid_email','รูปแบบของ "%s" ไม่ถูกต้อง');
+		$this->form_validation->set_message('min_length','"%s" ต้องมีอย่างน้อย 5 ตัวอักษร');
+		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){

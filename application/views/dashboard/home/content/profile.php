@@ -24,8 +24,8 @@
                   echo '</div>';
                 }
                   echo isset($error) ? $error : '';
-                $User->officer_image == '' ? $img = base_url('assets/dashboard/images/default_profile.png') : $img = $User->officer_image; ?>
-                <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url('assets/dashboard/upload/profile/'.$img); ?>" alt="User profile pictur">
+                $User->officer_image == '' ? $img = base_url('assets/dashboard/images/default_profile.png') : $img = base_url('assets/dashboard/upload/profile/'.$User->officer_image); ?>
+                <img class="profile-user-img img-responsive img-circle" src="<?php echo $img; ?>" alt="User profile pictur">
                 <div class="form-group">
                   <label>อัพโหลดรูปประจำตัว</label>
                   <?php echo form_upload('profile'); ?>
@@ -107,16 +107,16 @@
                 }
               ?>
                 <div class="form-group">
+                  <label>รหัสผ่านปัจจุบัน</label>
+                  <input type="password" class="form-control" name="oldpassword" value="" placeholder="Old Password">
+                </div>
+                <div class="form-group">
                   <label>รหัสผ่านใหม่</label>
                   <input type="password" class="form-control" name="password" value="" placeholder="New Password">
                 </div>
                 <div class="form-group">
                   <label>ยืนยันรหัสผ่านใหม่</label>
                   <input type="password" class="form-control" name="confirmpassword" value="" placeholder="Confirm New Password">
-                </div>
-                <div class="form-group">
-                  <label>รหัสผ่านเก่า</label>
-                  <input type="password" class="form-control" name="oldpassword" value="" placeholder="Old Password">
                 </div>
             </div>
             <!-- ./box-body -->
