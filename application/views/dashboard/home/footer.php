@@ -9,5 +9,14 @@
 <!-- Bootstrap Table -->
 <script src="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/bootstrap-table.js"></script>
 <script src="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/locale/bootstrap-table-th-TH.js"></script>
+ <script >
+                var data = <?= $Officer; ?>;
+
+                $(function () {
+                    $('#table').bootstrapTable({
+                        data: data
+                    });
+                });
+              </script> 
 </body>
 </html>

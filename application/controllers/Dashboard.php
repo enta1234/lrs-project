@@ -29,7 +29,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_home' => 'active', 'ac_addStaff' => '');
+			$active = array('ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -52,7 +52,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_home' => '', 'ac_addStaff' => '');
+			$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
@@ -90,7 +90,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/profile');
 			}else {
 				$data['error'] = $this->upload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
-				$active = array('ac_home' => '', 'ac_addStaff' => '');
+				$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -130,7 +130,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_home' => '', 'ac_addStaff' => '');
+				$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -176,7 +176,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_home' => '', 'ac_addStaff' => '');
+				$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -213,7 +213,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_home' => '', 'ac_addStaff' => 'active');
+			$active = array('ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$check = $this->input->post('check');
 			$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -264,7 +264,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_home' => '', 'ac_addStaff' => 'active');
+			$active = array('ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$area = $this->input->post('area');
 			$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -310,7 +310,29 @@ class Dashboard extends CI_Controller {
 	// ./ Add Staff
 
     // Staff
-
+    public function staff()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$getOfficer['getOfficer'] = $this->db_model->_getOfficer();
+			$data['Officer'] = json_encode($getOfficer['getOfficer']);
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/staff', $data);
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
     // ./Staff
 
 	// Login 

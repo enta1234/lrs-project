@@ -98,5 +98,12 @@ class Dashboard_model extends CI_Model {
 	}	
 	/* End Add Staff */
 
+	// Staff Page
+	// Get All Officer
+	function _getOfficer(){
+		$query = $this->db->get('officer')->result_array();
+		return $query;
+	}
+	// ./Staff Page
 }
 ?>

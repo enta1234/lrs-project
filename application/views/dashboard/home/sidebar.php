@@ -60,7 +60,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="<?php echo $ac_addStaff; ?>"><?php echo anchor('Dashboard/addStaff','เพิ่มเจ้าหน้าที่'); ?></li>
-            <li class="<?php echo $ac_addStaff; ?>"><?php echo anchor('Dashboard/staff','จัดการเจ้าหน้าที่'); ?></li>
+            <li class="<?php echo $ac_staff; ?>"><?php echo anchor('Dashboard/staff','จัดการเจ้าหน้าที่'); ?></li>
           </ul>
         </li>
       </ul>
