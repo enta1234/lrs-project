@@ -17,7 +17,7 @@
             </div>
             <!-- ./ box-header -->
             <div class="box-body">
-              <?php echo form_open('Dashboard/checkArea');
+              <?php 
                 if($this->session->flashdata('msg_success')) {
                   echo '<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
                   echo $this->session->flashdata('msg_success');
@@ -29,6 +29,8 @@
                   echo '</div>';
                 }
                 echo validation_errors();
+                if ($User->officer_status == 'superadmin') {
+                echo form_open('Dashboard/checkArea');
               ?>
               <div class="form-group">
                 <label>พื้นที่รับผิดชอบ</label>
@@ -44,16 +46,17 @@
                   echo form_close();
                 ?>
               </div>
-              <?php 
+              <?php }
                 echo form_open('Dashboard/addStaff') ;
                 echo form_hidden('check', 'checked');
                 echo form_hidden('area', set_value('area'));
                 echo form_hidden('password', '123456');
               ?>
+              <?php if($User->officer_status == 'superadmin'){ ?>
               <div class="form-group">
                 <label>คลินิก <?php echo nbs(2); ?><font style="color: red">*กรุณาเลือกพื้นที่ก่อน</font></label>
                 <?php 
-                  $clinicname[] = '-- Please Select --';
+                  $clinicname[''] = '-- Please Select --';
                   if($checkArea!=FALSE){
                     foreach ($checkArea as $clinic) {
                       $clinicname[$clinic->clinic_id] = $clinic->clinic_name;
@@ -64,11 +67,29 @@
                           $disabled =>'');
                   echo form_dropdown('clinic', $clinicname, set_value('clinic'), $extra);
                 ?>
-              </div>              
+              </div>   
+              <?php }else{ ?>  
+              <div class="form-group">
+                <label>พื้นที่</label>
+                <?php 
+                  $clinicname[''] = '-- Please Select --';
+                    foreach ($checkArea as $clinic) {
+                      $clinicname[$clinic->clinic_id] = $clinic->clinic_name;
+                    } 
+                  $extra = array(
+                          'class'=>'form-control select2');
+                  echo form_dropdown('clinic', $clinicname, set_value('clinic'), $extra);
+                ?>
+              </div>
+              <?php } ?>       
               <div class="form-group">
                 <label>ตำแหน่ง</label>
                 <?php 
-                  $attr = array('' => '--- Please Select ---','superadmin' =>'Super Admin','admin' => 'Admin','staff' => 'Staff');
+                  if ($User->officer_status == 'superadmin') {
+                    $attr = array('' => '--- Please Select ---','superadmin' =>'Super Admin','admin' => 'Admin','staff' => 'Staff');
+                  }else{
+                    $attr = array('staff' => 'Staff');
+                  }
                   echo form_dropdown('status', $attr, set_value('status'), 'class="form-control select2"');
                 ?>
               </div>
@@ -106,9 +127,14 @@
             <!-- ./box-body -->
             <div class="box-footer">
                 <?php 
-                  $extra = array(
-                          'class'=>'btn btn-info pull-right',
-                          $disabled =>'');
+                  if($User->officer_status == 'superadmin'){
+                    $extra = array(
+                            'class'=>'btn btn-info pull-right',
+                            $disabled =>'');
+                  }else{
+                    $extra = array(
+                            'class'=>'btn btn-info pull-right');
+                  }
                   echo form_reset('reset','Reset','class="btn btn-default"');
                   echo form_submit('submit', 'Save',$extra); 
                   echo form_close(); 

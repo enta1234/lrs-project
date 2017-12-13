@@ -50,7 +50,8 @@
             <li><a href="#">Link in level 2</a></li>
           </ul>
         </li>
-        <li class="treeview <?php echo $ac_addStaff; ?>">
+        <?php if($User->officer_status!='staff'){ ?>
+        <li class="treeview <?php echo $ac_addStaff.$ac_staff; ?>">
           <a href="#">
             <i class="fa fa-users fa-lg"></i> 
             <span><?php echo nbs(2); ?>จัดการเจ้าหน้าที่</span>
@@ -63,6 +64,7 @@
             <li class="<?php echo $ac_staff; ?>"><?php echo anchor('Dashboard/staff','จัดการเจ้าหน้าที่'); ?></li>
           </ul>
         </li>
+        <?php } ?>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

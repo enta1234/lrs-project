@@ -56,6 +56,11 @@
                   echo $this->session->flashdata('msg_success_inforleft');
                   echo '</div>';
                 }
+                if($this->session->flashdata('msg_error_inforleft')) {
+                  echo '<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                  echo $this->session->flashdata('msg_error_inforleft');
+                  echo '</div>';
+                }
                 ?>
                 <div class="form-group">
                   <label>ชื่อ</label>
@@ -85,6 +90,39 @@
         <!-- ./ col-left -->
 
         <div class="col-md-6">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">จัดการชื่อผู้ใช้งาน</h3>
+            </div>
+            <!-- ./ box-header -->
+            <div class="box-body">
+              <?php echo form_open('Dashboard/updateEmail'); 
+                echo form_error('email');
+                if($this->session->flashdata('msg_success_emailright')) {
+                  echo '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                  echo $this->session->flashdata('msg_success_emailright');
+                  echo '</div>';
+                }
+                if($this->session->flashdata('msg_error_emailright')) {
+                  echo '<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                  echo $this->session->flashdata('msg_error_emailright');
+                  echo '</div>';
+                }
+              ?>
+                <div class="form-group">
+                  <label>อีเมล</label>
+                  <input type="text" class="form-control" name="email" value="<?php echo $User->officer_username; ?>" placeholder="Old Password">
+                </div>
+            </div>
+            <!-- ./box-body -->
+            <div class="box-footer">
+                <?php echo form_reset('reset','Reset','class="btn btn-default"'); ?>
+                <?php echo form_submit('submit', 'Save','class="btn btn-info pull-right"'); ?>
+              <?php echo form_close(); ?>
+            </div>
+            <!-- ./ box-footer -->
+          </div>
+          <!-- ./ box -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">จัดการรหัสผ่าน</h3>

@@ -17,18 +17,26 @@
             </div>
             <!-- ./ box-header -->
             <div class="box-body">
-              <?php 
-                print_r($Officer);
-               ?>
-            <table id="table" data-sort-name="officer_id" data-sort-order="desc">
-    <thead>
-        <tr>
-            <th data-field="officer_id" data-sortable="true">Item ID</th>
-            <th data-field="officer_name" data-sortable="true">Item Name</th>
-            <th data-field="officer_lastname" data-sortable="true">Item Price</th>
-        </tr>
-    </thead>
-</table>
+              <div id="toolbar">
+                <select class="form-control">
+                  <option value="">Export Basic</option>
+                  <option value="all">Export All</option>
+                  <option value="selected">Export Selected</option>
+                </select>
+              </div>
+              <table id="table" 
+                data-toolbar="#toolbar"
+                data-search="true"
+                data-show-export="true"
+                data-icons-prefix="fa"
+                data-icons="icons"
+                data-sort-name="officer_id" 
+                data-sort-order="asc" 
+                data-pagination="true" 
+                data-side-pagination="client"
+                data-page-size="20"
+                data-page-list="[10, 20, 50, 100]"
+                ></table>
             </div>
             <!-- ./box-body -->
           </div>

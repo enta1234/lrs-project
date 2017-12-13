@@ -107,9 +107,8 @@ class Dashboard extends CI_Controller {
 	{
 		$this->form_validation->set_rules('firstname', 'ชื่อ', 'required|max_length[30]');
 		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[30]');
-		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|exact_length[13]|is_natural|callback_valid_citizen_id');
+		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|is_natural|callback_valid_citizen_id');
 		$this->form_validation->set_message('required','กรุณากรอก "%s"');
-		$this->form_validation->set_message('exact_length','"%s" ต้องมี 13 หลัก');
 		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
 		$this->form_validation->set_message('is_natural','"%s" ต้องเป็นตัวเลขเท่านั้น');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
@@ -126,6 +125,10 @@ class Dashboard extends CI_Controller {
 				$firstname = $this->input->post('firstname');
 				$lastname = $this->input->post('lastname');
 				$idcard = $this->input->post('idcard');
+				if($this->db_model->_checkIdcard($idcard)){
+					$this->session->set_flashdata('msg_error_inforleft', 'เลขบัตรประชาชนนี้มีในระบบแล้ว');
+					redirect('Dashboard/profile');
+				}
 				$this->db_model->_updateInfor($Username,$firstname,$lastname,$idcard);
 				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
@@ -187,6 +190,45 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
 		}
+	}	
+	public function updateEmail()
+	{
+		$this->form_validation->set_rules('email', 'อีเมล', 'required|valid_email|max_length[50]');
+		$this->form_validation->set_message('required','กรุณากรอก "%s"');
+		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
+		$this->form_validation->set_message('valid_email','รูปแบบของ "%s" ไม่ถูกต้อง');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+
+		if ($this->input->post('submit')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$this->db_model->_updateLogin($Username);
+			if ($this->form_validation->run()) {
+				$email = $this->input->post('email');
+				if($this->db_model->_checkEmail($email)){
+					$this->session->set_flashdata('msg_error_emailright', 'E-Mail นี้มีในระบบแล้ว');
+					redirect('Dashboard/profile');
+				}
+				$this->db_model->_updateEmail($Username,$email);
+				$this->session->set_userdata('username',$email);
+				$this->session->set_flashdata('msg_success_emailright', 'บันทึกข้อมูลสำเร็จ');
+				redirect('Dashboard/profile');
+			}else {
+				$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar', $active);
+				$this->load->view('dashboard/home/content/profile');
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
 	}
 	// ./ Edit Profile
 
@@ -197,11 +239,10 @@ class Dashboard extends CI_Controller {
 		$this->form_validation->set_rules('status', 'ตำแหน่ง', 'required');
 		$this->form_validation->set_rules('name', 'ชื่อ', 'required|max_length[30]');
 		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[30]');
-		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|exact_length[13]|is_natural|callback_valid_citizen_id');
+		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|is_natural|callback_valid_citizen_id');
 		$this->form_validation->set_rules('email', 'อีเมล', 'required|valid_email|max_length[50]');
 		$this->form_validation->set_rules('password', 'รหัสผ่าน', 'required|max_length[32]');
 		$this->form_validation->set_message('required','กรุณากรอก "%s"');
-		$this->form_validation->set_message('exact_length','"%s" ต้องมี 13 หลัก');
 		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
 		$this->form_validation->set_message('is_natural','"%s" ต้องเป็นตัวเลขเท่านั้น');
 		$this->form_validation->set_message('valid_email','รูปแบบของ "%s" ไม่ถูกต้อง');
@@ -212,17 +253,24 @@ class Dashboard extends CI_Controller {
 			}else{
 				$Username = get_cookie('username');
 			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status =='staff') {
+				redirect('Dashboard/home');
+			}
 			$this->db_model->_updateLogin($Username);
 			$active = array('ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
-			$getUser['User'] = $this->db_model->_getUser($Username);
 			$check = $this->input->post('check');
-			$getClinicArea['getArea'] = $this->db_model->_getArea();
-			if ($check =='checked') {
-				$getClinicArea['checkArea'] = $this->db_model->_checkArea($this->input->post('area'));
-				$getClinicArea['disabled'] =  '';
+			if($getUser['User']->officer_status =='superadmin'){
+				$getClinicArea['getArea'] = $this->db_model->_getArea();
+				if ($check =='checked') {
+					$getClinicArea['checkArea'] = $this->db_model->_checkArea($this->input->post('area'));
+					$getClinicArea['disabled'] =  '';
+				}else{
+					$getClinicArea['checkArea'] = $this->db_model->_checkArea('');
+					$getClinicArea['disabled'] =  'disabled';
+				}
 			}else{
-				$getClinicArea['checkArea'] = $this->db_model->_checkArea('');
-				$getClinicArea['disabled'] =  'disabled';
+				$getClinicArea['checkArea'] = $this->db_model->_getClinicinarea($getUser['User']->area_id);
 			}
 			if ($this->form_validation->run()) {
 				$clinic = $this->input->post('clinic');
@@ -255,6 +303,7 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/loginPage');
 		}
 	}
+
 	public function checkArea()
 	{
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
@@ -288,6 +337,7 @@ class Dashboard extends CI_Controller {
 	public function valid_citizen_id($personID)
 	{
 		if (strlen($personID) != 13) {
+			$this->form_validation->set_message('valid_citizen_id','"%s" ต้องมี 13 หลัก');
 			return false;
 		}
 		$rev = strrev($personID); // reverse string ขั้นที่ 0 เตรียมตัว
@@ -309,7 +359,7 @@ class Dashboard extends CI_Controller {
     }
 	// ./ Add Staff
 
-    // Staff
+    // Manage Staff
     public function staff()
 	{
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
@@ -319,21 +369,133 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$getOfficer['getOfficer'] = $this->db_model->_getOfficer();
-			$data['Officer'] = json_encode($getOfficer['getOfficer']);
+			if ($getUser['User']->officer_status =='staff') {
+				redirect('Dashboard/home');
+			}
+			$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
-			$this->load->view('dashboard/home/content/staff', $data);
+			$this->load->view('dashboard/home/content/staff');
 			$this->load->view('dashboard/home/footer');
 		}else{
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
 		}
 	}
-    // ./Staff
+	// Make json
+	public function getofficerjson()
+	{	
+		if($this->session->userdata('Logged')){
+			$Username = $this->session->userdata['username'];
+		}else{
+			$Username = get_cookie('username');
+		}
+		$getUser['User'] = $this->db_model->_getUser($Username);
+		if ($getUser['User']->officer_status=='superadmin') {
+			$this->db_model->_getOfficerjson();
+		}else{
+			$this->db_model->_getOfficerAreajson($getUser['User']->area_id);
+		}
+	}
+	// Delete Staff
+	public function staffdelete()
+	{
+		$data = json_decode($_POST['data'],true);
+		$officerid = $data['officer_id'];
+		$this->db_model->_staffdelete($officerid);
+	}
+	// Edit Staff
+	public function staffedit()
+	{
+		if (isset($_POST['data'])) {
+			$data = json_decode($_POST['data'],true);
+			$this->session->set_userdata('editstaff', $data);
+		}
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status =='staff') {
+				redirect('Dashboard/home');
+			}
+			$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$getClinic['allclinic'] = $this->db_model->_getClinic();
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/editstaff', $getClinic);
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}	
+	}
+	public function staffditinfo()
+	{
+		$this->form_validation->set_rules('clinic', 'พื้นที่', 'required');
+		$this->form_validation->set_rules('status', 'ตำแหน่ง', 'required');
+		$this->form_validation->set_message('required','กรุณาเลือก "%s"');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+		if ($this->input->post('submit')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status =='staff') {
+				redirect('Dashboard/home');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getClinic['allclinic'] = $this->db_model->_getClinic();
+			if ($this->form_validation->run()) {
+				$clinic = $this->input->post('clinic');
+				$status = $this->input->post('status');
+				$officerID = $this->session->userdata['editstaff']['officer_id'];
+				$this->db_model->_updateStaffinfo($officerID,$clinic,$status);
+				$this->session->userdata['editstaff']['clinic_id'] = $clinic;
+				$this->session->userdata['editstaff']['officer_status'] = $status;
+				$this->session->set_flashdata('msg_success_left', 'บันทึกข้อมูลสำเร็จ');
+				redirect('Dashboard/staffedit');
+			}else {
+				$active = array('ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar', $active);
+				$this->load->view('dashboard/home/content/editstaff', $getClinic);
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	public function staffeditpassword()
+	{
+		if ($this->input->post('submit')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$officerID = $this->session->userdata['editstaff']['officer_id'];
+			$password = $this->input->post('password');
+			$this->db_model->_updateStaffpassword($officerID,$password);
+			$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
+			redirect('Dashboard/staffedit');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+    // ./ Manage Staff
 
 	// Login 
 	public function logincheck()
@@ -361,7 +523,7 @@ class Dashboard extends CI_Controller {
 						);
 						$this->session->set_userdata($data);
 						if($this->input->post('remember')){
-							set_cookie('username',$Username,'3600');
+							set_cookie('username',$Username,'86400');
 						}
 						redirect('Dashboard/home');
 					}else{
@@ -374,7 +536,7 @@ class Dashboard extends CI_Controller {
 			}else{
 				$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 				$this->load->view('dashboard/loginPage');
-			}
+			} 
 		}
 	}
 

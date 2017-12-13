@@ -7,7 +7,7 @@ class Dashboard_model extends CI_Model {
 		parent::__construct();
 	}
 
-	//เช็คล็อกอิน
+	// Check username password
 	function _checkUser($Username,$Password){
 		$result =	$this->db->where('officer_username', $Username)
 					->where('officer_password', md5($Password))
@@ -15,11 +15,17 @@ class Dashboard_model extends CI_Model {
 		return $result > 0 ? TRUE : FALSE;
 	}
 
-	//ข้อมูลผู้ใช้งาน
+	// Get detail user logged
 	function _getUser($Username){
-		$cause = array('officer_username' => $Username);
-		$query =	$this->db->get_where('officer', $cause);
-		return $query->row();
+		// $cause = array('officer_username' => $Username);
+		// $query =	$this->db->get_where('officer', $cause);
+		// return $query->row();
+
+		$query = $this->db->join('clinic','clinic.clinic_id = officer.clinic_id','LEFT')
+			->where('officer_username' , $Username)
+			->get('officer')
+			->row();
+		return $query;
 	}
 
 	//Update login time
@@ -29,6 +35,7 @@ class Dashboard_model extends CI_Model {
 		->set('officer_lastLogin' , $now)
 		->update('officer');
 	}
+
 	// Update Logout time
 	function _updateLogout($Username){
 		$now = unix_to_human(now('+7'),TRUE,'eu');
@@ -36,6 +43,8 @@ class Dashboard_model extends CI_Model {
 		->set('officer_lastLogout' , $now)
 		->update('officer');
 	}
+
+	/* Edit Profile */
 	// Update Avata
 	function _updateProfile($Username,$img){
 		$result = $this->db->where('officer_username', $Username)
@@ -56,6 +65,13 @@ class Dashboard_model extends CI_Model {
 		->set('officer_password' , md5($Password))
 		->update('officer');
 	}	
+	function _updateEmail($Username,$Email){
+		$result = $this->db->where('officer_username', $Username)
+		->set('officer_username' , $Email)
+		->update('officer');
+	}	
+	/* END Edit Profile */
+
 	/* Add Staff */
 	// Get All Areas
 	function _getArea(){
@@ -70,6 +86,13 @@ class Dashboard_model extends CI_Model {
 			->result();
 			return $query;
 		}else return FALSE;
+	}	
+	//get Clinic WHRER User area_id
+	function _getClinicinarea($area){
+		$query = $this->db->where('area_id' , $area)
+			->get('clinic')
+			->result();
+		return $query;
 	}	
 	// Insert Officer
 	function _addStaff($clinic, $status, $name, $lastname, $email, $password, $idcard){
@@ -98,12 +121,38 @@ class Dashboard_model extends CI_Model {
 	}	
 	/* End Add Staff */
 
-	// Staff Page
-	// Get All Officer
-	function _getOfficer(){
-		$query = $this->db->get('officer')->result_array();
-		return $query;
+	/* Manage Staff */
+	// get All Officer and clinic JSON (for table)
+	function _getOfficerjson(){
+		$query = $this->db->join('clinic','clinic.clinic_id = officer.clinic_id','LEFT')->get('officer')->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/officer', $data);
 	}
-	// ./Staff Page
+	// get Officer and clinic WHERE area_id JSON (for table)
+	function _getOfficerAreajson($area){
+		$query = $this->db->join('clinic','clinic.clinic_id = officer.clinic_id','LEFT')->where('area_id',$area)->get('officer')->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/officer', $data);
+	}
+	// Delete Staff
+	function _staffDelete($officerID){
+		$this->db->where('officer_id',$officerID)->delete('officer');
+	}
+	// get All clinic
+	function _getClinic(){
+		$query = $this->db->get('clinic')->result();
+		return $query;;
+	}
+	function _updateStaffinfo($officerID,$clinic,$status){
+		$result = $this->db->where('officer_id', $officerID)
+		->set('clinic_id' , $clinic)->set('officer_status' , $status)
+		->update('officer');
+	}
+	function _updateStaffpassword($officerID,$password){
+		$result = $this->db->where('officer_id', $officerID)
+		->set('officer_password' , md5($password))
+		->update('officer');
+	}
+	/* END Manage Staff */
 }
 ?>
