@@ -1,0 +1,148 @@
+@import url(https://fonts.googleapis.com/css?family=Trirong:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i);
+
+html, body{
+    font-family: 'Trirong', serif;
+    font-style: normal;
+    line-height: 1.5;
+    margin: 0;
+    height:100%;
+    width:100%;
+    padding:0;
+    position: relative;
+}
+.navbar{
+    width: 100px;
+    margin-top: 12%;
+    margin-left: 4%;
+    margin-right: 96%;
+
+}
+.navbar-nav{
+    text-align: center;
+    margin:auto;
+}
+.nav-item{
+    margin-bottom:40px;
+}
+.slide-step{
+    background-color: rgb(70, 188, 224);
+    color: white;
+}
+.slide-step-content{
+    background-color: rgb(70, 188, 224);
+    color: white;
+}
+h2.topic-a{
+    padding: 5px;
+    color: rgb(70, 188, 224);
+}
+.topic-a{
+    padding: 5px;
+    color: rgb(70, 188, 224);
+}
+.fullscreen {
+    position: absolute;
+    overflow: auto;
+}
+.form-name{
+    padding-top: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.form-body{
+    padding-left: 60px;
+    padding-right: 100px;
+}
+.form-button-out{
+    position:relative;
+}
+.form-button-in{
+    position: relative;
+    bottom: 0;
+    right: 0;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+p {
+    font-size:1.1em;
+    margin: 1em 0;
+}
+.description {
+  margin: 1em auto 2.25em;
+}
+.flip-head{
+    margin: 10px;
+    margin-bottom: 20px;
+}
+.flip{
+    background: #ece7e7;
+    padding: 10px;
+    border: #333333;
+    border-radius: 5px;
+    text-align: center;
+    color: rgb(70, 188, 224);
+}
+.panel {
+    padding: 50px;
+    display: none;
+    background-color: #eeeeee
+}
+.icon-right{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+.for-btn{
+    margin: 30px;
+    margin-bottom: 30px;
+}
+.spac-right{
+    padding-right: 0px;
+    
+}
+.spac-left{
+    padding-left: 0px;
+}
+.roud{
+    border-radius: 25px;
+    width: 100px;
+    
+}
+.btn-info{
+    box-shadow: 3px 3px 3px #adadade7;
+}
+
+.same-line-label{
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.icon-delete{
+    margin-top: 32px;
+}
+.clond-skill{
+    display: none;
+}
+.clond-language{
+    display: none;
+}
+.clond-low-work{
+    display: none;
+}
+.btn-danger{
+    background-color: #db5762;
+    border-color:#db5762;
+}
+.btn-primary{
+    background-color: #7ee0e4;
+    border-color:#7ee0e4;
+}
+.btn-primary:hover{
+    background-color: #6dbabd;
+    border-color:#6dbabd;
+}
+.active{
+    background: salmon;
+  }
