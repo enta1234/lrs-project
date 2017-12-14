@@ -20,7 +20,7 @@
         </nav>
     </div>
     <div class="col-10">
-        <?php echo form_open('Register/formRegister'); ?>
+        <?= form_open('Register/formRegister'); ?>
         <section class="" id="section1">
             <div class="row form-name">
                 <div class="col">
@@ -56,7 +56,8 @@
                         <div class="col">
                             <div class="form-group">
                                 <label >เลขบัตรประจำตัวประชาชน</label>
-                                <input type="text" name="idcard" value="<?= $idCard; ?>" class="form-control" disabled>
+                                <input type="text" name="idcarddis" value="<?= $idCard; ?>" pa class="form-control" disabled>
+                                <input type="hidden" name="idcard" value="<?= $idCard; ?>" />
                             </div>
                         </div>
                         <!-- end right form -->
@@ -66,16 +67,42 @@
                         <!-- col 1 -->
                         <div class="col">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-9">
                                     <div class="form-group">
                                         <label >วันเกิด</label>
-                                        <input type="date" id="birthday" name="birthday" class="form-control" placeholder="วว/ดด/ปป" onchange="submitBday()">
+                                        <div class="row">
+                                            <input type="text" id="birthday" name="day" class="form-control col" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
+                                            <select class="form-control col" name="month" id="" required>
+                                                <option value=""> เดือน </option>
+                                                <option value="01"> มกราคม </option>
+                                                <option value="02"> กุมภาพันธ์ </option>
+                                                <option value="03"> มีนาคม </option>
+                                                <option value="04"> เมษายน </option>
+                                                <option value="05"> พฤษภาคม </option>
+                                                <option value="06"> มิถุนายน </option>
+                                                <option value="07"> กรกฎาคม </option>
+                                                <option value="08"> สิงหาคม </option>
+                                                <option value="09"> กันยายน </option>
+                                                <option value="10"> ตุลาคม </option>
+                                                <option value="11"> พฤศจิกายน </option>
+                                                <option value="12"> ธันวาคม </option>
+                                            </select>
+                                            <select class="form-control col" name="year" id="year" onchange="submitBday()"  required>
+                                                <option value=""> ปี </option>
+                                                <?php
+                                                    for($i=2490;$i<2561;$i++){
+                                                        echo '<option value="'.$i.'">'.$i.'</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label >อายุ</label>
-                                        <input type="text" id="resultBday" name="age" class="form-control" disabled>
+                                        <input type="text" id="resultBdayDis" name="aged" class="form-control" disabled>
+                                        <input type="hidden" id="resultBday" name="age" />
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +160,8 @@
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label>ที่อยู่ที่่ติดต่อได้ เลขที่่</label>
-                                <input type="text" name="address_number" class="form-control" placeholder="เลขที่่บ้าน" maxlenght="10">
+                                <label>ที่อยู่ที่ติดต่อได้ เลขที่</label>
+                                <input type="text" name="address_number" class="form-control" placeholder="เลขที่่บ้าน" maxlength="10">
                             </div>
                         </div>
                     </div>
@@ -191,7 +218,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>รหัสไปรษณีย์</label>
-                                        <input type="text" name="postcode" class="form-control" placeholder="รหัสไปรษณีย์">
+                                        <input type="text" name="postcode" pattern="\d*" maxlength="5" class="form-control" placeholder="รหัสไปรษณีย์">
                                     </div>
                                 </div>
                                 <!-- end row 1 -->
@@ -202,7 +229,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label >หมายเลขโทรศัพท์ที่สามารถติดต่อได้</label>
-                                <input type="text" pattern="\d*" maxlength="13" name="phonenumber" class="form-control" placeholder="0981234567">
+                                <input type="text" pattern="\d*" maxlength="10" name="phonenumber" class="form-control" placeholder="0981234567">
                             </div>
                         </div>
                         <!-- end right form -->
@@ -532,7 +559,7 @@
                                                                     <label>ปีพ.ศ. </label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text"id="work_year[0]" name="work_year[0]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
+                                                                            <input type="text" id="work_year[0]" name="work_year[0]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -91,13 +91,21 @@ jQuery(document).ready(function ($) {
             $(this).addClass('active');
         });
     })
+    
     // cal age
-    function submitBday() {
-    var Bdate = document.getElementById('birthday').value;
-    var Bday = +new Date(Bdate);
-    var Q4A = ~~((Date.now() - Bday) / (31557600000));
-    var theBday = document.getElementById('resultBday');
-    theBday.setAttribute("value", Q4A);
+        function submitBday() {
+        var Bdate = document.getElementById('year').value-543;
+        var currentTime = new Date();
+        var year = currentTime.getFullYear();
+
+        var age = year-Bdate;
+
+        var theBdayDis = document.getElementById('resultBdayDis');
+        theBdayDis.setAttribute("value", age);
+        console.log(theBdayDis.name+ " : " + age + "currentTime"+year);
+        var theBday = document.getElementById('resultBday');
+        theBday.setAttribute("value", age);
+        console.log(theBday.name+ " : " + age );
     }
 
     // onChange of radio
