@@ -11,7 +11,7 @@
         <input type="text" name="idcard" id="" pattern="\d*" maxlength="13" class="form-control" placeholder="เช่น 1134567891011" required autofocus>
       </div>
       <div class="modal-footer">
-        <button onclick="location.href = '<?= base_url(); ?>';" id="myButton" class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
+        <button type="reset" onclick="location.href ='<?= base_url(); ?>';" id="myButton"  class="btn btn-default" data-dismiss="modal">ยกเลิก</button>
         <button type="submit" class="btn btn-primary">ตกลง</button>
       </div>
       <?php echo form_close(); ?>

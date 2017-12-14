@@ -1161,7 +1161,7 @@
     <section class=" for-btn">
         <div class="row">
             <div class="col-10 spac-left ">
-                <button type="reset" class="btn btn-default roud">ยกเลิก</button>
+                <button type="reset"  class="btn btn-default roud" onclick="location.href = '<?= base_url(); ?>';">ยกเลิก</button>
             </div>
             <div class="col-2 spac-right ">
                 <div class="row spac-right">

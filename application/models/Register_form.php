@@ -18,8 +18,9 @@ class Register_form extends CI_Model {
 	}
 	// check id card
 	function _checkIdcard($idcard){
-		$result =	$this->db->where('information_idcard', $idcard)->count_all_results('information');
-		return $result > 0 ? FALSE : TRUE;
+		$result =	$this->db->where('information_idcard', $idcard)
+		->count_all_results('information');
+		return $result > 0 ? TRUE : false;
 	}
 	// insert information
 	function _information($information){

@@ -3,6 +3,7 @@
     $(window).on('load',function(){
         $('#myModal').modal('show');
     });
+    
     //slideToggle 
     (function ($) {
         'use strict';

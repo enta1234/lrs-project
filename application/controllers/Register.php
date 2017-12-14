@@ -25,7 +25,7 @@ class Register extends CI_Controller {
 		
 		if ($this->form_validation->run()) {
 			$idcard = $this->input->post('idcard');
-			$check = $this->register->_checkIdcard('$idcard');
+			$check = $this->register->_checkIdcard($idcard); // ger reture
 			if($check){
 				redirect('Welcome'); //change redirect to resulf page
 			}else{
