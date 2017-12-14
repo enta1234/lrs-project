@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="assets/images/rlpd-logo-125x140.png" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>สมัครสมาชิก</title>
@@ -15,6 +15,6 @@
     <link rel="stylesheet" href="<?php echo base_url('assets/register/'); ?>css/main.css">
     <!-- Select2 -->
     <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>select2/css/select2.css">
-
+    <link rel="stylesheet" href="<?php echo base_url('assets/register/'); ?>css/select2-bootstrap.min.css">
 </head>
 <body>

@@ -27,7 +27,8 @@ class Register extends CI_Controller {
 			$idcard = $this->input->post('idcard');
 			$check = $this->register->_checkIdcard($idcard); // ger reture
 			if($check){
-				redirect('Welcome'); //change redirect to resulf page
+				$getData['idCard'] = $idcard;
+				$this->load->view('registed/registed',$getData);
 			}else{
 				$getData['getClinic'] = $this->register->_getClinic();
 				$getData['idCard'] = $idcard;

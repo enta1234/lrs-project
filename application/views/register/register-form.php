@@ -1,3 +1,4 @@
+<div class="container-fluid border border-info">
   <div class="row ">
     <div class="col-2 slide-step">
         <!-- A vertical navbar -->
@@ -19,7 +20,7 @@
             </ul>
         </nav>
     </div>
-    <div class="col-10">
+    <div class="col">
         <?= form_open('Register/formRegister'); ?>
         <section class="" id="section1">
             <div class="row form-name">
@@ -71,8 +72,8 @@
                                     <div class="form-group">
                                         <label >วันเกิด</label>
                                         <div class="row">
-                                            <input type="text" id="birthday" name="day" class="form-control col" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
-                                            <select class="form-control col" name="month" id="" required>
+                                            <input type="text" id="birthday" name="day" class="form-control col-md-3" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
+                                            <select class="form-control selcet-2 col-md-4" name="month" id=""required>
                                                 <option value=""> เดือน </option>
                                                 <option value="01"> มกราคม </option>
                                                 <option value="02"> กุมภาพันธ์ </option>
@@ -87,7 +88,7 @@
                                                 <option value="11"> พฤศจิกายน </option>
                                                 <option value="12"> ธันวาคม </option>
                                             </select>
-                                            <select class="form-control col" name="year" id="year" onchange="submitBday()"  required>
+                                            <select class="form-control selcet-2 col-md-4 " name="year" id="year" onchange="submitBday()"  required>
                                                 <option value=""> ปี </option>
                                                 <?php
                                                     for($i=2490;$i<2561;$i++){
@@ -376,7 +377,7 @@
                                         <input type="radio" name="ever_work" value="เคย" /> เคย 
                                     </div>
                                     <div class="col-5">
-                                        <select name="selclinic" class="form-control js-example-basic-single" id="selectClinic" style="max-width:90%;" disabled>
+                                        <select name="selclinic" class="form-control selcet-2" id="selectClinic" style="max-width:90%;" disabled>
                                         <option value="0">---- กรุณาเลือก -----</option>
                                             <?php
                                                 foreach($getClinic as $clinic){
@@ -1171,6 +1172,7 @@
         </div>
     </section>
     <?= form_close(); ?>
+</div>
 </div>
 </div>
     <!-- script -->
