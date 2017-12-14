@@ -10,10 +10,6 @@ html, body{
     padding:0;
     position: relative;
 }
-.container-fluid{
-    height: 100%;
-    margin: 0;
-}
 .navbar{
     width: 100px;
     margin-top: 12%;
