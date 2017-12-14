@@ -154,5 +154,29 @@ class Dashboard_model extends CI_Model {
 		->update('officer');
 	}
 	/* END Manage Staff */
+
+	/* Manage Page */
+	// Add news
+	function _addnews($officer_id, $topic, $detail, $picname, $filename){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$query = $this->db->set('officer_id' , $officer_id)
+		->set('news_name', $topic)
+		->set('news_detail', $detail)
+		->set('news_file', $picname)
+		->set('news_otherfile', $filename)
+		->set('news_postdate', $now)
+		->insert('news');
+	}
+	// Add news without Files
+	function _addnewsNofile($officer_id, $topic, $detail, $picname){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$query = $this->db->set('officer_id' , $officer_id)
+		->set('news_name', $topic)
+		->set('news_detail', $detail)
+		->set('news_file', $picname)
+		->set('news_postdate', $now)
+		->insert('news');
+	}
+	/* ./ Manage Page */
 }
 ?>

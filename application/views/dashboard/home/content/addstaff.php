@@ -60,7 +60,7 @@
                   if($checkArea!=FALSE){
                     foreach ($checkArea as $clinic) {
                       $clinicname[$clinic->clinic_id] = $clinic->clinic_name;
-                    } 
+                    }
                   }
                   $extra = array(
                           'class'=>'form-control select2',

@@ -15,12 +15,17 @@
 <script src="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/tableexport.js"></script>
 <!-- Alert2 -->
 <script src="https://unpkg.com/sweetalert2@7.0.9/dist/sweetalert2.all.js"></script>
+<!-- iCheck -->
+<script src="<?php echo base_url('assets/dashboard/'); ?>icheck/js/icheck.js"></script>
 <!-- Custom JS -->
 <script src="<?php echo base_url('assets/dashboard/'); ?>js/managestaff.js"></script>
+<script src="<?php echo base_url('assets/dashboard/'); ?>js/addnews.js"></script>
 <script>
 	$(document).ready(function() {
-    $('.select2').select2();
-});
+    	$('.select2').select2({
+    		theme: "bootstrap"
+    	});
+	});
 </script>
 </body>
 </html>
