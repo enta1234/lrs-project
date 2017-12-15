@@ -13,3 +13,4 @@ $(function () {
         document.getElementById("file").setAttribute('disabled','disabled');
     });
 });
+console.log('addnews.js');

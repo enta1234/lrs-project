@@ -177,6 +177,38 @@ class Dashboard_model extends CI_Model {
 		->set('news_postdate', $now)
 		->insert('news');
 	}
+	// Get all news
+	function _getNewsjson(){
+		// $query = $this->db->join('clinic','clinic.clinic_id = officer.clinic_id','LEFT')->get('officer')->result_array();
+		$field = "news_id, news_name, officer_id, news_otherfile, news_postdate";
+		$query = $this->db->join('officer','officer.officer_id = news.officer_id','LEFT')->get('news')->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/news', $data);
+	}
+	// Get news WHERE newsID
+	function _getNews($newsid){
+		$query = $this->db->where('news_id',$newsid)->get('news')->row();
+		return $query;
+	}
+	// Update Content
+	function _editNewcontent($newsid, $topic, $detail){
+		$this->db->set('news_name' , $topic)
+		->set('news_detail', $detail)
+		->where('news_id', $newsid)
+		->update('news');
+	}
+	// Update Pic
+	function _editNewpic($newsid, $picname){
+		$this->db->set('news_file' , $picname)
+		->where('news_id', $newsid)
+		->update('news');
+	}
+	//Update File
+	function _editNewfile($newsid, $filename){
+		$this->db->set('news_otherfile' , $filename)
+		->where('news_id', $newsid)
+		->update('news');
+	}
 	/* ./ Manage Page */
 }
 ?>

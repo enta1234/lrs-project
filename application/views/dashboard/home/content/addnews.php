@@ -27,7 +27,7 @@
                 echo isset($errorfile) ? $errorfile : '';
                 echo validation_errors();              ?>
               <div class="form-group">
-                <label>อัพโหลดรูป <?php echo nbs(2); ?><font style="color: red">*จำเป็นต้องใส่รูปภาพ</font></label>
+                <label>อัพโหลดรูป <?php echo nbs(2); ?><font style="color: red">*ต้องเป็น gif, jpg, png, jpeg เท่านั้น</font></label>
                 <?php echo form_upload('pic'); ?>
               </div>
               <div class="form-group">
@@ -48,7 +48,7 @@
                  ?>
               </div>
               <div class="form-group">
-                <label>เอกสารที่เกี่ยวข้อ</label>
+                <label>เอกสารที่เกี่ยวข้อง<?php echo nbs(5); ?><font style="color: red">*ต้องเป็นไฟล์ประเภทเอกสารเท่านั้น</font></label>
               </div>
               <div class="form-group">
                 <label>

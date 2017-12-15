@@ -29,7 +29,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -53,7 +53,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
@@ -91,7 +91,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/profile');
 			}else {
 				$data['error'] = $this->upload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
-				$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -136,7 +136,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -182,7 +182,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -221,7 +221,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_emailright', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -262,7 +262,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/home');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
+			$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$check = $this->input->post('check');
 			if($getUser['User']->officer_status =='superadmin'){
 				$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -317,7 +317,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
+			$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$area = $this->input->post('area');
 			$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -377,7 +377,7 @@ class Dashboard extends CI_Controller {
 			if ($getUser['User']->officer_status =='staff') {
 				redirect('Dashboard/home');
 			}
-			$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -428,8 +428,7 @@ class Dashboard extends CI_Controller {
 			if ($getUser['User']->officer_status =='staff') {
 				redirect('Dashboard/home');
 			}
-			$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
-			$getClinic['allclinic'] = $this->db_model->_getClinic();
+			$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -468,7 +467,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_left', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/staffedit');
 			}else {
-				$active = array('ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+				$active = array('ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -517,7 +516,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_addnews'=>'active','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_news'=>'', 'ac_addnews'=>'active','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->db_model->_updateLogin($Username);
 			$officer_id = $getUser['User']->officer_id;
 			$topic = $this->input->post('topic');
@@ -589,6 +588,177 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
 		}
+	}
+	// Manage News
+	public function news()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/news');
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Make json
+	public function getNewsjson()
+	{	
+		if($this->session->userdata('Logged')){
+			$Username = $this->session->userdata['username'];
+		}else{
+			$Username = get_cookie('username');
+		}
+		$this->db_model->_getNewsjson();
+	}
+	// Edit News Mainpage
+	public function editnews()
+	{
+		if (isset($_POST['data'])) {
+			$data = json_decode($_POST['data'],true);
+			$this->session->set_userdata('editnews', $data);
+		}
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
+			$active = array('ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/editnews', $data);
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}	
+	}
+	// Edit News Content
+	public function editNewcontent()
+	{
+		$this->form_validation->set_rules('topic', 'หัวข้อข่าว', 'required|max_length[45]');
+		$this->form_validation->set_rules('detail', 'เนื้อหา', 'required');
+		$this->form_validation->set_message('required','กรุณาใส่ "%s"');
+		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
+		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$newsid = $this->input->post('newsid');
+			$topic = $this->input->post('topic');
+			$detail = $this->input->post('detail');
+			$active = array('ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
+			if ($this->form_validation->run()) {
+				$this->db_model->_editNewcontent($newsid, $topic, $detail);
+				$this->session->set_flashdata('msg_success', 'เพิ่มข่าวสำเร็จ');
+				redirect('Dashboard/editnews');
+			}else{
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar', $active);
+				$this->load->view('dashboard/home/content/editnews',$data);
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}	
+	}
+	// Edit News Pic
+	public function editNewspic()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
+			$configuppic['upload_path'] = './assets/upload/news/pic';
+			$configuppic['allowed_types'] = 'gif|jpg|png|jpeg';
+			$configuppic['file_name'] = $data['news']->news_name;
+			$configuppic['max_size'] = '3072';
+			$this->load->library('upload', $configuppic, 'picupload');
+			$this->picupload->initialize($configuppic);
+			$newsid = $this->input->post('newsid');
+			if ($this->picupload->do_upload('pic')) {
+				$picname = $this->picupload->data('file_name');
+				$this->db_model->_editNewpic($newsid, $picname);
+				$this->session->set_flashdata('msg_success_pic', 'แก้ไขรูปสำเร็จ');
+				redirect('Dashboard/editnews');
+			}else{
+				$data['errorpic'] = $this->picupload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar', $active);
+				$this->load->view('dashboard/home/content/editnews',$data);
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}	
+	}
+	// Edit News File
+	public function editNewsfile()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
+			$configupfile['upload_path'] = './assets/upload/news/file';
+			$configupfile['allowed_types'] = 'pdf|txt|doc|docx|csv|ppt|pptx|pps|xls|xlsx|7z|zip|zipx|rar';
+			$configupfile['max_size'] = '30720';
+			$this->load->library('upload', $configupfile, 'fileupload');
+			$this->fileupload->initialize($configupfile);
+			$newsid = $this->input->post('newsid');
+			if ($this->fileupload->do_upload('pic')) {
+				$filename = $this->fileupload->data('file_name');
+				$this->db_model->_editNewfile($newsid, $filename);
+				$this->session->set_flashdata('msg_success_file', 'แก้ไขเอกสารแนบสำเร็จ');
+				redirect('Dashboard/editnews');
+			}else{
+				$data['errorfile'] = $this->fileupload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
+				$this->load->view('dashboard/home/header');
+				$this->load->view('dashboard/home/navbar', $getUser);
+				$this->load->view('dashboard/home/sidebar', $active);
+				$this->load->view('dashboard/home/content/editnews',$data);
+				$this->load->view('dashboard/home/footer');
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}	
 	}
 	/* ./ Manage Website */
 /*--------------------------------------------------------------------------------------------------------------------------------------*/

@@ -18,8 +18,15 @@
 <!-- iCheck -->
 <script src="<?php echo base_url('assets/dashboard/'); ?>icheck/js/icheck.js"></script>
 <!-- Custom JS -->
-<script src="<?php echo base_url('assets/dashboard/'); ?>js/managestaff.js"></script>
-<script src="<?php echo base_url('assets/dashboard/'); ?>js/addnews.js"></script>
+<?php if ($ac_staff=='active'): ?>
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/managestaff.js"></script>
+<?php endif ?>
+<?php if ($ac_addnews=='active'): ?>
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/addnews.js"></script>
+<?php endif ?>
+<?php if ($ac_news=='active'): ?>	
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/managenews.js"></script>
+<?php endif ?>
 <script>
 	$(document).ready(function() {
     	$('.select2').select2({

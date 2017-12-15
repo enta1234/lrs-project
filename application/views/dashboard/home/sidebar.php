@@ -37,7 +37,7 @@
         <!-- Optionally, you can add icons to the links -->
         <li class="<?php echo $ac_home; ?>" ><a href="<?php echo base_url() ?>Dashboard/home"><i class="fa fa-tachometer fa-lg"></i><span><?php echo nbs(2); ?>Dashboard</span></a></li>
         <li><a href=""><i class="fa fa-address-book-o fa-lg"></i> <span><?php echo nbs(2); ?>จัดการที่ปรึกษา</span></a></li>
-        <li class="treeview <?php echo $ac_addnews; ?>">
+        <li class="treeview <?php echo $ac_addnews.$ac_news; ?>">
           <a href="">
             <i class="fa fa-file-text-o fa-lg"></i> 
             <span><?php echo nbs(2); ?>จัดการหน้าเว็บ</span>
@@ -47,7 +47,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="<?php echo $ac_addnews; ?>"><?php echo anchor('Dashboard/addnews','เพิ่มข่าวสาร'); ?></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li class="<?php echo $ac_news; ?>"><?php echo anchor('Dashboard/news','จัดการข่าวสาร'); ?></li>
           </ul>
         </li>
         <?php if($User->officer_status!='staff'){ ?>
