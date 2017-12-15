@@ -179,9 +179,8 @@ class Dashboard_model extends CI_Model {
 	}
 	// Get all news
 	function _getNewsjson(){
-		// $query = $this->db->join('clinic','clinic.clinic_id = officer.clinic_id','LEFT')->get('officer')->result_array();
-		$field = "news_id, news_name, officer_id, news_otherfile, news_postdate";
-		$query = $this->db->join('officer','officer.officer_id = news.officer_id','LEFT')->get('news')->result_array();
+		$sql = 'SELECT n.news_id, o.officer_name, n.news_name, n.news_otherfile, n.news_postdate FROM news AS n LEFT JOIN officer AS o ON n.officer_id = o.officer_id';
+		$query = $this->db->query($sql)->result_array();
 		$data['data'] = json_encode($query);
 		$this->load->view('dashboard/home/content/json/news', $data);
 	}
