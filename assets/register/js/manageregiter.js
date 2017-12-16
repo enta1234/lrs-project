@@ -43,22 +43,22 @@ $(function () {
             align: 'center',
         }, {
             field: 'action',
-            title: 'จัดการพนักงาน',
+            title: '',
             valign: 'middle',
             align: 'center',
             formatter: 'actionFormatter',
             events: 'actionEvents',
-            // width: '12.5%'
+            width: '25%',
         }]
     });
 });
 
 function actionFormatter(value, row, index) {
     return [
-        '<a class="btn btn-info print" href="javascript:void(0)" title="Edit">',
+        '<a class="btn btn-info print" href="javascript:void(0)" title="Print">',
         '<i class="fas fa-print" aria-hidden="true"></i>',
         '</a>&nbsp&nbsp&nbsp',
-        '<a class="btn btn-danger del" href="javascript:void(0)" title="Del">',
+        '<a class="btn btn-danger del" href="javascript:void(0)" title="Delete">',
         '<i class="far fa-trash-alt" aria-hidden="true"></i>',
         '</a>',
     ].join('');
@@ -79,7 +79,7 @@ window.actionEvents = {
           if (result.value) {
             $.ajax({
                 type:"POST",
-                url: base_url+"/Registed/delregister",
+                url: base_url+"/registed/delregister",
                 data: {data: JSON.stringify(row)},
                 dataType: 'json'
             });
@@ -97,27 +97,7 @@ window.actionEvents = {
         })
         
     },
-    'click .edit': function (e, value, row, index) {
-        swal({
-          title: 'ต้องการแก้ไขใช่ไหม',
-          text: "",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'ยืนยัน',
-          cancelButtonText: 'ยกเลิก'
-        }).then((result) => {
-          if (result.value) {
-            // alert('You click del icon, row: ' + JSON.stringify(row));
-            $.ajax({
-                type:"POST",
-                url: base_url+"/Dashboard/staffedit",
-                data: {data: JSON.stringify(row)},
-                dataType: 'json'
-            });
-            window.location.href = base_url+'/Dashboard/staffedit';
-          }
-        })    
+    'click .print': function (e, value, row, index) {
+        window.print();
     }
 };
