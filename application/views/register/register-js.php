@@ -12,6 +12,119 @@
             $(this).find('i').toggle();
             $('.panel').not($(this).next()).slideUp('slow');
         });
+        $('.flip-1').on("click", function () {
+            // 1
+            document.getElementsByName('lawyer_career').removeAttribute('disabled', '');
+            document.getElementsByName('company').removeAttribute('disabled', '');
+            document.getElementsByName('company_address').removeAttribute('disabled', '');
+            document.getElementsByName('experiencd').removeAttribute('disabled', '');
+            document.getElementsByName('past_cases').removeAttribute('disabled', '');
+            document.getElementsByName('expert_cases').removeAttribute('disabled', '');
+            // 2
+            document.getElementsByName('retire_date').setAttribute('disabled', '');
+            document.getElementsByName('governmental_age').setAttribute('disabled', '');
+            document.getElementsByName('government_position').setAttribute('disabled', '');
+            document.getElementsByName('lavel').setAttribute('disabled', '');
+            document.getElementsByName('departments').setAttribute('disabled', '');
+            document.getElementsByName('ministry').setAttribute('disabled', '');
+            // 3
+            document.getElementsByName('work_year[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[4]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[4]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[4]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[4]').setAttribute('disabled', '');
+        });
+        $('.flip-2').on("click", function () {
+            // disable 1, 3
+            // 1
+            document.getElementsByName('lawyer_career').setAttribute('disabled', '');
+            document.getElementsByName('company').setAttribute('disabled', '');
+            document.getElementsByName('company_address').setAttribute('disabled', '');
+            document.getElementsByName('experiencd').setAttribute('disabled', '');
+            document.getElementsByName('past_cases').setAttribute('disabled', '');
+            document.getElementsByName('expert_cases').setAttribute('disabled', '');
+            // 2
+            document.getElementsByName('retire_date').removeAttribute('disabled', '');
+            document.getElementsByName('governmental_age').removeAttribute('disabled', '');
+            document.getElementsByName('government_position').removeAttribute('disabled', '');
+            document.getElementsByName('lavel').removeAttribute('disabled', '');
+            document.getElementsByName('departments').removeAttribute('disabled', '');
+            document.getElementsByName('ministry').removeAttribute('disabled', '');
+            // 3
+            document.getElementsByName('work_year[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[0]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[1]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[2]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[3]').setAttribute('disabled', '');
+            document.getElementsByName('work_year[4]').setAttribute('disabled', '');
+            document.getElementsByName('work_position[4]').setAttribute('disabled', '');
+            document.getElementsByName('work_department[4]').setAttribute('disabled', '');
+            document.getElementsByName('work_job[4]').setAttribute('disabled', '');
+        });
+        $('.flip-3').on("click", function () {
+            // disable 1, 2
+            // 1
+            document.getElementsByName('lawyer_career').setAttribute('disabled', '');
+            document.getElementsByName('company').setAttribute('disabled', '');
+            document.getElementsByName('company_address').setAttribute('disabled', '');
+            document.getElementsByName('experiencd').setAttribute('disabled', '');
+            document.getElementsByName('past_cases').setAttribute('disabled', '');
+            document.getElementsByName('expert_cases').setAttribute('disabled', '');
+            // 2
+            document.getElementsByName('retire_date').setAttribute('disabled', '');
+            document.getElementsByName('governmental_age').setAttribute('disabled', '');
+            document.getElementsByName('government_position').setAttribute('disabled', '');
+            document.getElementsByName('lavel').setAttribute('disabled', '');
+            document.getElementsByName('departments').setAttribute('disabled', '');
+            document.getElementsByName('ministry').setAttribute('disabled', '');
+            // 3
+            document.getElementsByName('work_year[0]').removeAttribute('disabled', '');
+            document.getElementsByName('work_position[0]').removeAttribute('disabled', '');
+            document.getElementsByName('work_department[0]').removeAttribute('disabled', '');
+            document.getElementsByName('work_job[0]').removeAttribute('disabled', '');
+            document.getElementsByName('work_year[1]').removeAttribute('disabled', '');
+            document.getElementsByName('work_position[1]').removeAttribute('disabled', '');
+            document.getElementsByName('work_department[1]').removeAttribute('disabled', '');
+            document.getElementsByName('work_job[1]').removeAttribute('disabled', '');
+            document.getElementsByName('work_year[2]').removeAttribute('disabled', '');
+            document.getElementsByName('work_position[2]').removeAttribute('disabled', '');
+            document.getElementsByName('work_department[2]').removeAttribute('disabled', '');
+            document.getElementsByName('work_job[2]').removeAttribute('disabled', '');
+            document.getElementsByName('work_year[3]').removeAttribute('disabled', '');
+            document.getElementsByName('work_position[3]').removeAttribute('disabled', '');
+            document.getElementsByName('work_department[3]').removeAttribute('disabled', '');
+            document.getElementsByName('work_job[3]').removeAttribute('disabled', '');
+            document.getElementsByName('work_year[4]').removeAttribute('disabled', '');
+            document.getElementsByName('work_position[4]').removeAttribute('disabled', '');
+            document.getElementsByName('work_department[4]').removeAttribute('disabled', '');
+            document.getElementsByName('work_job[4]').removeAttribute('disabled', '');
+        });
     }(jQuery));
 
     // ------------------------------------------------- low work --------------------------------------------------
@@ -19,7 +132,7 @@
     // add work
     var i = 0;
     $('.add-work-btn').click(function () {
-        var gb = ["work_year[0]","work_year[1]","work_year[2]","work_year[3]","work_year[4]"];
+        // var gb = ["work_year[0]","work_year[1]","work_year[2]","work_year[3]","work_year[4]"];
         var $clone = $('.div-selected-work').find('div.clond-low-work.gb-3').clone(true).removeClass('clond-low-work');
         $('.div-selected-work').append($clone);
         var name = document.getElementById(gb[i]);
