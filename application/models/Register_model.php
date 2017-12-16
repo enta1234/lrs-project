@@ -53,8 +53,10 @@ class Register_model extends CI_Model {
 		$row =	$this->db->where('information_idcard', $idcard)->get('information')->row();
 		return $row;
 	}
-	function _checkregistersclinic($registers_clinic_name){
-		$count = $this->db->where('registers_clinic_name', $registers_clinic_name)->count_all_results('registers');
+	function _checkregistersclinic($registers_clinic_name,$information_idcard){
+		$count = $this->db->where('registers_clinic_name', $registers_clinic_name)
+		->where('information_idcard', $information_idcard)
+		->count_all_results('registers');
 		if($count<1){
 			return TRUE;
 		}else{

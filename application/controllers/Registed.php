@@ -27,24 +27,6 @@ class Registed extends CI_Controller {
 		}else{
 			redirect('welcome');
 		}
-		// if(isset($getData)){
-		// 	$idcard = $this->setdata($getData['information']->information_idcard);
-		// 	if($idcard!=null){
-		// 		$getData['information'] = $this->register->_getInformation($idcard);
-		// 		$getData['registers'] = $this->register->_wregisters($idcard); // get register data from idcard
-		// 		$getData['getClinic'] = $this->register->_getClinic(); // get Clinic data
-		// 		$this->load->view('registed/registed',$getData);
-		// 	}else{
-		// 		// $idcard= $getData['information']->information_idcard;
-		// 		$this->load->view('registed/registed',$getData);
-		// 	}
-		// }else{
-		// 	$idcard = $this->getdata();
-		// 	$getData['information'] = $this->register->_getInformation($idcard);
-		// 	$getData['registers'] = $this->register->_wregisters($idcard); // get register data from idcard
-		// 	$getData['getClinic'] = $this->register->_getClinic(); // get Clinic data
-		// 	$this->load->view('registed/registed',$getData);
-		// }
 	}
 	// Make json
 	public function getregisters()
@@ -70,7 +52,7 @@ class Registed extends CI_Controller {
 		$getData['registers'] = $this->register->_wregisters($idcard); // get register data from idcard	
 		$getData['getClinic'] = $this->register->_getClinic(); // get Clinic data
 		if($this->form_validation->run()){
-			if($this->register->_checkregistersclinic($this->input->post('selclinic'))){
+			if($this->register->_checkregistersclinic($this->input->post('selclinic'),$this->input->post('idcard'))){
 				$registers['information_id'] = $getData['information']->information_id;
 				$registers['information_idcard'] = $this->input->post('idcard');
 				$registers['registers_clinic_name'] = $this->input->post('selclinic');
