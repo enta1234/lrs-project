@@ -6,29 +6,34 @@ class Register extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->helper(array('url','html','array','date','form'));
-		$this->load->library('form_validation');
-		$this->load->model('Register_form','register');
+		$this->load->library(array('form_validation','session'));
+		$this->load->model('Register_model','register');
 	}
-
 	public function index()
 	{
-		$getData['idCard'] = "";
+		$getData['idCard'] = '';
 		$this->load->view('register/register-head',$getData);
 		$this->load->view('register/register-modal');
 		$this->load->view('register/register-form');
         $this->load->view('register/register-js');
 	}
 	// TODO..
-	public function check_idcard(){
+	public function registed(){
 		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|is_natural|callback_valid_citizen_id');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 		
 		if ($this->form_validation->run()) {
 			$idcard = $this->input->post('idcard');
-			$check = $this->register->_checkIdcard($idcard); // ger reture
+			$check = $this->register->_checkIdcard($idcard);
 			if($check){
-				$getData['idCard'] = $idcard;
-				$this->load->view('registed/registed',$getData);
+				$getData['information'] = $this->register->_getInformation($idcard); //get infomation from idcard
+				$getData['getClinic'] = $this->register->_getClinic(); // get Clinic data
+				$data_idcrad = $getData['information']->information_id; // keep information_id to data_idcrad
+				$getData['registers'] = $this->register->_wregisters($data_idcrad); // get register data from idcard
+
+				$this->session->set_userdata('getData', $getData);
+				redirect('Registed');
+				// $this->load->view('registed/registed',$getData);
 			}else{
 				$getData['getClinic'] = $this->register->_getClinic();
 				$getData['idCard'] = $idcard;
@@ -43,7 +48,6 @@ class Register extends CI_Controller {
 			$this->load->view('register/register-form');
 			$this->load->view('register/register-js');
 		}
-		
 	}
 // finis!!
 	public function formRegister(){
@@ -115,7 +119,7 @@ class Register extends CI_Controller {
 			// send to model
 			if(isset($information)){
 				$infomation_id = $this->register->_information($information);
-				// TODO Add to Register Table.
+				
 			}
 
 			// set graduated get data form post
@@ -140,42 +144,50 @@ class Register extends CI_Controller {
 			if(isset($work)){
 				$work_id = $this->register->_work($work);
 			}
-			// set government_work get data form post
-			$government_work['work_id'] = $work_id;
-			$government_work['government_work_retire_date'] = $this->input->post('retire_date');
-			$government_work['government_work_governmental_age'] = $this->input->post('governmental_age');
-			$government_work['government_work_position'] = $this->input->post('government_position');
-			$government_work['government_work_lavel'] = $this->input->post('lavel');
-			$government_work['government_work_departments'] = $this->input->post('departments');
-			$government_work['government_work_ministry'] = $this->input->post('ministry');
-			if(isset($work_id)){
-				$this->register->_government_work($government_work);
-			}
+			if($this->input->post('retire_date')!=null){
+				// set government_work get data form post
+				$government_work['work_id'] = $work_id;
+				$government_work['government_work_retire_date'] = $this->input->post('retire_date');
+				$government_work['government_work_governmental_age'] = $this->input->post('governmental_age');
+				$government_work['government_work_position'] = $this->input->post('government_position');
+				$government_work['government_work_lavel'] = $this->input->post('lavel');
+				$government_work['government_work_departments'] = $this->input->post('departments');
+				$government_work['government_work_ministry'] = $this->input->post('ministry');
 
-			// set lawyer_work get data form post
-			$lawyer_work['work_id'] = $work_id;
-			$lawyer_work['lawyer_work_lawyer_career'] = $this->input->post('lawyer_career');
-			$lawyer_work['lawyer_work_company'] = $this->input->post('company');
-			$lawyer_work['lawyer_work_company_address'] = $this->input->post('company_address');
-			$lawyer_work['lawyer_work_experiencd'] = $this->input->post('experiencd');
-			$lawyer_work['lawyer_work_past_cases'] = $this->input->post('past_cases');
-			$lawyer_work['lawyer_work_expert_cases'] = $this->input->post('expert_cases');
-			if(isset($work_id)){
-				$this->register->_lawyer_work($lawyer_work);
-			}
-			// set related_law_work get data form post
-			for($i=0;$i<5;$i++){
-				if($this->input->post('work_year['.$i.']') != ""){
-					$related_law_work['work_id'] = $work_id;
-					$related_law_work['related_law_work_year'] = $this->input->post('work_year['.$i.']');
-					$related_law_work['related_law_work_position'] = $this->input->post('work_position['.$i.']');
-					$related_law_work['related_law_work_department'] = $this->input->post('work_department['.$i.']');
-					$related_law_work['related_law_work_job'] = $this->input->post('work_job['.$i.']');
-					if(isset($work_id)){
-						$this->register->_related_law_work($lawyer_work);
-					}
+				if(isset($work_id)){
+					$this->register->_government_work($government_work);
 				}
 			}
+			if($this->input->post('lawyer_career')!=null){
+				// set lawyer_work get data form post
+				$lawyer_work['work_id'] = $work_id;
+				$lawyer_work['lawyer_work_lawyer_career'] = $this->input->post('lawyer_career');
+				$lawyer_work['lawyer_work_company'] = $this->input->post('company');
+				$lawyer_work['lawyer_work_company_address'] = $this->input->post('company_address');
+				$lawyer_work['lawyer_work_experiencd'] = $this->input->post('experiencd');
+				$lawyer_work['lawyer_work_past_cases'] = $this->input->post('past_cases');
+				$lawyer_work['lawyer_work_expert_cases'] = $this->input->post('expert_cases');
+				if(isset($work_id)){
+					$this->register->_lawyer_work($lawyer_work);
+				}
+			}
+				// set related_law_work get data form post
+				for($i=0;$i<5;$i++){
+					if($this->input->post('work_year['.$i.']')!=null){
+						$related_law_work['work_id'] = $work_id;
+						$related_law_work['related_law_work_year'] = $this->input->post('work_year['.$i.']');
+						$related_law_work['related_law_work_position'] = $this->input->post('work_position['.$i.']');
+						$related_law_work['related_law_work_department'] = $this->input->post('work_department['.$i.']');
+						$related_law_work['related_law_work_job'] = $this->input->post('work_job['.$i.']');
+
+						if(isset($work_id)){
+							$this->register->_related_law_work($related_law_work);
+						}
+					
+				}
+			}
+			
+
 			// set skill_person get data form post
 			for($i=1;$i<6;$i++){
 				if($this->input->post('skill_com_name['.$i.']') != ""){
@@ -197,7 +209,17 @@ class Register extends CI_Controller {
 					} 
 				}
 			}
-			redirect("Welcome");
+			$idcard = $this->input->post('idcard');
+			$check = $this->register->_checkIdcard($idcard);
+			if($check){
+				$getData['information'] = $this->register->_getInformation($idcard); //get infomation from idcard
+				$getData['getClinic'] = $this->register->_getClinic(); // get Clinic data
+				$data_idcrad = $getData['information']->information_id; // keep information_id to data_idcrad
+				$getData['registers'] = $this->register->_wregisters($data_idcrad); // get register data from idcard
+
+				$this->session->set_userdata('getData', $getData);
+				redirect('Registed');
+			}
 		}else{
 			$this->load->view('register/register-head');
 			$this->load->view('register/register-modal');
@@ -232,10 +254,10 @@ class Register extends CI_Controller {
 
 	public function valid_age($age){
 		if(isset($age)){
-			if($age > 70){
-				$this->form_validation->set_message('valid_age','"%s" อายุเกิน 70 ปี');
+			if($age > 70 || $age < 30){
+				$this->form_validation->set_message('valid_age','"%s" อายุไม่ผ่านเกณฑ์');
 				return false;
-			}else if($age > 69 && $age > 70){
+			}else if($age > 69 && $age < 70){
 				$this->form_validation->set_message('valid_age','"%s" ท่านจะมีอายุงาน 1 ปี');
 				return true;
 			}

@@ -1,4 +1,4 @@
-<div class="container-fluid border border-info">
+<div class="container-fluid">
   <div class="row ">
     <div class="col-2 slide-step">
         <!-- A vertical navbar -->
@@ -73,7 +73,7 @@
                                         <label >วันเกิด</label>
                                         <div class="row">
                                             <input type="text" id="birthday" name="day" class="form-control col-md-3" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
-                                            <select class="form-control selcet-2 col-md-4" name="month" id=""required>
+                                            <select class="form-control selcet-2 col-md-4" name="month" id="" required>
                                                 <option value=""> เดือน </option>
                                                 <option value="01"> มกราคม </option>
                                                 <option value="02"> กุมภาพันธ์ </option>
@@ -405,7 +405,7 @@
                     <div class="col">
                         <div class="row flip-head">
                             <div class="col">
-                                <div class="row flip">
+                                <div class="row flip flip-1">
                                     <h4>ประเภทคดีที่มีความเชียวชาญ</h4>
                                     <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
                                     <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
@@ -472,7 +472,7 @@
                         </div>
                         <div class="row flip-head">
                             <div class="col">
-                                <div class="row flip">
+                                <div class="row flip flip-2">
                                     <h4>ประกอบอาชีพรับราชการ</h4>
                                     <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
                                     <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
@@ -539,7 +539,7 @@
                         </div>
                         <div class="row flip-head">
                             <div class="col">
-                                <div class="row flip">
+                                <div class="row flip flip-3">
                                     <h4>ประกอบอาชีพทนายความ</h4>
                                     <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
                                     <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
@@ -1059,6 +1059,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="row gb-2">
                                             <!-- icon -->
                                             <!-- <div class="col-2 icon-delete ">

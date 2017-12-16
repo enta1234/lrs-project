@@ -25,6 +25,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link href="https://fonts.googleapis.com/css?family=Roboto|Trirong" rel="stylesheet">
   <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>select2/css/select2.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>select2/css/select2-bootstrap.css">
   <!-- bootstrap Table -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/bootstrap-table.css">
+  <!-- CheckBox Css -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>icheck/css/blue.css">
 </head>

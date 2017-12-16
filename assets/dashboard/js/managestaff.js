@@ -141,3 +141,4 @@ $(function () {
 window.icons = {
   export: 'fa-download'
 };
+console.log('managestaff.js');

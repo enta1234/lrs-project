@@ -154,5 +154,60 @@ class Dashboard_model extends CI_Model {
 		->update('officer');
 	}
 	/* END Manage Staff */
+
+	/* Manage Page */
+	// Add news
+	function _addnews($officer_id, $topic, $detail, $picname, $filename){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$query = $this->db->set('officer_id' , $officer_id)
+		->set('news_name', $topic)
+		->set('news_detail', $detail)
+		->set('news_file', $picname)
+		->set('news_otherfile', $filename)
+		->set('news_postdate', $now)
+		->insert('news');
+	}
+	// Add news without Files
+	function _addnewsNofile($officer_id, $topic, $detail, $picname){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$query = $this->db->set('officer_id' , $officer_id)
+		->set('news_name', $topic)
+		->set('news_detail', $detail)
+		->set('news_file', $picname)
+		->set('news_postdate', $now)
+		->insert('news');
+	}
+	// Get all news
+	function _getNewsjson(){
+		$sql = 'SELECT n.news_id, o.officer_name, n.news_name, n.news_otherfile, n.news_postdate FROM news AS n LEFT JOIN officer AS o ON n.officer_id = o.officer_id';
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/news', $data);
+	}
+	// Get news WHERE newsID
+	function _getNews($newsid){
+		$query = $this->db->where('news_id',$newsid)->get('news')->row();
+		return $query;
+	}
+	// Update Content
+	function _editNewcontent($newsid, $topic, $detail){
+		$this->db->set('news_name' , $topic)
+		->set('news_detail', $detail)
+		->where('news_id', $newsid)
+		->update('news');
+	}
+	// Update Pic
+	function _editNewpic($newsid, $picname){
+		$this->db->set('news_file' , $picname)
+		->where('news_id', $newsid)
+		->update('news');
+	}
+	//Update File
+	function _editNewfile($newsid, $filename){
+		$this->db->set('news_otherfile' , $filename)
+		->where('news_id', $newsid)
+		->update('news');
+	}
+	/* ./ Manage Page */
 }
 ?>
