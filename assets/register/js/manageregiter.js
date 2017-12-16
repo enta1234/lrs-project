@@ -1,4 +1,5 @@
-var base_url = window.location.origin+'/lrs-project';
+var base_url = window.location.origin;
+// var base_url = window.location.origin+'/lrs-project';
 $(function () {
     $('#table').bootstrapTable({
         url: base_url+'/Registed/getregisters',
