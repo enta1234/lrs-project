@@ -43,6 +43,24 @@ class Dashboard_model extends CI_Model {
 		->set('officer_lastLogout' , $now)
 		->update('officer');
 	}
+	/* Count All main page */
+	function _countStaff(){
+		$result =	$this->db->count_all_results('officer');
+		return $result;
+	}
+	function _countLawyer(){
+		$result =	$this->db->count_all_results('lawyer');
+		return $result;
+	}
+	function _countLawyer70(){
+		$result =	$this->db->count_all_results('lawyer');
+		return $result;
+	}
+	function _countRegister(){
+		$result =	$this->db->count_all_results('registers');
+		return $result;
+	}
+	/* ./Count All main page */
 
 	/* Edit Profile */
 	// Update Avata
@@ -133,7 +151,7 @@ class Dashboard_model extends CI_Model {
 		$query = $this->db->join('clinic','clinic.clinic_id = officer.clinic_id','LEFT')->where('area_id',$area)->get('officer')->result_array();
 		$data['data'] = json_encode($query);
 		$this->load->view('dashboard/home/content/json/officer', $data);
-	}
+	}	
 	// Delete Staff
 	function _staffDelete($officerID){
 		$this->db->where('officer_id',$officerID)->delete('officer');
@@ -209,5 +227,58 @@ class Dashboard_model extends CI_Model {
 		->update('news');
 	}
 	/* ./ Manage Page */
+
+	/* Manage Register */
+	// Get all news JSON
+	function _getRegisterjson(){
+		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber, registers.registers_clinic_name,
+				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
+				FROM registers 
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN works ON works.information_id = information.information_id
+				LEFT JOIN clinic ON works.clinic_id = clinic.clinic_id
+				WHERE registers.registers_status != 'ผ่าน'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/register', $data);
+	}
+	// Delete Staff
+	function _registerfail($registerid){
+		$this->db->set('registers_status', 'ไม่ผ่าน')
+		->where('registers_id',$registerid)
+		->update('registers');
+	}
+	// Delete Staff
+	function _registerpass($registerid,$banstatus,$idcard){
+		// Upddate Status
+		$this->db->set('registers_status', 'ผ่าน')
+		->where('registers_id',$registerid)
+		->update('registers');
+		// Insert lawyer
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$year = substr($now, 0, 4);
+		$datestart = $year.'-10-01';
+		$dateexp = ($year+2).'-10-01';
+		if ($banstatus == 'เคย') {
+			$max = $this->db->select_max('lawyer_id')->where('information_idcard', $idcard)->get('lawyer')->row();
+			$bandetail = $this->db->select('lawyer_ban_detail')->where('lawyer_id', $max->lawyer_id)->get('lawyer')->row();
+			$bandetail = $bandetail->lawyer_ban_detail;
+		}else{
+			if ($banstatus == '-') {
+				$banstatus = 'ไม่เคย';
+			}
+			$bandetail = '-';
+		}
+		$this->db->set('registers_id', $registerid)
+		->set('lawyer_ban_status', $banstatus)
+		->set('lawyer_ban_detail', $bandetail)
+		->set('information_idcard', $idcard)
+		->set('lawyer_date_approve', $now)
+		->set('lawyer_date_start', $datestart)
+		->set('lawyer_date_exp', $dateexp)
+		->insert('lawyer');
+	}
+	/* ./Manage Register */
 }
 ?>
