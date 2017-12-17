@@ -20,7 +20,7 @@
                     <hr>
                     <h2 class="txt-name"><?= $newsshow->news_name;?></h2>
                     <p>
-                        <a href=""><?= $newsshow->news_name; ?></a>
+                        <a href=""><?= $newsshow->officer_name; ?></a>
                         <i class="far fa-clock icon"></i>
                         <time><?= $newsshow->news_postdate;?></time>
                     </p>
@@ -37,7 +37,7 @@
                                     <embed src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" width="100%" height="900px" />
                                 <?php }elseif(strchr($newsshow->news_otherfile,".")==".zip"){ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
-                                    <button type="button" class="btn btn-primary" >ดาวน์โหลดเอกสารแนบ</button>
+                                    <a href="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" class="btn btn-primary" >ดาวน์โหลดเอกสารแนบ</a>
                                 <?php }elseif(strchr($newsshow->news_otherfile,".")==".gif"){ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <img src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" alt="">
