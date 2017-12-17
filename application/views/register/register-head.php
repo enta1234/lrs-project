@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="assets/images/rlpd-logo-125x140.png" type="image/x-icon">
+    <link rel="shortcut icon" href="<?php echo base_url('assets/images/'); ?>rlpd-logo-125x140.png" type="image/x-icon">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>สมัครสมาชิก</title>
 	<!-- Font Awesome -->

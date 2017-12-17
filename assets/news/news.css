@@ -1,0 +1,88 @@
+@import url(https://fonts.googleapis.com/css?family=Trirong:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i);
+
+html, body{
+    font-family: 'Trirong', serif;
+    font-style: normal;
+    line-height: 1.5;
+    margin: 0;
+    height:100%;
+    width:100%;
+    padding:0;
+    position: relative;
+}
+p{
+    margin-top: 25px;
+}
+img{
+    width: 100%;
+    height: auto;
+}
+.txt-name{
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+.icon{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.tab-content {
+	display:block;
+	overflow:hidden;
+	margin:0 0 4em 0;
+}
+
+.tab-content ol {
+    list-style:none; 
+    margin:0;
+}
+
+.tab-content li {
+    border-bottom:1px solid #fff;
+    padding:4px;
+    margin:2px;
+}
+ol {
+    display: block;
+    padding: 0 0 0 26px;
+    list-style: none;
+    overflow: hidden;
+    counter-reset: numList;
+}
+ol li {
+    margin-left: 10px;
+    position: relative
+}
+ol li:before {
+    counter-increment: numList;
+    content: counter(numList);
+    
+    float: left;
+    position: absolute;
+    left: -26px;
+    /* margin-left: 20px; */
+    
+    font: 30px;
+    text-align: center;
+    color: #fff;
+    line-height: 30px;
+    
+    width: 30px; height: 30px;
+    background: rgb(204, 204, 204);
+    
+    /* -moz-border-radius: 999px; */
+    border-radius: 999px
+}
+.tab-content a:link, .tab-content a:visited {
+    color: #444; 
+    display:block; 
+    border-bottom:1px solid #666; 
+    text-decoration:none; 
+    padding: .3em .25em;
+}
+.tab-content a:hover{
+    color: rgb(89, 245, 232); 
+    display:block; 
+    border-bottom:1px solid #666; 
+    text-decoration:none; 
+    padding: .3em .25em;
+}
