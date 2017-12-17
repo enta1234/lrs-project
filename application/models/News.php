@@ -20,7 +20,8 @@ class news extends CI_Model {
         return $query->row();
     }
     public function _getNewsById($id){
-        $row = $this->db->where('news_id', $id)->get('news')->row();
+        $row = $this->db->query('SELECT news.news_id, officer.officer_name, news.news_name, news_detail, news_file, news_otherfile, news_postdate FROM news LEFT JOIN officer ON news.officer_id = officer.officer_id
+        WHERE news.news_id ='.$id)->row();
         return $row;
     }
     
