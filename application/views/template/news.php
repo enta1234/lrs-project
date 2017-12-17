@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col align-left mbr-figure">
             <div class="row mbr-figure">
-                <a class="img-news-div align-middle" href="">
-                    <img class="img-news" src="<?= $getNewsTop->news_file; ?>" alt="Img1">
+                <a class="img-news-div align-middle" target="_blank" href="<?= base_url('welcome/news/').$getNewsTop->news_id.'/'.$getNewsTop->news_name.'/'.$getNewsTop->news_postdate; ?>"> 
+                    <img class="img-news" src="<?= base_url('assets/upload/news/pic/').$getNewsTop->news_file; ?>" alt="Img1">
                     <p class="col-3 display-2 pt-2 align-center date-text " id="date-news">
                     <?php 
                         $date = mysql_to_unix($getNewsTop->news_postdate);
@@ -30,14 +30,14 @@
             <div class="col mbr-fonts-style display-5 content-news-div">
                 <?php 
                     foreach($getNews as $n){ ?>
-                        <a href=""><p id='<?= $n->news_id ?>'> <?php echo $n->news_name ?></p></a><hr>
+                        <a target="_blank" href="<?= base_url('welcome/news/').$n->news_id.'/'.$n->news_name.'/'.$n->news_postdate; ?>"><p id='<?= $n->news_id ?>'> <?php echo $n->news_name ?></p></a><hr>
                         <!-- start hover -->
                             <script>
-
                                 $( "p#<?php echo $n->news_id ?>" ).hover(
                                     function() 
                                     {
-                                        $('.img-news').attr('src','<?= $n->news_file ?>');
+                                        $('.img-news').attr('src','<?=base_url('assets/upload/news/pic/').$n->news_file; ?>');
+                                        $('.img-news').attr('href','<?= base_url('welcome/news/').$n->news_id.'/'.$n->news_name.'/'.$n->news_postdate; ?>');
                                         $('h4#cont-news').text('<?= $n->news_name ?>');    
                                         $('p#date-news').text('<?php 
                                             $date = mysql_to_unix($n->news_postdate);

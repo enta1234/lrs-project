@@ -19,5 +19,9 @@ class news extends CI_Model {
         $query = $this->db->get(); 
         return $query->row();
     }
+    public function _getNewsById($id){
+        $row = $this->db->where('news_id', $id)->get('news')->row();
+        return $row;
+    }
     
 }
