@@ -14,8 +14,8 @@ class Welcome extends CI_Controller {
 	{
 		$data = array(
 			'title' => 'หน้าแรก',
-			'titleRegister' => 'สมัครเป็นที่ปรึกษาทางกฏหมายได้ทีนี่',
-			'titleRegisterSub' => 'Full screen intro with background image, color overlay and icons',
+			'titleRegister' => 'สมัครเป็นที่ปรึกษาทางกฏหมายได้ที่นี่',
+			'titleRegisterSub' => '',
 			'register' => 'สมัคร',
 			'news' => 'ข่าวสาร',
 			'lastnews' => 'ข่าวสารล่าสุด',

@@ -100,4 +100,8 @@ window.actionEvents = {
     'click .print': function (e, value, row, index) {
         window.print();
     }
+   
 };
+window.icons = {
+        export: 'fa-refresh'
+      };

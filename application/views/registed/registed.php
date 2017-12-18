@@ -29,7 +29,10 @@
                 <!-- Links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <!-- <a class="active nav-link page-scroll" href="#section1"><i class="fa fa-address-book-o fa-2x" aria-hidden="true"></i></a> -->
+                        <a class="nav-link" href="<?= base_url('registed/editregister/'.$information->information_idcard.'/'.$information->information_name.'/'.$information->information_lastname); ?>"><i class="far fa-edit fa-3x" aria-hidden="true"></i>แก้ไข</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url(); ?>"><i class="fas fa-home fa-3x" aria-hidden="true"></i>หน้าแรก</a>
                     </li>
                 </ul>
             </nav>
@@ -63,7 +66,7 @@
                         ></table>
                     </div>
                 </div>
-                <div class="row form-body">
+                <div class="row form-body form-register-clinic">
                     <div class="col form-comf border border-info">
                         <section>
                             <div class="row ">
@@ -85,7 +88,7 @@
                                 <div class="col-4">
                                 <?= form_open('Registed/confirmRegister'); ?>
                                     <input type="hidden" name="idcard" value="<?= $information->information_idcard ?>" />
-                                    <select name="selclinic" class="form-control selcet-2" require id="selectClinic">
+                                    <select name="selclinic" class="form-control selcet-2" require id="selectClinic" required>
                                         <option value="">---- กรุณาเลือก -----</option>
                                         <?php
                                             foreach($getClinic as $clinic){
@@ -102,13 +105,6 @@
                         </section>
                     </div>
                 </div>
-                <section class=" for-btn top">
-                    <div class="row">
-                        <div class="col-10 spac-left btn-back">
-                            <button type="reset"  class="btn btn-default roud" onclick="location.href = '<?= base_url(); ?>';">กลับ</button>
-                        </div>
-                    </div>
-                </section>
             </section>
         </div>
     </div>

@@ -26,11 +26,12 @@
             </div>
         </div>
     <div class="col">
+    <h2 class="display-6" style="margin-left:20px">หัวข้อข่าวสาร</h2>
         <dir class="row">
             <div class="col mbr-fonts-style display-5 content-news-div">
                 <?php 
                     foreach($getNews as $n){ ?>
-                        <a target="_blank" href="<?= base_url('welcome/news/').$n->news_id.'/'.$n->news_name.'/'.$n->news_postdate; ?>"><p id='<?= $n->news_id ?>'> <?php echo $n->news_name ?></p></a><hr>
+                        <a class="display-5" target="_blank" href="<?= base_url('welcome/news/').$n->news_id.'/'.$n->news_name.'/'.$n->news_postdate; ?>"><p id='<?= $n->news_id ?>'> <?php echo $n->news_name ?></p></a><hr>
                         <!-- start hover -->
                             <script>
                                 $( "p#<?php echo $n->news_id ?>" ).hover(

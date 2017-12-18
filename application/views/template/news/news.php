@@ -35,15 +35,10 @@
                                 <?php if(strchr($newsshow->news_otherfile,".")==".pdf"){ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <embed src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" width="100%" height="900px" />
-                                <?php }elseif(strchr($newsshow->news_otherfile,".")==".zip"){ ?>
+                                <?php }else{ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <a href="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" class="btn btn-primary" >ดาวน์โหลดเอกสารแนบ</a>
-                                <?php }elseif(strchr($newsshow->news_otherfile,".")==".gif"){ ?>
-                                    <h4>เอกสารที่เกี่ยวข้อง</h4>
-                                    <img src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" alt="">
-                                <?php }else{ ?>
-                                    <img src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" alt="">
-                                <?php } ?>
+                                <?php }?>
                             </article>    
                         </div>
                         <!-- nav -->

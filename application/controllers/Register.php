@@ -95,7 +95,7 @@ class Register extends CI_Controller {
 
 		if ($this->form_validation->run()) {
 			// set information get data form post
-			$information['information_name'] = $this->input->post('name');
+			$information['information_name'] = $this->input->post('afname').$this->input->post('name');
 			$information['information_lastname'] = $this->input->post('lastname');
 			$day = $this->input->post('day');
 			$month = $this->input->post('month');
@@ -154,7 +154,7 @@ class Register extends CI_Controller {
 				$government_work['government_work_departments'] = $this->input->post('departments');
 				$government_work['government_work_ministry'] = $this->input->post('ministry');
 
-				if(isset($work_id)){
+				if(isset($government_work)){
 					$this->register->_government_work($government_work);
 				}
 			}
@@ -167,48 +167,75 @@ class Register extends CI_Controller {
 				$lawyer_work['lawyer_work_experiencd'] = $this->input->post('experiencd');
 				$lawyer_work['lawyer_work_past_cases'] = $this->input->post('past_cases');
 				$lawyer_work['lawyer_work_expert_cases'] = $this->input->post('expert_cases');
-				if(isset($work_id)){
+				if(isset($lawyer_work)){
 					$this->register->_lawyer_work($lawyer_work);
 				}
 			}
 				// set related_law_work get data form post
-				for($i=0;$i<5;$i++){
-					if($this->input->post('work_year['.$i.']')!=null){
-						$related_law_work['work_id'] = $work_id;
-						$related_law_work['related_law_work_year'] = $this->input->post('work_year['.$i.']');
-						$related_law_work['related_law_work_position'] = $this->input->post('work_position['.$i.']');
-						$related_law_work['related_law_work_department'] = $this->input->post('work_department['.$i.']');
-						$related_law_work['related_law_work_job'] = $this->input->post('work_job['.$i.']');
+			if($this->input->post('work_year0')!=null){
+				$related_law_work['work_id'] = $work_id;
+				$related_law_work['related_law_work_year0'] = $this->input->post('work_year[0]');
+				$related_law_work['related_law_work_position0'] = $this->input->post('work_position[0]');
+				$related_law_work['related_law_work_department0'] = $this->input->post('work_department[0]');
+				$related_law_work['related_law_work_job0'] = $this->input->post('work_job[0]');
+				$related_law_work['related_law_work_year1'] = $this->input->post('work_year[1]');
+				$related_law_work['related_law_work_position1'] = $this->input->post('work_position[1]');
+				$related_law_work['related_law_work_department1'] = $this->input->post('work_department[1]');
+				$related_law_work['related_law_work_job1'] = $this->input->post('work_job[1]');
+				$related_law_work['related_law_work_year2'] = $this->input->post('work_year[2]');
+				$related_law_work['related_law_work_position2'] = $this->input->post('work_position[2]');
+				$related_law_work['related_law_work_department2'] = $this->input->post('work_department[2]');
+				$related_law_work['related_law_work_job2'] = $this->input->post('work_job[2]');
+				$related_law_work['related_law_work_year3'] = $this->input->post('work_year[3]');
+				$related_law_work['related_law_work_position3'] = $this->input->post('work_position[3]');
+				$related_law_work['related_law_work_department3'] = $this->input->post('work_department[3]');
+				$related_law_work['related_law_work_job3'] = $this->input->post('work_job[3]');
+				$related_law_work['related_law_work_year4'] = $this->input->post('work_year[4]');
+				$related_law_work['related_law_work_position4'] = $this->input->post('work_position[4]');
+				$related_law_work['related_law_work_department4'] = $this->input->post('work_department[4]');
+				$related_law_work['related_law_work_job4'] = $this->input->post('work_job[4]');
 
-						if(isset($work_id)){
-							$this->register->_related_law_work($related_law_work);
-						}
-					
+				if(isset($related_law_work)){
+					$this->register->_related_law_work($related_law_work);
 				}
+					
 			}
 			
-
 			// set skill_person get data form post
-			for($i=1;$i<6;$i++){
-				if($this->input->post('skill_com_name['.$i.']') != ""){
-					$skill_person['information_id'] = $infomation_id;
-					$skill_person['skill_person_name'] = $this->input->post('skill_com_name['.$i.']');
-					$skill_person['skill_person_level'] = $this->input->post('skill_com_level['.$i.']');
-					$skill_person['skill_person_type'] = "การใช้คอมพิวเตอร์และสื่ออิเล็กทรอนิกส์";
-					if(isset($infomation_id)){
-						$this->register->_skill_person($skill_person);
-					} 
-				}
-				if($this->input->post('skill_lan_name['.$i.']') != ""){
-					$skill_person['information_id'] = $infomation_id;
-					$skill_person['skill_person_name'] = $this->input->post('skill_lan_name['.$i.']');
-					$skill_person['skill_person_level'] = $this->input->post('skill_lan_level['.$i.']');
-					$skill_person['skill_person_type'] = "ความสามารถด้านภาษาต่างประเทศ";
-					if(isset($infomation_id)){
-						$this->register->_skill_person($skill_person);
-					} 
+			if($this->input->post('skill_com_name1') != ""){
+				$skill_person['information_id'] = $infomation_id;
+				$skill_person['skill_person_com_name0'] = $this->input->post('skill_com_name[1]');
+				$skill_person['skill_person_com_level0'] = $this->input->post('skill_com_level[1]');
+				$skill_person['skill_person_com_name1'] = $this->input->post('skill_com_name[2]');
+				$skill_person['skill_person_com_level1'] = $this->input->post('skill_com_level[2]');
+				$skill_person['skill_person_com_name2'] = $this->input->post('skill_com_name[3]');
+				$skill_person['skill_person_com_level2'] = $this->input->post('skill_com_level[3]');
+				$skill_person['skill_person_com_name3'] = $this->input->post('skill_com_name[4]');
+				$skill_person['skill_person_com_level3'] = $this->input->post('skill_com_level[4]');
+				$skill_person['skill_person_com_name4'] = $this->input->post('skill_com_name[5]');
+				$skill_person['skill_person_com_level4'] = $this->input->post('skill_com_level[5]');
+				if(isset($skill_person)){
+					$this->register->_skill_person_com($skill_person);
 				}
 			}
+				
+			if($this->input->post('skill_lan_name0') != ""){
+				$skill_person['information_id'] = $infomation_id;
+				$skill_person['skill_person_lan_name0'] = $this->input->post('skill_lan_name[1]');
+				$skill_person['skill_person_lan_level0'] = $this->input->post('skill_lan_level[1]');
+				$skill_person['skill_person_lan_name1'] = $this->input->post('skill_lan_name[2]');
+				$skill_person['skill_person_lan_level1'] = $this->input->post('skill_lan_level[2]');
+				$skill_person['skill_person_lan_name2'] = $this->input->post('skill_lan_name[3]');
+				$skill_person['skill_person_lan_level2'] = $this->input->post('skill_lan_level[3]');
+				$skill_person['skill_person_lan_name3'] = $this->input->post('skill_lan_name[4]');
+				$skill_person['skill_person_lan_level3'] = $this->input->post('skill_lan_level[4]');
+				$skill_person['skill_person_lan_name4'] = $this->input->post('skill_lan_name[5]');
+				$skill_person['skill_person_lan_level4'] = $this->input->post('skill_lan_level[5]');
+			if(isset($skill_person)){
+				$this->register->_skill_person_lan($skill_person);
+				} 
+			}
+			// goto new page
 			$idcard = $this->input->post('idcard');
 			$check = $this->register->_checkIdcard($idcard);
 			if($check){
@@ -216,7 +243,6 @@ class Register extends CI_Controller {
 				$getData['getClinic'] = $this->register->_getClinic(); // get Clinic data
 				$data_idcrad = $getData['information']->information_id; // keep information_id to data_idcrad
 				$getData['registers'] = $this->register->_wregisters($data_idcrad); // get register data from idcard
-
 				$this->session->set_userdata('getData', $getData);
 				redirect('Registed');
 			}

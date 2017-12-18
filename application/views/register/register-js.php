@@ -1,4 +1,5 @@
 <script>
+    $('#formregiter').validator()
     // auto show modal
     $(window).on('load',function(){
         $('#myModal').modal('show');

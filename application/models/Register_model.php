@@ -46,8 +46,11 @@ class Register_model extends CI_Model {
 	function _related_law_work($related_law_work){
 		$this->db->insert('related_law_work', $related_law_work);
 	}
-	function _skill_person($skill_person){
-		$this->db->insert('skill_person', $skill_person);
+	function _skill_person_com($skill_person){
+		$this->db->insert('skill_person_com', $skill_person);
+	}
+	function _skill_person_lan($skill_person){
+		$this->db->insert('skill_person_language', $skill_person);
 	}
 	function _getInformation($idcard){
 		$row =	$this->db->where('information_idcard', $idcard)->get('information')->row();
@@ -100,5 +103,34 @@ class Register_model extends CI_Model {
 		$query = $this->db->query($sql)->result_array();
 		$data2['data'] = json_encode($query);
 		$this->load->view('registed/json/registed', $data2);
+	}
+	// get infprmation_id
+	function _getInformation_id($idcard){
+		return $this->db->select('information_id')->where('information_idcard',$idcard)->get('information')->row();
+	}
+	// getinformation
+	function _getAllInformation($idcard){
+		if(isset($idcard)){
+			return $this->db
+			->query('SELECT * 
+				FROM information
+				LEFT JOIN works ON information.information_id = works.information_id
+				LEFT JOIN graduated ON information.information_id = graduated.information_id
+				LEFT JOIN skill_person_com ON information.information_id = skill_person_com.information_id
+				LEFT JOIN skill_person_language ON information.information_id = skill_person_language.information_id
+				LEFT JOIN government_work ON works.work_id = government_work.work_id
+				LEFT JOIN lawyer_work ON works.work_id = lawyer_work.work_id
+				LEFT JOIN related_law_work ON works.work_id = related_law_work.work_id
+				WHERE information.information_idcard ='.$idcard)
+			->row();
+		}else{
+			redirect('register');
+		}
+	}
+	// update
+	function _updateInformation($data, $idcard){
+		$this->db->set($data);
+		$this->db->where($idcard);
+		$this->db->update('information'); // gives UPDATE mytable SET field = field+1 WHERE id = 2
 	}
 }

@@ -8,14 +8,6 @@ class Registed extends CI_Controller {
 		$this->load->helper(array('url','html','array','date','form'));
 		$this->load->library(array('form_validation','session'));
 		$this->load->model('Register_model','register');
-
-	}
-	private $data;
-	function setdata($data){
-		$data = $data;
-	}
-	function getdata(){
-		return $this->data;
 	}
 	public function index()
 	{
@@ -39,8 +31,6 @@ class Registed extends CI_Controller {
 		}else{
 			$this->register->_getregisters();
 		}
-		
-
 	}
 	function confirmRegister(){
 		$this->form_validation->set_rules('selclinic', 'คลินิก', 'required');
@@ -70,9 +60,23 @@ class Registed extends CI_Controller {
 			redirect('registed');
 		}
 	}
+	// del
 	function delregister(){
 		$data = json_decode($this->input->post('data'),true);
 		$registers_id = $data['registers_id'];
 		$this->register->_dregisters($registers_id);
+	}
+	// edit
+	function editregister($idcard, $name, $lname){
+		if($idcard!=null && $name!=null && $lname!=null){
+			$data['id'] = $this->register->_getInformation_id($idcard);
+			$data['getedit'] = $this->register->_getAllInformation($idcard);
+			$this->load->view('registed/editregister',$data);
+		}else{
+			redirect('register');
+		}
+	}
+	function updateregister($idcard, $name, $lname){
+		
 	}
 }
