@@ -10,11 +10,9 @@
         $zipcode: $('[name="zipcode"]'),
 
         onDataFill: function(data){
-            console.info('Data Filled', data);
         },
 
         onLoad: function(){
-            console.info('Autocomplete is ready!');
             $('#loader, .demo').toggle();
         }
     });
@@ -22,16 +20,12 @@
     // watch on change
 
     $('[name="district"]').change(function(){
-        console.log('ตำบล', this.value);
     });
     $('[name="amphoe"]').change(function(){
-        console.log('อำเภอ', this.value);
     });
     $('[name="province"]').change(function(){
-        console.log('จังหวัด', this.value);
     });
     $('[name="zipcode"]').change(function(){
-        console.log('รหัสไปรษณีย์', this.value);
     });
 
     $('#formregiter').validator()
