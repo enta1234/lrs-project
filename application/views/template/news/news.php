@@ -30,20 +30,18 @@
                         <!-- content -->
                         <div class="col-8">
                             <article>
-                                <img src="<?= base_url('assets/upload/news/pic/').$newsshow->news_file; ?>" alt="">
-                                <p><?= $newsshow->news_detail;?></p>
+                                <!-- img -->
+                                <img src="<?= base_url('assets/upload/news/pic/').$newsshow->news_file; ?>" alt=""><br>
+                                <!-- content -->
+                                <?= $newsshow->news_detail;?>
+                                <!-- file -->
                                 <?php if(strchr($newsshow->news_otherfile,".")==".pdf"){ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <embed src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" width="100%" height="900px" />
-                                <?php }elseif(strchr($newsshow->news_otherfile,".")==".zip"){ ?>
+                                <?php }else{ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <a href="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" class="btn btn-primary" >ดาวน์โหลดเอกสารแนบ</a>
-                                <?php }elseif(strchr($newsshow->news_otherfile,".")==".gif"){ ?>
-                                    <h4>เอกสารที่เกี่ยวข้อง</h4>
-                                    <img src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" alt="">
-                                <?php }else{ ?>
-                                    <img src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" alt="">
-                                <?php } ?>
+                                <?php }?>
                             </article>    
                         </div>
                         <!-- nav -->
@@ -82,7 +80,6 @@
 <!-- Font Awesome -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
 <!-- <script type="text/javascript" src="js/SmoothScroll.js"></script>  -->
-<script src="<?php echo base_url('assets/register/'); ?>js/register-js.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 <!-- customJS -->
 </body>

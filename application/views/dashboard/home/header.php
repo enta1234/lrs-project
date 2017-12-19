@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>bootstrap/css/bootstrap.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/ba567eae7a.css">
+  <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script> -->
   <!-- Ionicons -->
   <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- materializecss Icon -->

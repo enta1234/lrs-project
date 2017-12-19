@@ -1,4 +1,3 @@
-
 <div class="modal fade" id="myModal" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog">
     <div class="modal-content">
