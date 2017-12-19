@@ -9,6 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>bootstrap/css/bootstrap.css">
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/rlpd-logo-125x140.png" type="image/x-icon">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/ba567eae7a.css">
   <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script> -->

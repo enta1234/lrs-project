@@ -43,14 +43,14 @@ $(function () {
             align: 'center',
             width: '5%'
         }, {
-            field: 'registers_clinic_name',
+            field: 'clinic_name',
             title: 'คลินิกที่สมัคร',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
             width: '25%'
         }, {
-            field: 'clinic_name',
+            field: 'ever_clinic_name',
             title: 'เคยเป็นที่ปรึกษาที่',
             sortable: 'true',
             valign: 'middle',

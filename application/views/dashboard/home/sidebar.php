@@ -36,7 +36,19 @@
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="<?php echo $ac_home; ?>" ><a href="<?php echo base_url() ?>Dashboard/home"><i class="fa fa-tachometer fa-lg"></i><span><?php echo nbs(2); ?>Dashboard</span></a></li>
-        <li><a href="#"><i class="fa fa-address-book-o fa-lg"></i> <span><?php echo nbs(2); ?>จัดการที่ปรึกษา</span></a></li>
+        <li class="treeview <?php echo $ac_addnews.$ac_news; ?>">
+          <a href="">
+            <i class="fa fa-address-book-o fa-lg"></i> 
+            <span><?php echo nbs(2); ?>จัดการที่ปรึกษา</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><?php echo anchor('Dashboard/#','ที่ปรึกษาปัจจุบัน'); ?></li>
+            <li><?php echo anchor('Dashboard/#','ที่ปรึกษาอายุใกล้ถึง 70 ปี'); ?></li>
+          </ul>
+        </li>
         <li class="<?php echo $ac_register; ?>"><a href="<?php echo base_url() ?>Dashboard/register"><i class="fa fa-user fa-lg"></i> <span><?php echo nbs(2); ?>จัดการผู้สมัคร</span></a></li>
         <li class="treeview <?php echo $ac_addnews.$ac_news; ?>">
           <a href="">
