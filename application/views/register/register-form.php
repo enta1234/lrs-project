@@ -103,7 +103,7 @@
                                             <select class="form-control selcet-2 col-md-3 " name="year" id="year" onchange="submitBday()"  required>
                                                 <option value="">- ปี -</option>
                                                 <?php
-                                                    for($i=2490;$i<2561;$i++){
+                                                    for($i = ((date('Y')+543)-69) ; $i < (date('Y')+543)-29; $i++){
                                                         echo '<option value="'.$i.'">'.$i.'</option>';
                                                     }
                                                 ?>
@@ -211,13 +211,13 @@
                                 <div class="col-5">
                                     <div class="form-group">
                                         <label>ตำบล / แขวง</label>
-                                        <input name="district" class="form-control" type="text" required>
+                                        <input name="district" class="form-control" type="text" placeholder="แขวง / ตําบล" required>
                                     </div>
                                 </div>
                                 <div class="col-5">
                                     <div class="form-group">
                                         <label>เขต / อําเภอ</label>
-                                        <input name="amphoe" class="form-control" type="text" required>
+                                        <input name="amphoe" class="form-control" type="text" placeholder="เขต / อําเภอ" required>
                                     </div>
                                 </div>
                             <!-- end row 1 -->
@@ -232,13 +232,13 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>จังหวัด</label>
-                                        <input name="province" class="form-control" type="text" required>
+                                        <input name="province" class="form-control" type="text" placeholder="จังหวัด" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>รหัสไปรษณีย์</label>
-                                        <input name="zipcode" class="form-control" type="text" required>
+                                        <input name="zipcode" class="form-control" type="text" placeholder="รหัสไปรษณีย์" required>
                                     </div>
                                 </div>
                                 <!-- end row 1 -->
@@ -421,408 +421,408 @@
                 </div>
                 <!-- row 2 -->
                 <div class="row">
-                    <div class="col">
-                        <h4 class="display-5 topic-a">กรุณาระบุประสบการณ์ด้านการทํางาน (เลือกเพียงข้อเดียว)</h4>
-                        <p>(ด้านกฏหมายหรือ ด้านคดีในหน่วยงานของรัฐหรือ รัฐวิสาหกิจหรือ องค์กรอิสระตามรัฐธรรมนูญหรือ หน่วยงานเอกชนแล้วไม่น้อยกว่า 10 ปี) </p>
-                    </div>
+                <div class="col">
+                    <h4 class="display-5 topic-a">กรุณาระบุประสบการณ์ด้านการทํางาน (เลือกเพียงข้อเดียว)</h4>
+                    <p>(ด้านกฏหมายหรือ ด้านคดีในหน่วยงานของรัฐหรือ รัฐวิสาหกิจหรือ องค์กรอิสระตามรัฐธรรมนูญหรือ หน่วยงานเอกชนแล้วไม่น้อยกว่า 10 ปี) </p>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row flip-head">
-                            <div class="col">
-                                <div class="row flip flip-1">
-                                    <h4>ประเภทคดีที่มีความเชียวชาญ</h4>
-                                    <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
-                                    <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="row flip-head">
+                        <div class="col">
+                            <div class="row flip flip-1">
+                                <h4>ประเภทคดีที่มีความเชียวชาญ</h4>
+                                <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
+                                <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
+                            </div>
+                            <div class="row panel">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                                <div class="row">
+                                                    <label class="same-line-label">ประเภทอาชีพทนาย</label>
+                                                    <input type="text" id="lawyer_career" name="lawyer_career" class="form-control col" placeholder="ประเภทอาชีพทนาย" maxlength="45" disabled>
+                                                </div>
+                                        </div>
+                                        <div class="col">
+                                                <div class="row">
+                                                    <label class="same-line-label">ชื่อสํานักงาน </label>
+                                                    <input type="text" id="company" name="company" class="form-control col" placeholder="ชื่อสํานักงาน" maxlength="45" disabled>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col">
+                                            <label>ที่อยู่ </label>
+                                            <input type="text" id="company_address" name="company_address" class="form-control" placeholder="ที่อยู่เลขที่" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label>ประสบการณ์เป็นทนายมาแล้วกี่ปี</label>
+                                                </div>
+                                                <div class="row ">
+                                                    <input type="text" id="experiencd" name="experiencd" placeholder="เช่น 20" class="form-control col-5" pattern="\d*" maxlength="2" disabled>
+                                                    <label class="same-line-label"> ปี </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col ">
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label>เคยว่าความมาแล้วกี่คดี</label>
+                                                </div>
+                                                <div class="row">
+                                                    <input type="text" id="past_cases" name="past_cases" placeholder="เช่น 70" class="form-control col-5" pattern="\d*" maxlength="5" disabled>
+                                                    <label class="same-line-label"> คดี </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col ">
+                                            <div class="form-group">
+                                                <label>ประเภทคดีที่มีความเชี่ยวชาญ</label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <input type="text" id="expert_cases" name="expert_cases" class="form-control " placeholder="ประเภทคดี" maxlength="45" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row panel">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col">
-                                                    <div class="row">
-                                                        <label class="same-line-label">ประเภทอาชีพทนาย</label>
-                                                        <input type="text" name="lawyer_career" class="form-control col" placeholder="ประเภทอาชีพทนาย" maxlength="45">
-                                                    </div>
-                                            </div>
-                                            <div class="col">
-                                                    <div class="row">
-                                                        <label class="same-line-label">ชื่อสํานักงาน </label>
-                                                        <input type="text" name="company" class="form-control col" placeholder="ชื่อสํานักงาน" maxlength="45">
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col">
-                                                <label>ที่อยู่ </label>
-                                                <input type="text" name="company_address" class="form-control" placeholder="ที่อยู่เลขที่">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <label>ประสบการณ์เป็นทนายมาแล้วกี่ปี</label>
-                                                    </div>
-                                                    <div class="row ">
-                                                        <input type="text" name="experiencd" placeholder="เช่น 20" class="form-control col-5" pattern="\d*" maxlength="2">
-                                                        <label class="same-line-label"> ปี </label>
-                                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row flip-head">
+                        <div class="col">
+                            <div class="row flip flip-2">
+                                <h4>ประกอบอาชีพรับราชการ</h4>
+                                <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
+                                <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
+                            </div>
+                            <div class="row panel">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>เกษียณอายุ</label>
+                                                <div class="row ">
+                                                    <input type="text" id="retire_date" name="retire_date" placeholder="เช่น 2560" class="form-control col-5" pattern="\d*" maxlength="2" disabled>
+                                                    <label class="same-line-label"> ปี </label>
                                                 </div>
                                             </div>
-                                            <div class="col ">
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <label>เคยว่าความมาแล้วกี่คดี</label>
-                                                    </div>
-                                                    <div class="row">
-                                                        <input type="text" name="past_cases" placeholder="เช่น 70" class="form-control col-5" pattern="\d*" maxlength="5">
-                                                        <label class="same-line-label"> คดี </label>
-                                                    </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>รวมอายุราชการ</label>
+                                                <div class="row ">
+                                                    <input type="text" id="governmental_age" name="governmental_age" placeholder="เช่น 40" class="form-control col-5" pattern="\d*" maxlength="2" disabled>
+                                                    <label class="same-line-label"> ปี </label>
                                                 </div>
                                             </div>
-                                            <div class="col ">
-                                                <div class="form-group">
-                                                    <label>ประเภทคดีที่มีความเชี่ยวชาญ</label>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>เกษียณอายุราชการในตําแหน่ง</label>
+                                                <div class="row ">
+                                                    <input type="text" id="government_position" name="government_position" class="form-control" placeholder="ตำแหน่งที่เกษียณอายุราชการ" maxlength="45" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>ระดับ</label>
+                                                <div class="row ">
+                                                    <input type="text" id="lavel" name="lavel" class="form-control col-6" placeholder="เช่น 4, 5, 7" pattern="\d*" maxlength="2" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>สังกัดกรม</label>
+                                                <div class="row ">
+                                                    <input type="text" id="departments" name="departments" class="form-control col-6" placeholder="ชื่อกรมที่สังกัด" maxlength="45" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label>กระทรวง</label>
+                                                <div class="row ">
+                                                    <input type="text" id="ministry" name="ministry" class="form-control" placeholder="ชื่อกระทรวงที่สังกัด" maxlength="40" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row flip-head">
+                        <div class="col">
+                            <div class="row flip flip-3">
+                                <h4>ประกอบอาชีพทนายความ</h4>
+                                <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
+                                <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
+                            </div>
+                            <div class="row panel">
+                                <!-- start form -->
+                                <h4>สามารถกรอกได้หลายตำแหน่ง</h4>
+                                <div class="col">
+                                        
+                                    <div class="row">
+                                        <div class="col div-selected-work">
+                                            <h6>ข้อมูลที่ 1</h6>
+                                            <div class="row gb-3">
+                                                <div class="col">
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input type="text" name="expert_cases" class="form-control " placeholder="ประเภทคดี"maxlength="45">
+                                                            <div class="form-group">
+                                                                <label>ปีพ.ศ. </label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" id="work_year[0]" name="work_year[0]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ตําแหน่ง</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_position[0]" id="work_position[0]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>หน่วยงาน</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_department[0]" id="work_department[0]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ลักษณะงานที่ปฏิบัติ</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_job[0]" id="work_job[0]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row flip-head">
-                            <div class="col">
-                                <div class="row flip flip-2">
-                                    <h4>ประกอบอาชีพรับราชการ</h4>
-                                    <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
-                                    <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
-                                </div>
-                                <div class="row panel">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>เกษียณอายุ</label>
-                                                    <div class="row ">
-                                                        <input type="text" name="retire_date" placeholder="เช่น 2560" class="form-control col-5" pattern="\d*" maxlength="2">
-                                                        <label class="same-line-label"> ปี </label>
+                                            <!-- for coppy -->
+                                            <h6>ข้อมูลที่ 2</h6>
+                                            <div class="row gb-3">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ปีพ.ศ. </label>
+                                                                 <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_year[1]" id="work_year[1]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ตําแหน่ง</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_position[1]" id="work_position[1]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>หน่วยงาน</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_department[1]" id="work_department[1]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ลักษณะงานที่ปฏิบัติ</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_job[1]" id="work_job[1]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>รวมอายุราชการ</label>
-                                                    <div class="row ">
-                                                        <input type="text" name="governmental_age" placeholder="เช่น 40" class="form-control col-5" pattern="\d*" maxlength="2">
-                                                        <label class="same-line-label"> ปี </label>
+                                            <!-- for coppy -->
+                                            <h6>ข้อมูลที่ 3</h6>
+                                            <div class="row gb-3">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ปีพ.ศ. </label>
+                                                                 <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_year[2]" id="work_year[2]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ตําแหน่ง</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_position[2]" id="work_position[2]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>หน่วยงาน</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_department[2]" id="work_department[2]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ลักษณะงานที่ปฏิบัติ</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_job[2]" id="work_job[2]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>เกษียณอายุราชการในตําแหน่ง</label>
-                                                    <div class="row ">
-                                                        <input type="text" name="government_position" class="form-control" placeholder="ตำแหน่งที่เกษียณอายุราชการ" maxlength="45">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>ระดับ</label>
-                                                    <div class="row ">
-                                                        <input type="text" name="lavel" class="form-control col-6" placeholder="เช่น 4, 5, 7" pattern="\d*" maxlength="2">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>สังกัดกรม</label>
-                                                    <div class="row ">
-                                                        <input type="text" name="departments" class="form-control col-6" placeholder="ชื่อกรมที่สังกัด" maxlength="45">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="form-group">
-                                                    <label>กระทรวง</label>
-                                                    <div class="row ">
-                                                        <input type="text" name="ministry" class="form-control" placeholder="ชื่อกระทรวงที่สังกัด" maxlength="40">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row flip-head">
-                            <div class="col">
-                                <div class="row flip flip-3">
-                                    <h4>ประกอบอาชีพทนายความ</h4>
-                                    <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
-                                    <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
-                                </div>
-                                <div class="row panel">
-                                    <!-- start form -->
-                                    <h4>สามารถกรอกได้หลายตำแหน่ง</h4>
-                                    <div class="col">
-                                            
-                                        <div class="row">
-                                            <div class="col div-selected-work">
-                                                <h6>ข้อมูลที่ 1</h6>
-                                                <div class="row gb-3">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ปีพ.ศ. </label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" id="work_year[0]" name="work_year[0]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ตําแหน่ง</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_position[0]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>หน่วยงาน</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_department[0]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
-                                                                        </div>
+                                            <!-- for coppy -->
+                                            <h6>ข้อมูลที่ 4</h6>
+                                            <div class="row gb-3">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ปีพ.ศ. </label>
+                                                                 <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_year[3]" id="work_year[3]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ลักษณะงานที่ปฏิบัติ</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_job[0]"  class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
-                                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ตําแหน่ง</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_position[3]" id="work_position[3]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                     </div>
-                                                                    <hr>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>หน่วยงาน</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_department[3]" id="work_department[3]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ลักษณะงานที่ปฏิบัติ</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_job[3]" id="work_job[3]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- for coppy -->
-                                                <h6>ข้อมูลที่ 2</h6>
-                                                <div class="row gb-3">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ปีพ.ศ. </label>
-                                                                     <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_year[1]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ตําแหน่ง</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_position[1]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>หน่วยงาน</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_department[1]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
-                                                                        </div>
+                                            </div>
+                                            <!-- for coppy -->
+                                            <h6>ข้อมูลที่ 5</h6>
+                                            <div class="row gb-3">
+                                                <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ปีพ.ศ. </label>
+                                                                 <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_year[4]" id="work_year[4]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ลักษณะงานที่ปฏิบัติ</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_job[1]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
-                                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ตําแหน่ง</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_position[4]" id="work_position[4]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                     </div>
-                                                                    <hr>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>หน่วยงาน</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_department[4]" id="work_department[4]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- for coppy -->
-                                                <h6>ข้อมูลที่ 3</h6>
-                                                <div class="row gb-3">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ปีพ.ศ. </label>
-                                                                     <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_year[2]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
-                                                                        </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <div class="form-group">
+                                                                <label>ลักษณะงานที่ปฏิบัติ</label>
+                                                                <div class="row ">
+                                                                    <div class="col">
+                                                                        <input type="text" name="work_job[4]" id="work_job[4]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ตําแหน่ง</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_position[2]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>หน่วยงาน</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_department[2]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ลักษณะงานที่ปฏิบัติ</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_job[2]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- for coppy -->
-                                                <h6>ข้อมูลที่ 4</h6>
-                                                <div class="row gb-3">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ปีพ.ศ. </label>
-                                                                     <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_year[3]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ตําแหน่ง</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_position[3]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>หน่วยงาน</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_department[3]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ลักษณะงานที่ปฏิบัติ</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_job[3]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                    <hr>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- for coppy -->
-                                                <h6>ข้อมูลที่ 5</h6>
-                                                <div class="row gb-3">
-                                                    <div class="col">
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ปีพ.ศ. </label>
-                                                                     <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_year[4]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ตําแหน่ง</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_position[4]" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>หน่วยงาน</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_department[4]" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col">
-                                                                <div class="form-group">
-                                                                    <label>ลักษณะงานที่ปฏิบัติ</label>
-                                                                    <div class="row ">
-                                                                        <div class="col">
-                                                                            <input type="text" name="work_job[4]" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
-                                                                        </div>
                                                                     </div>
                                                                     <hr>
                                                                 </div>
@@ -832,13 +832,6 @@
                                                 </div>
                                             </div>
                                         </div>
-<!-- 
-                                        <div class="row">
-                                            <div class="col">
-                                                <button type="button" class="btn btn-primary btn-block add-work-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div> -->
-                                    </div>
                                     <!-- end form -->
                                 </div>
                             </div>
@@ -1206,7 +1199,9 @@
     <script src="<?php echo base_url('assets/'); ?>popper/popper.min.js"></script>
     <!-- <script type="text/javascript" src="js/SmoothScroll.js"></script>  -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    
+    <!-- Alert2 -->
+    <script src="https://unpkg.com/sweetalert2@7.0.9/dist/sweetalert2.all.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <!-- Select2 -->
     <script src="<?php echo base_url('assets/dashboard/'); ?>select2/js/select2.min.js"></script>

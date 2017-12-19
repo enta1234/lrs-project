@@ -16,8 +16,10 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>select2/css/select2.css">
     <link rel="stylesheet" href="<?php echo base_url('assets/register/'); ?>css/select2-bootstrap.min.css">
+    <!-- auto complate -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dist/jquery.Thailand.min.css">
 </head>
-<body>
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
 <div class="container-fluid">
   <div class="row ">
     <div class="col-2 slide-step">
@@ -42,7 +44,7 @@
     </div>
     <div class="col">
         <?php $attributes = array('data-toggle' => 'validator','role'=>'form','id'=>'formregiter'); ?>
-        <?= form_open('Register/formRegister', $attributes); ?>
+        <?= form_open('registed/updateregister', $attributes); ?>
         <section class="" id="section1">
             <div class="row form-name">
                 <div class="col">
@@ -94,13 +96,25 @@
                                     <div class=" form-group">
                                         <label >วันเกิด</label>
                                         <div class="row dob">
-                                        <?php 
-                                            $y = substr($getedit->information_birthday, 0, 4);
-                                            $y+=543;
-                                            $m = substr($getedit->information_birthday, 5, 2);
-                                            $d = substr($getedit->information_birthday, 8, 2);
-                                        ?>
-                                            <input type="text" id="birthday" value="<?= $d; ?>" name="day" class="form-control col-md-3" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
+                                            <?php 
+                                                $y = substr($getedit->information_birthday, 0, 4);
+                                                $y+=543;
+                                                $m = substr($getedit->information_birthday, 5, 2);
+                                                $d = substr($getedit->information_birthday, 8, 2);
+                                            ?>
+                                            <?php 
+                                                 $attd = array(
+                                                    'class'=>'form-control selcet-2 col-md-3',
+                                                    'required'=>'',
+                                                    'id'=>'day',
+                                                    'onchange'=>'submitBday()'
+                                                );
+                                                $day[''] = '- วัน -';
+                                                for($i=1;$i<32;$i++){
+                                                    $day[$i] = $i;
+                                                } 
+                                                echo form_dropdown('day', $day, $d, $attd);
+                                            ?>
                                             <?php 
                                                 $month = array( 
                                                     ''=>'-- เดือน --',
@@ -118,25 +132,25 @@
                                                     '12'=>'ธันวาคม'
                                                 );
                                                 $attm = array(
-                                                    'class'=>'form-control selcet-2 col-md-4',
+                                                    'class'=>'form-control selcet-2 col-md-3',
+                                                    'id'=>'month',
                                                     'required'=>''
                                                 );
                                                 echo form_dropdown('month', $month, $m, $attm);
                                             ?>
                                                 <?php
                                                     $atty = array(
-                                                        'class'=>'form-control selcet-2 col-md-4',
+                                                        'class'=>'form-control selcet-2 col-md-3',
                                                         'required'=>'',
                                                         'id'=>'year',
                                                         'onchange'=>'submitBday()'
                                                     );
-                                                    $year[''] = '-- ปี --';
-                                                    for($i=2490;$i<2561;$i++){
+                                                    $year[''] = '- ปี -';
+                                                    for($i = ((date('Y')+543)-69) ; $i < (date('Y')+543)-29; $i++){
                                                         $year[$i] = $i;
                                                     } 
                                                     echo form_dropdown('year', $year, $y, $atty);
                                                 ?>
-                                            
                                         </div>
                                     </div>
                                 </div>
@@ -144,10 +158,9 @@
                                     <div class="form-group">
                                         <label>อายุ</label>
                                         <?php 
-                                             date("Y-m-d")
+                                            $age = date("Y")-($y-543);
                                         ?>
-                                        <input type="text" id="resultBdayDis" name="aged" class="form-control" disabled>
-                                        <input type="hidden" id="resultBday" name="age" />
+                                        <input type="text" value="<?= $age?>" id="resultBdayDis" name="aged" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +182,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="religion" class="control-label">ศาสนา</label>
-                                        <input type="text" value="<?= $getedit->information_religion;?>" name="religion" class="form-control" placeholder="ศาสนา" required>
+                                        <input type="text" value="<?= $getedit->information_religion;?>" name="religion" class="form-control" placeholder="ศาสนา">
                                     </div>
                                 </div>
                             </div>
@@ -185,23 +198,23 @@
                                         <div class="row">
                                             <div class="col">
                                                 <label class="label-radio">
-                                                <input type="radio" class="option-input radio" <?php echo set_value('status', $getedit->information_status) == 'โสด' ? "checked" : ""; ?> name="status" required/>
+                                                <input type="radio" class="option-input radio" value="โสด" <?php echo set_value('status', $getedit->information_status) == 'โสด' ? "checked" : ""; ?> name="status" required/>
                                                     โสด
                                                 </label>
                                                 <label class="label-radio">
-                                                <input type="radio" class="option-input radio" <?php echo set_value('status', $getedit->information_status) == 'สมรส' ? "checked" : ""; ?> name="status" required/>
+                                                <input type="radio" class="option-input radio" value="สมรส" <?php echo set_value('status', $getedit->information_status) == 'สมรส' ? "checked" : ""; ?> name="status" required/>
                                                     สมรส
                                                 </label>
                                                 <label class="label-radio">
-                                                <input type="radio" class="option-input radio" <?php echo set_value('status', $getedit->information_status) == 'หม้าย' ? "checked" : ""; ?> name="status" required/>
+                                                <input type="radio" class="option-input radio" value="หม้าย" <?php echo set_value('status', $getedit->information_status) == 'หม้าย' ? "checked" : ""; ?> name="status" required/>
                                                     หม้าย
                                                 </label>
                                                 <label class="label-radio">
-                                                <input type="radio" class="option-input radio" <?php echo set_value('status', $getedit->information_status) == 'หย่า' ? "checked" : ""; ?> name="status" required/>
+                                                <input type="radio" class="option-input radio" value="หย่า" <?php echo set_value('status', $getedit->information_status) == 'หย่า' ? "checked" : ""; ?> name="status" required/>
                                                     หย่า
                                                 </label>
                                                 <label class="label-radio">
-                                                <input type="radio" class="option-input radio" <?php echo set_value('status', $getedit->information_status) == 'แยกกันอยู่' ? "checked" : ""; ?> name="status" required/>
+                                                <input type="radio" class="option-input radio" value="แยกกันอยู่" <?php echo set_value('status', $getedit->information_status) == 'แยกกันอยู่' ? "checked" : ""; ?> name="status" required/>
                                                     แยกกันอยู่
                                                 </label>
                                             </div>
@@ -224,13 +237,13 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>หมู่ที่/ซอย</label>
-                                        <input type="text" value="<?= $getedit->information_moo;?>" name="moo" class="form-control" placeholder="หมู่ที่/ซอย" required>
+                                        <input type="text" value="<?= $getedit->information_moo;?>" name="moo" class="form-control" placeholder="หมู่ที่/ซอย">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>ถนน</label>
-                                        <input type="text" value="<?= $getedit->information_road;?>" name="road" class="form-control" placeholder="ถนน" required>
+                                        <input type="text" value="<?= $getedit->information_road;?>" name="road" class="form-control" placeholder="ถนน">
                                     </div>
                                 </div>
                             <!-- end row 1 -->
@@ -243,13 +256,13 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>แขวง/ตําบล </label>
-                                        <input type="text" value="<?= $getedit->information_district;?>" name="district" class="form-control" placeholder="แขวง/ตําบล" required>
+                                        <input type="text" value="<?= $getedit->information_district;?>" name="district" class="form-control" placeholder="แขวง / ตําบล" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>เขต/อําเภอ</label>
-                                        <input type="text" value="<?= $getedit->information_county;?>" name="county" class="form-control" placeholder="เขต/อําเภอ" required>
+                                        <input type="text" value="<?= $getedit->information_county;?>" name="amphoe" class="form-control" placeholder="เขต / อําเภอ" required>
                                     </div>
                                 </div>
                             <!-- end row 1 -->
@@ -270,7 +283,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>รหัสไปรษณีย์</label>
-                                        <input type="text" value="<?= $getedit->information_postcode;?>" name="postcode" pattern="\d*" maxlength="5" class="form-control" placeholder="รหัสไปรษณีย์" required>
+                                        <input type="text" value="<?= $getedit->information_postcode;?>" name="zipcode" pattern="\d*" maxlength="5" class="form-control" placeholder="รหัสไปรษณีย์" required>
                                     </div>
                                 </div>
                                 <!-- end row 1 -->
@@ -428,22 +441,26 @@
                                     <div class="col">
                                         <div class="row">
                                             <label class="label-radio">
-                                                <input type="radio" class="option-input radio" value="เคย" name="ever_work"/>
+                                                <input type="radio" class="option-input radio" value="เคย" <?php echo set_value('ever_work', $getedit->ever_clinic_name) != 'ไม่เคย' ? "checked" : ""; ?> name="ever_work"/>
                                                 เคย
                                             </label>
-                                            <select name="selclinic" class="form-control selcet-2" id="selectClinic" style="max-width:70%;" disabled>
-                                            <option value="">---- กรุณาเลือก -----</option>
-                                                <?php
-                                                    foreach($getClinic as $clinic){
-                                                        echo '<option value="'.$clinic->clinic_name.'>'.$clinic->clinic_name.'</option>';
-                                                    }
-                                                ?>
-                                            </select>
+                                            <?php
+                                                $attcl = array(
+                                                    'class'=>'form-control selcet-2',
+                                                    'id'=>'selectClinic',
+                                                    'style'=>'max-width:70%'
+                                                );
+                                                $clinic[''] = '- กรุณาเลือก -';
+                                                    foreach($getClinic as $cli){
+                                                        $clinic[$cli->clinic_name] = $cli->clinic_name;
+                                                    } 
+                                                echo form_dropdown('selectClinic', $clinic,  $getedit->ever_clinic_name, $attcl);
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="col-2">
                                         <label class="label-radio">
-                                        <input type="radio" class="option-input radio" value="ไม่เคย" name="ever_work"/>
+                                        <input type="radio" class="option-input radio" value="ไม่เคย" <?php echo set_value('ever_work', $getedit->ever_clinic_name) == 'ไม่เคย' ? "checked" : ""; ?> name="ever_work"/>
                                             ไม่เคย
                                         </label>
                                     </div>
@@ -474,20 +491,20 @@
                                             <div class="col">
                                                     <div class="row">
                                                         <label class="same-line-label">ประเภทอาชีพทนาย</label>
-                                                        <input type="text" value="<?= $getedit->lawyer_work_lawyer_career;?>" name="lawyer_career" class="form-control col" placeholder="ประเภทอาชีพทนาย" maxlength="45">
+                                                        <input type="text" value="<?= $getedit->lawyer_work_lawyer_career;?>" id="lawyer_career" name="lawyer_career" class="form-control col" placeholder="ประเภทอาชีพทนาย" maxlength="45" disabled>
                                                     </div>
                                             </div>
                                             <div class="col">
                                                     <div class="row">
                                                         <label class="same-line-label">ชื่อสํานักงาน </label>
-                                                        <input type="text" value="<?= $getedit->lawyer_work_company;?>" name="company" class="form-control col" placeholder="ชื่อสํานักงาน" maxlength="45">
+                                                        <input type="text" value="<?= $getedit->lawyer_work_company;?>" id="company" name="company" class="form-control col" placeholder="ชื่อสํานักงาน" maxlength="45" disabled>
                                                     </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col">
                                                 <label>ที่อยู่ </label>
-                                                <input type="text" value="<?= $getedit->lawyer_work_company_address;?>" name="company_address" class="form-control" placeholder="ที่อยู่เลขที่">
+                                                <input type="text" value="<?= $getedit->lawyer_work_company_address;?>" id="company_address" name="company_address" class="form-control" placeholder="ที่อยู่เลขที่" disabled>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -497,7 +514,7 @@
                                                         <label>ประสบการณ์เป็นทนายมาแล้วกี่ปี</label>
                                                     </div>
                                                     <div class="row ">
-                                                        <input type="text" name="experiencd" value="<?= $getedit->lawyer_work_experiencd;?>" placeholder="เช่น 20" class="form-control col-5" pattern="\d*" maxlength="2">
+                                                        <input type="text" id="experiencd" name="experiencd" value="<?= $getedit->lawyer_work_experiencd;?>" placeholder="เช่น 20" class="form-control col-5" pattern="\d*" maxlength="2" disabled>
                                                         <label class="same-line-label"> ปี </label>
                                                     </div>
                                                 </div>
@@ -508,7 +525,7 @@
                                                         <label>เคยว่าความมาแล้วกี่คดี</label>
                                                     </div>
                                                     <div class="row">
-                                                        <input type="text" value="<?= $getedit->lawyer_work_past_cases;?>" name="past_cases" placeholder="เช่น 70" class="form-control col-5" pattern="\d*" maxlength="5">
+                                                        <input type="text" id="past_cases" value="<?= $getedit->lawyer_work_past_cases;?>" name="past_cases" placeholder="เช่น 70" class="form-control col-5" pattern="\d*" maxlength="5" disabled>
                                                         <label class="same-line-label"> คดี </label>
                                                     </div>
                                                 </div>
@@ -518,7 +535,7 @@
                                                     <label>ประเภทคดีที่มีความเชี่ยวชาญ</label>
                                                     <div class="row">
                                                         <div class="col">
-                                                            <input type="text" value="<?= $getedit->lawyer_work_expert_cases;?>" name="expert_cases" class="form-control " placeholder="ประเภทคดี"maxlength="45">
+                                                            <input type="text" id="expert_cases" value="<?= $getedit->lawyer_work_expert_cases;?>" name="expert_cases" class="form-control " placeholder="ประเภทคดี" maxlength="45" disabled>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -542,7 +559,7 @@
                                                 <div class="form-group">
                                                     <label>เกษียณอายุ</label>
                                                     <div class="row ">
-                                                        <input type="text" value="<?= $getedit->government_work_retire_date;?>" name="retire_date" placeholder="เช่น 2560" class="form-control col-5" pattern="\d*" maxlength="2">
+                                                        <input type="text" value="<?= $getedit->government_work_retire_date;?>" id="retire_date" name="retire_date" placeholder="เช่น 2560" class="form-control col-5" pattern="\d*" maxlength="2" disabled>
                                                         <label class="same-line-label"> ปี </label>
                                                     </div>
                                                 </div>
@@ -551,7 +568,7 @@
                                                 <div class="form-group">
                                                     <label>รวมอายุราชการ</label>
                                                     <div class="row ">
-                                                        <input type="text" value="<?= $getedit->government_work_governmental_age;?>" name="governmental_age" placeholder="เช่น 40" class="form-control col-5" pattern="\d*" maxlength="2">
+                                                        <input type="text" value="<?= $getedit->government_work_governmental_age;?>" id="governmental_age" name="governmental_age" placeholder="เช่น 40" class="form-control col-5" pattern="\d*" maxlength="2" disabled>
                                                         <label class="same-line-label"> ปี </label>
                                                     </div>
                                                 </div>
@@ -560,7 +577,7 @@
                                                 <div class="form-group">
                                                     <label>เกษียณอายุราชการในตําแหน่ง</label>
                                                     <div class="row ">
-                                                        <input type="text" value="<?= $getedit->government_work_position;?>" name="government_position" class="form-control" placeholder="ตำแหน่งที่เกษียณอายุราชการ" maxlength="45">
+                                                        <input type="text" value="<?= $getedit->government_work_position;?>" id="government_position" name="government_position" class="form-control" placeholder="ตำแหน่งที่เกษียณอายุราชการ" maxlength="45" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -570,7 +587,7 @@
                                                 <div class="form-group">
                                                     <label>ระดับ</label>
                                                     <div class="row ">
-                                                        <input type="text" value="<?= $getedit->government_work_lavel;?>" name="lavel" class="form-control col-6" placeholder="เช่น 4, 5, 7" pattern="\d*" maxlength="2">
+                                                        <input type="text" value="<?= $getedit->government_work_lavel;?>" id="lavel" name="lavel" class="form-control col-6" placeholder="เช่น 4, 5, 7" pattern="\d*" maxlength="2" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -578,7 +595,7 @@
                                                 <div class="form-group">
                                                     <label>สังกัดกรม</label>
                                                     <div class="row ">
-                                                        <input type="text" name="departments" value="<?= $getedit->government_work_departments;?>" class="form-control col-6" placeholder="ชื่อกรมที่สังกัด" maxlength="45">
+                                                        <input type="text" id="departments" name="departments" value="<?= $getedit->government_work_departments;?>" class="form-control col-6" placeholder="ชื่อกรมที่สังกัด" maxlength="45" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -586,7 +603,7 @@
                                                 <div class="form-group">
                                                     <label>กระทรวง</label>
                                                     <div class="row ">
-                                                        <input type="text" value="<?= $getedit->government_work_ministry;?>" name="ministry" class="form-control" placeholder="ชื่อกระทรวงที่สังกัด" maxlength="40">
+                                                        <input type="text" value="<?= $getedit->government_work_ministry;?>" id="ministry" name="ministry" class="form-control" placeholder="ชื่อกระทรวงที่สังกัด" maxlength="40" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -618,7 +635,7 @@
                                                                     <label>ปีพ.ศ. </label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" id="work_year[0]" value="<?= $getedit->related_law_work_year0;?>" name="work_year[0]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
+                                                                            <input type="text" id="work_year[0]" value="<?= $getedit->related_law_work_year0;?>" name="work_year[0]" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -628,7 +645,7 @@
                                                                     <label>ตําแหน่ง</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_position[0]" value="<?= $getedit->related_law_work_position0;?>"  maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
+                                                                            <input type="text" name="work_position[0]" id="work_position[0]" value="<?= $getedit->related_law_work_position0;?>"  maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -638,7 +655,7 @@
                                                                     <label>หน่วยงาน</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_department[0]" value="<?= $getedit->related_law_work_department0;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
+                                                                            <input type="text" name="work_department[0]" id="work_department[0]" value="<?= $getedit->related_law_work_department0;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -650,7 +667,7 @@
                                                                     <label>ลักษณะงานที่ปฏิบัติ</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_job[0]" value="<?= $getedit->related_law_work_job0;?>"  class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
+                                                                            <input type="text" name="work_job[0]" id="work_job[0]" value="<?= $getedit->related_law_work_job0;?>"  class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -669,7 +686,7 @@
                                                                     <label>ปีพ.ศ. </label>
                                                                      <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_year[1]" value="<?= $getedit->related_law_work_year1;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
+                                                                            <input type="text" name="work_year[1]" id="work_year[1]" value="<?= $getedit->related_law_work_year1;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -679,7 +696,7 @@
                                                                     <label>ตําแหน่ง</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_position[1]" value="<?= $getedit->related_law_work_position1;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
+                                                                            <input type="text" name="work_position[1]" id="work_position[1]" value="<?= $getedit->related_law_work_position1;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -689,7 +706,7 @@
                                                                     <label>หน่วยงาน</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_department[1]" value="<?= $getedit->related_law_work_department1;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
+                                                                            <input type="text" name="work_department[1]" id="work_department[1]" value="<?= $getedit->related_law_work_department1;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -701,7 +718,7 @@
                                                                     <label>ลักษณะงานที่ปฏิบัติ</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_job[1]" value="<?= $getedit->related_law_work_job1;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
+                                                                            <input type="text" name="work_job[1]" id="work_job[1]" value="<?= $getedit->related_law_work_job1;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -720,7 +737,7 @@
                                                                     <label>ปีพ.ศ. </label>
                                                                      <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_year[2]" value="<?= $getedit->related_law_work_year2;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
+                                                                            <input type="text" name="work_year[2]" id="work_year[2]" value="<?= $getedit->related_law_work_year2;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -730,7 +747,7 @@
                                                                     <label>ตําแหน่ง</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_position[2]" value="<?= $getedit->related_law_work_position2;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
+                                                                            <input type="text" name="work_position[2]" id="work_position[2]" value="<?= $getedit->related_law_work_position2;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -740,7 +757,7 @@
                                                                     <label>หน่วยงาน</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_department[2]" value="<?= $getedit->related_law_work_department2;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
+                                                                            <input type="text" name="work_department[2]" id="work_department[2]" value="<?= $getedit->related_law_work_department2;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -752,7 +769,7 @@
                                                                     <label>ลักษณะงานที่ปฏิบัติ</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_job[2]" value="<?= $getedit->related_law_work_job2;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
+                                                                            <input type="text" name="work_job[2]" id="work_job[2]" value="<?= $getedit->related_law_work_job2;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -771,7 +788,7 @@
                                                                     <label>ปีพ.ศ. </label>
                                                                      <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_year[3]" value="<?= $getedit->related_law_work_year3;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
+                                                                            <input type="text" name="work_year[3]" id="work_year[3]" value="<?= $getedit->related_law_work_year3;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -781,7 +798,7 @@
                                                                     <label>ตําแหน่ง</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_position[3]" value="<?= $getedit->related_law_work_position3;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
+                                                                            <input type="text" name="work_position[3]" id="work_position[3]" value="<?= $getedit->related_law_work_position3;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -791,7 +808,7 @@
                                                                     <label>หน่วยงาน</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_department[3]" value="<?= $getedit->related_law_work_department3;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
+                                                                            <input type="text" name="work_department[3]" id="work_department[3]" value="<?= $getedit->related_law_work_department3;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -803,7 +820,7 @@
                                                                     <label>ลักษณะงานที่ปฏิบัติ</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_job[3]" value="<?= $getedit->related_law_work_job3;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
+                                                                            <input type="text" name="work_job[3]" id="work_job[3]" value="<?= $getedit->related_law_work_job3;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -822,7 +839,7 @@
                                                                     <label>ปีพ.ศ. </label>
                                                                      <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_year[4]" value="<?= $getedit->related_law_work_year4;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน">
+                                                                            <input type="text" name="work_year[4]" id="work_year[4]" value="<?= $getedit->related_law_work_year4;?>" maxlength="4" class="form-control col-6" placeholder="ปีที่ทำงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -832,7 +849,7 @@
                                                                     <label>ตําแหน่ง</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_position[4]" value="<?= $getedit->related_law_work_position4;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ">
+                                                                            <input type="text" name="work_position[4]" id="work_position[4]" value="<?= $getedit->related_law_work_position4;?>" maxlength="45" class="form-control col-10" placeholder="ชื่อตำแหน่งที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -842,7 +859,7 @@
                                                                     <label>หน่วยงาน</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_department[4]" value="<?= $getedit->related_law_work_department4;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน">
+                                                                            <input type="text" name="work_department[4]" id="work_department[4]" value="<?= $getedit->related_law_work_department4;?>" maxlength="45" class="form-control col" placeholder="ชื่อหน่วยงาน" disabled>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -854,7 +871,7 @@
                                                                     <label>ลักษณะงานที่ปฏิบัติ</label>
                                                                     <div class="row ">
                                                                         <div class="col">
-                                                                            <input type="text" name="work_job[4]" value="<?= $getedit->related_law_work_job4;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ">
+                                                                            <input type="text" name="work_job[4]" id="work_job[4]" value="<?= $getedit->related_law_work_job4;?>" class="form-control" placeholder="อธิบายลักษณะของงานที่ทำ" disabled>
                                                                         </div>
                                                                     </div>
                                                                     <hr>
@@ -923,7 +940,7 @@
                                                     <label>ระดับ</label>
                                                     <?php 
                                                         $lave = array( 
-                                                            ''=>'-- ระดับ --',
+                                                            ''=>'- ระดับ -',
                                                             'อ่อน'=>'อ่อน',
                                                             'ปานกลาง'=>'ปานกลาง',
                                                             'เก่ง'=>'เก่ง',
@@ -1192,7 +1209,7 @@
             </div>
             <div class="col-2 spac-right ">
                 <div class="row spac-right">
-                    <button type="submit" class="btn btn-info roud">ตกลง</button>
+                    <button type="submit" onClick="swal({position: 'top-right',type: 'success',title: 'แก้ไขเรียบร้อยแล้ว',showConfirmButton: false,timer: 1500})" class="btn btn-info roud">ตกลง</button>
                 </div>
             </div>
         </div>
@@ -1201,258 +1218,21 @@
 </div>
 </div>
 </div>
-    <!-- script -->
-    <script src="<?php echo base_url('assets/web/'); ?>assets/jquery/jquery.min.js"></script>
-    <script src="<?php echo base_url('assets/'); ?>popper/popper.min.js"></script>
-    <!-- <script type="text/javascript" src="js/SmoothScroll.js"></script>  -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
-    <!-- Select2 -->
-    <script src="<?php echo base_url('assets/dashboard/'); ?>select2/js/select2.min.js"></script>
-    <script>
-    $('#formregiter').validator()
-    // auto show modal
-    $(window).on('load',function(){
-        $('#myModal').modal('show');
-    });
-    
-    //slideToggle 
-    (function ($) {
-        'use strict';
-        $('.flip').on("click", function () {
-            $(this).next().slideToggle('slow');
-            $(this).find('i').toggle();
-            $('.panel').not($(this).next()).slideUp('slow');
-        });
-        $('.flip-1').on("click", function () {
-            // 1
-            document.getElementsByName('lawyer_career').removeAttribute('disabled', '');
-            document.getElementsByName('company').removeAttribute('disabled', '');
-            document.getElementsByName('company_address').removeAttribute('disabled', '');
-            document.getElementsByName('experiencd').removeAttribute('disabled', '');
-            document.getElementsByName('past_cases').removeAttribute('disabled', '');
-            document.getElementsByName('expert_cases').removeAttribute('disabled', '');
-            // 2
-            document.getElementsByName('retire_date').setAttribute('disabled', '');
-            document.getElementsByName('governmental_age').setAttribute('disabled', '');
-            document.getElementsByName('government_position').setAttribute('disabled', '');
-            document.getElementsByName('lavel').setAttribute('disabled', '');
-            document.getElementsByName('departments').setAttribute('disabled', '');
-            document.getElementsByName('ministry').setAttribute('disabled', '');
-            // 3
-            document.getElementsByName('work_year[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[4]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[4]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[4]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[4]').setAttribute('disabled', '');
-        });
-        $('.flip-2').on("click", function () {
-            // disable 1, 3
-            // 1
-            document.getElementsByName('lawyer_career').setAttribute('disabled', '');
-            document.getElementsByName('company').setAttribute('disabled', '');
-            document.getElementsByName('company_address').setAttribute('disabled', '');
-            document.getElementsByName('experiencd').setAttribute('disabled', '');
-            document.getElementsByName('past_cases').setAttribute('disabled', '');
-            document.getElementsByName('expert_cases').setAttribute('disabled', '');
-            // 2
-            document.getElementsByName('retire_date').removeAttribute('disabled', '');
-            document.getElementsByName('governmental_age').removeAttribute('disabled', '');
-            document.getElementsByName('government_position').removeAttribute('disabled', '');
-            document.getElementsByName('lavel').removeAttribute('disabled', '');
-            document.getElementsByName('departments').removeAttribute('disabled', '');
-            document.getElementsByName('ministry').removeAttribute('disabled', '');
-            // 3
-            document.getElementsByName('work_year[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[0]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[1]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[2]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[3]').setAttribute('disabled', '');
-            document.getElementsByName('work_year[4]').setAttribute('disabled', '');
-            document.getElementsByName('work_position[4]').setAttribute('disabled', '');
-            document.getElementsByName('work_department[4]').setAttribute('disabled', '');
-            document.getElementsByName('work_job[4]').setAttribute('disabled', '');
-        });
-        $('.flip-3').on("click", function () {
-            // disable 1, 2
-            // 1
-            document.getElementsByName('lawyer_career').setAttribute('disabled', '');
-            document.getElementsByName('company').setAttribute('disabled', '');
-            document.getElementsByName('company_address').setAttribute('disabled', '');
-            document.getElementsByName('experiencd').setAttribute('disabled', '');
-            document.getElementsByName('past_cases').setAttribute('disabled', '');
-            document.getElementsByName('expert_cases').setAttribute('disabled', '');
-            // 2
-            document.getElementsByName('retire_date').setAttribute('disabled', '');
-            document.getElementsByName('governmental_age').setAttribute('disabled', '');
-            document.getElementsByName('government_position').setAttribute('disabled', '');
-            document.getElementsByName('lavel').setAttribute('disabled', '');
-            document.getElementsByName('departments').setAttribute('disabled', '');
-            document.getElementsByName('ministry').setAttribute('disabled', '');
-            // 3
-            document.getElementsByName('work_year[0]').removeAttribute('disabled', '');
-            document.getElementsByName('work_position[0]').removeAttribute('disabled', '');
-            document.getElementsByName('work_department[0]').removeAttribute('disabled', '');
-            document.getElementsByName('work_job[0]').removeAttribute('disabled', '');
-            document.getElementsByName('work_year[1]').removeAttribute('disabled', '');
-            document.getElementsByName('work_position[1]').removeAttribute('disabled', '');
-            document.getElementsByName('work_department[1]').removeAttribute('disabled', '');
-            document.getElementsByName('work_job[1]').removeAttribute('disabled', '');
-            document.getElementsByName('work_year[2]').removeAttribute('disabled', '');
-            document.getElementsByName('work_position[2]').removeAttribute('disabled', '');
-            document.getElementsByName('work_department[2]').removeAttribute('disabled', '');
-            document.getElementsByName('work_job[2]').removeAttribute('disabled', '');
-            document.getElementsByName('work_year[3]').removeAttribute('disabled', '');
-            document.getElementsByName('work_position[3]').removeAttribute('disabled', '');
-            document.getElementsByName('work_department[3]').removeAttribute('disabled', '');
-            document.getElementsByName('work_job[3]').removeAttribute('disabled', '');
-            document.getElementsByName('work_year[4]').removeAttribute('disabled', '');
-            document.getElementsByName('work_position[4]').removeAttribute('disabled', '');
-            document.getElementsByName('work_department[4]').removeAttribute('disabled', '');
-            document.getElementsByName('work_job[4]').removeAttribute('disabled', '');
-        });
-    }(jQuery));
-
-    // ------------------------------------------------- low work --------------------------------------------------
-    // ------------------------------------------------- low work --------------------------------------------------
-    // add work
-    var i = 0;
-    $('.add-work-btn').click(function () {
-        // var gb = ["work_year[0]","work_year[1]","work_year[2]","work_year[3]","work_year[4]"];
-        var $clone = $('.div-selected-work').find('div.clond-low-work.gb-3').clone(true).removeClass('clond-low-work');
-        $('.div-selected-work').append($clone);
-        var name = document.getElementById(gb[i]);
-        console.log(i);
-        i++;
-    });
-    // delete work
-    $('.icon-delete').click(function () {
-        $(this).parents('.gb-3').detach();
-    });
-
-    // ------------------------------------------------- language --------------------------------------------------
-    // ------------------------------------------------- language --------------------------------------------------
-    // add language
-    $('.add-language-btn').click(function () {
-        var $clone = $('.div-selected-language').find('div.clond-language').clone(true).removeClass('clond-language');
-        $('.div-selected-language').append($clone);
-    });
-    // delete language
-    $('.icon-delete').click(function () {
-        $(this).parents('.gb-2').detach();
-    });
-    // ------------------------------------------------- Skill --------------------------------------------------
-    // ------------------------------------------------- Skill --------------------------------------------------
-    // add skill
-    $('.add-skill-btn').click(function () {
-        var $clone = $('.div-selected-skill').find('div.clond-skill').clone(true).removeClass('clond-skill');
-        $('.div-selected-skill').append($clone);
-    });
-    // delete skill
-    $('.icon-delete').click(function () {
-        $(this).parents('.gb-1').detach();
-    });
-
-// Page Scroll
-jQuery(document).ready(function ($) {
-	$('a[href*=#]:not([href=#])').click(function() {
-		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
-			|| location.hostname == this.hostname) {
-
-			var target = $(this.hash);
-			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-			if (target.length) {
-				$('html,body').animate({
-					scrollTop: target.offset().top - 32
-				}, 1000);
-				return false;
-			}
-		}
-	});
-});
-    // Fixed Nav
-    jQuery(document).ready(function ($) {
-        $(window).scroll(function(){
-            var scrollTop = 142;
-            if($(window).scrollTop() >= scrollTop){
-                $('nav').css({
-                    position : 'fixed',
-                    top : '0'
-                });
-            }
-            if($(window).scrollTop() < scrollTop){
-                $('nav').removeAttr('style');	
-            }
-        })
-    
-    // Active Nav Link
-    $('nav ul li a').click(function(){
-            $('nav ul li a').removeClass('active');
-            $(this).addClass('active');
-        });
-    })
-    
-    // cal age
-        function submitBday() {
-        var Bdate = document.getElementById('year').value-543;
-        var currentTime = new Date();
-        var year = currentTime.getFullYear();
-
-        var age = year-Bdate;
-
-        var theBdayDis = document.getElementById('resultBdayDis');
-        theBdayDis.setAttribute("value", age);
-        console.log(theBdayDis.name+ " : " + age + "currentTime"+year);
-        var theBday = document.getElementById('resultBday');
-        theBday.setAttribute("value", age);
-        console.log(theBday.name+ " : " + age );
-    }
-
-    // onChange of radio
-    $(document).ready(function(){
-        $("input[name='ever_work']").change(function() {
-            var ever_work = $('input:radio[name="ever_work"]:checked').val();
-            if(ever_work=="ไม่เคย"){
-                document.getElementById("selectClinic").setAttribute("disabled","");
-            }else{
-                document.getElementById("selectClinic").removeAttribute("disabled");
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $(".selcet-2").select2({
-            theme: "bootstrap"
-        });
-    });
-
-</script>
+<!-- script -->
+<script src="<?php echo base_url('assets/web/'); ?>assets/jquery/jquery.min.js"></script>
+<script src="<?php echo base_url('assets/'); ?>popper/popper.min.js"></script>
+<!-- Alert2 -->
+<script src="https://unpkg.com/sweetalert2@7.0.9/dist/sweetalert2.all.js"></script>
+<!-- <script type="text/javascript" src="js/SmoothScroll.js"></script>  -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/dashboard/'); ?>select2/js/select2.min.js"></script>
+<!-- auto complate -->
+<script type="text/javascript" src="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dependencies/JQL.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
+<!-- customJS -->
+<script src="<?php echo base_url('assets/register/'); ?>/js/editregister.js"></script>
 </body>
 </html> 
