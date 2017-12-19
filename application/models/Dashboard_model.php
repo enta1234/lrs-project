@@ -232,7 +232,7 @@ class Dashboard_model extends CI_Model {
 	// Get all Register JSON
 	function _getRegisterjson(){
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
-				information.information_idcard, information.information_phonenumber, work.ever_clinic_name,
+				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
 				FROM registers 
 				LEFT JOIN information ON registers.information_id = information.information_id 
@@ -246,7 +246,7 @@ class Dashboard_model extends CI_Model {
 	// Get Register with Area JSON
 	function _getRegisterAreajson($area){
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
-				information.information_idcard, information.information_phonenumber, work.ever_clinic_name,
+				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
 				FROM registers 
 				LEFT JOIN information ON registers.information_id = information.information_id 
@@ -260,7 +260,7 @@ class Dashboard_model extends CI_Model {
 	// Get Register with Clinic JSON
 	function _getRegisterClinicjson($clinic){
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
-				information.information_idcard, information.information_phonenumber, work.ever_clinic_name,
+				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
 				FROM registers 
 				LEFT JOIN information ON registers.information_id = information.information_id 

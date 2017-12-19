@@ -793,6 +793,11 @@ class Dashboard extends CI_Controller {
 	public function getRegisterjson()
 	{	
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			if ($getUser['User']->officer_status=='superadmin') {
 				$this->db_model->_getRegisterjson();
