@@ -78,6 +78,19 @@
           </ul>
         </li>
         <?php } ?>
+        <li class="treeview <?php echo $ac_historyregister; ?>">
+          <a href="#">
+            <i class="fa fa-history fa-lg"></i> 
+            <span><?php echo nbs(2); ?>ประวัติ</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class=""><?php echo anchor('Dashboard/#','ผู้ที่เคยเป็นที่ปรึกษา'); ?></li>
+            <li class="<?php echo $ac_historyregister; ?>"><?php echo anchor('Dashboard/historyRegister','ผู้ที่เคยสมัคร'); ?></li>
+          </ul>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
