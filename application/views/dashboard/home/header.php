@@ -29,6 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>select2/css/select2-bootstrap.css">
   <!-- bootstrap Table -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/bootstrap-table.css">
+  <!-- bootstrap-wysihtml5 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>bootstrap-wysihtml5/bootstrap3-wysihtml5.css">
   <!-- CheckBox Css -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dashboard/'); ?>icheck/css/blue.css">
 </head>

@@ -41,7 +41,7 @@
                     'name'        => 'detail',
                     'value'       => set_value('detail'),
                     'rows'        => '20',
-                    'class'       => 'form-control',
+                    'class'       => 'form-control textediter',
                     'placeholder' => 'Detail',
                   );
                   echo form_textarea($datadetail);

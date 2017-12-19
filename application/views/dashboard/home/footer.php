@@ -7,6 +7,8 @@
 <script src="<?php echo base_url('assets/dashboard/'); ?>themelte/js/adminlte.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url('assets/dashboard/'); ?>select2/js/select2.min.js"></script>
+<!-- Bootstrap Wysihtml5 -->
+<script src="<?php echo base_url('assets/dashboard/'); ?>bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js"></script>
 <!-- Bootstrap Table -->
 <script src="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/bootstrap-table.js"></script>
 <script src="<?php echo base_url('assets/dashboard/'); ?>bootstraptable/dist/extensions/export/bootstrap-table-export.js"></script>
@@ -36,6 +38,14 @@
     		theme: "bootstrap"
     	});
 	});
+	$(function () {
+    $('.textediter').wysihtml5({
+        toolbar: {
+            "fa": true,
+            "html": true,
+        }
+    })
+  })
 </script>
 </body>
 </html>

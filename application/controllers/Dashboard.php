@@ -34,7 +34,6 @@ class Dashboard extends CI_Controller {
 			$data['numRegister'] = $this->db_model->_countRegister();
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
-
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -794,7 +793,14 @@ class Dashboard extends CI_Controller {
 	public function getRegisterjson()
 	{	
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
-			$this->db_model->_getRegisterjson();
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status=='superadmin') {
+				$this->db_model->_getRegisterjson();
+			}elseif ($getUser['User']->officer_status=='admin') {
+				$this->db_model->_getRegisterAreajson($getUser['User']->area_id);
+			}else{
+				$this->db_model->_getRegisterClinicjson($getUser['User']->clinic_id);
+			}
 		}else{
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
