@@ -398,11 +398,11 @@
                                                 <input type="radio" class="option-input radio" value="เคย" name="ever_work" required/>
                                                 เคย
                                             </label>
-                                            <select name="selclinic" class="form-control selcet-2" id="selectClinic" style="max-width:70%;" required disabled>
+                                            <select name="selectClinic" class="form-control selcet-2" id="selectClinic" style="max-width:70%;" disabled>
                                             <option value="">---- กรุณาเลือก -----</option>
                                                 <?php
                                                     foreach($getClinic as $clinic){
-                                                        echo '<option value="'.$clinic->clinic_name.'>'.$clinic->clinic_name.'</option>';
+                                                        echo '<option value="'.$clinic->clinic_name.'">'.$clinic->clinic_name.'</option>';
                                                     }
                                                 ?>
                                             </select>
