@@ -104,4 +104,4 @@ window.actionEvents = {
 };
 window.icons = {
         refresh: 'fa-refresh'
-      };
+};
