@@ -123,10 +123,10 @@ class Register extends CI_Controller {
 
 			// set work get data form post
 			$work['information_id'] = $infomation_id;
-			if($this->input->post('ever_work') == 'เคย'){
+			if($this->input->post('ever_work') == 'ไม่เคย'){
 				$work['ever_clinic_name'] = $this->input->post('ever_work');
 			}else{
-				$work['ever_clinic_name']= $this->input->post('selectClinic');
+				$work['ever_clinic_name'] = $this->input->post('selectClinic');
 			}
 			if(isset($work)){
 				$work_id = $this->register->_work($work);
