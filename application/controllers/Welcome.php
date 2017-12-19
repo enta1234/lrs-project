@@ -33,7 +33,7 @@ class Welcome extends CI_Controller {
 		$this->load->view('template/map');
 		$this->load->view('template/footer');
 	}
-	public function news($id,$name,$date){
+	public function news($id, $date){
 		if(isset($id)){
 			$news['newsshow'] = $this->news->_getNewsById($id);
 			$news['getnews'] = $this->news->getOrderNews(); //
