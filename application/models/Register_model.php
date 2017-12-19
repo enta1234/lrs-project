@@ -133,41 +133,88 @@ class Register_model extends CI_Model {
 			redirect('register');
 		}
 	}
-	// update
-	function _updateInformation($information_id, $work_id, $information, 
-									$graduated, $work, $government_work, $lawyer_work, $related_law_work
-									, $skill_person_com, $skill_person_lan){
-		
+	// UPDATE DATA
+	function _updateInformation($information_id, $information){
 		$this->db->set($information);
-		$this->db->where($information_id);
+		$this->db->where('information_id',$information_id);
 		$this->db->update('information');
-
+	}
+	function _UpdateGraduated($information_id, $graduated){
 		$this->db->set($graduated);
-		$this->db->where($information_id);
+		$this->db->where('information_id',$information_id);
 		$this->db->update('graduated');
-
+	}
+	function _UpdateWorks($information_id, $work){
 		$this->db->set($work);
-		$this->db->where($information_id);
-		$this->db->update('work');
+		$this->db->where('information_id',$information_id);
+		$this->db->update('works');
+	}
+	function _UpdateGovernment_work($work_id, $government_work){
+		$count = $this->db->where('work_id',$work_id)->count_all_results('government_work');
+		if($count>0){
+			$this->db->set($government_work);
+			$this->db->where('work_id',$work_id);
+			$this->db->update('government_work');
 
-		$this->db->set($government_work);
-		$this->db->where($work_id);
-		$this->db->update('government_work');
-
-		$this->db->set($lawyer_work);
-		$this->db->where($work_id);
-		$this->db->update('lawyer_work');
+			$this->db->where('work_id',$work_id)->delete('lawyer_work');
+			$this->db->where('work_id',$work_id)->delete('related_law_work');
+		}else{
+			$this->db->insert('government_work', $government_work);
+			$this->db->where('work_id',$work_id)->delete('lawyer_work');
+			$this->db->where('work_id',$work_id)->delete('related_law_work');
+		}
 		
-		$this->db->set($related_law_work);
-		$this->db->where($work_id);
-		$this->db->update('related_law_work');
+	}
+	function _UpdateLawyerWork($work_id, $lawyer_work){
+		$count = $this->db->where('work_id',$work_id)->count_all_results('lawyer_work');
+		if($count>0){
+			$this->db->set($lawyer_work);
+			$this->db->where('work_id',$work_id);
+			$this->db->update('lawyer_work');
 
-		$this->db->set($skill_person_com);
-		$this->db->where($information_id);
-		$this->db->update('skill_person_com');
+			$this->db->where('work_id',$work_id)->delete('government_work');
+			$this->db->where('work_id',$work_id)->delete('related_law_work');
+		}else{
+			$this->db->insert('lawyer_work', $lawyer_work);
 
-		$this->db->set($skill_person_lan);
-		$this->db->where($information_id);
-		$this->db->update('skill_person_lan');
+			$this->db->where('work_id',$work_id)->delete('government_work');
+			$this->db->where('work_id',$work_id)->delete('related_law_work');
+		}
+	}
+	function _UpadteRelatedLawWork($work_id, $related_law_work){
+		$count = $this->db->where('work_id',$work_id)->count_all_results('related_law_work');
+		if($count>0){
+			$this->db->set($related_law_work);
+			$this->db->where('work_id',$work_id);
+			$this->db->update('related_law_work');
+
+			$this->db->where('work_id',$work_id)->delete('government_work');
+			$this->db->where('work_id',$work_id)->delete('lawyer_work');
+		}else{
+			$this->db->insert('related_law_work', $related_law_work);
+			
+			$this->db->where('work_id',$work_id)->delete('government_work');
+			$this->db->where('work_id',$work_id)->delete('lawyer_work');
+		}
+	}
+	function _UpdateSkillPersonCom($information_id, $skill_person_com){
+		$count = $this->db->where('information_id',$information_id)->count_all_results('skill_person_com');
+		if($count>0){
+			$this->db->set($skill_person_com);
+			$this->db->where('information_id',$information_id);
+			$this->db->update('skill_person_com');
+		}else{
+			$this->db->insert('skill_person_com', $skill_person_com);
+		}
+	}
+	function _UpdateSkillPersonLan($information_id, $skill_person_lan){
+		$count = $this->db->where('information_id',$information_id)->count_all_results('skill_person_language');
+		if($count>0){
+			$this->db->set($skill_person_lan);
+			$this->db->where('information_id',$information_id);
+			$this->db->update('skill_person_language');
+		}else{
+			$this->db->insert('skill_person_language', $skill_person_lan);
+		}
 	}
 }
