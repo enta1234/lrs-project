@@ -1,6 +1,6 @@
 <script>
-    var base_url = window.location.origin+'/lrs-project/assets/'; // for loc
-    // var base_url = window.location.origin+'/assets/'; // for deploy
+    // var base_url = window.location.origin+'/lrs-project/assets/'; // for loc
+    var base_url = window.location.origin+'/assets/'; // for deploy
     $.Thailand({
         database: base_url+'jquery.Thailand.js/database/db.json', 
 
