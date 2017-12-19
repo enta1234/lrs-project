@@ -1,11 +1,11 @@
 var base_url = window.location.origin+'/lrs-project';
 $(function () {
-    $('#tableregister').bootstrapTable({
-        url: base_url+'/Dashboard/getRegisterjson',
+    $('#tablehistoryregister').bootstrapTable({
+        url: base_url+'/Dashboard/getHistoryregisterjson',
         columns: [{
             field: 'state',
             checkbox: 'true',
-            valign: 'middle'
+            valign: 'middle',
         }, {
             field: 'registers_id',
             title: 'เลขที่',
@@ -89,12 +89,6 @@ $(function () {
 
 function actionFormatter(value, row, index) {
     return [
-        '<a class="pass ml10" href="javascript:void(0)" title="ผ่าน">',
-        '<i class="fa fa-check fa-lg" aria-hidden="true"></i>',
-        '</a>&nbsp&nbsp&nbsp',
-        '<a class="fail" href="javascript:void(0)" title="ไม่ผ่าน">',
-        '<i class="fa fa-times fa-lg" aria-hidden="true"></i>',
-        '</a>&nbsp&nbsp&nbsp',
         '<a class="print" href="javascript:void(0)" title="พิมพ์">',
         '<i class="fa fa-print fa-lg" aria-hidden="true"></i>',
         '</a>',
@@ -102,70 +96,6 @@ function actionFormatter(value, row, index) {
 }
 
 window.actionEvents = {
-    'click .pass': function (e, value, row, index) {
-        swal({
-          title: 'ให้ผ่านการสัมภาษณ์',
-          text: "คุณไม่สามารถย้อนกลับได้!",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'ยืนยัน',
-          cancelButtonText: 'ยกเลิก'
-        }).then((result) => {
-          if (result.value) {
-            $.ajax({
-                type:"POST",
-                url: base_url+"/Dashboard/registerpass",
-                data: {data: JSON.stringify(row)},
-                dataType: 'json'
-            });
-            swal({
-              title: 'สำเร็จ',
-              text: 'เพิ่มที่ปรึกษาเรียบร้อย',
-              type: 'success',
-              confirmButtonText: 'ปิด'
-            }).then((result) => {
-                if (result.value) {
-                    location.reload();
-                }
-            })
-          }
-        })
-        
-    },
-    'click .fail': function (e, value, row, index) {
-        swal({
-          title: 'ไม่ให้ผ่านการสัมภาษณ์',
-          text: "",
-          type: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'ยืนยัน',
-          cancelButtonText: 'ยกเลิก'
-        }).then((result) => {
-          if (result.value) {
-            $.ajax({
-                type:"POST",
-                url: base_url+"/Dashboard/registerfail",
-                data: {data: JSON.stringify(row)},
-                dataType: 'json'
-            });
-            swal({
-              title: 'สำเร็จ',
-              text: 'ไม่ผ่านการสัมภาษณ์',
-              type: 'error',
-              confirmButtonText: 'ปิด'
-            }).then((result) => {
-                if (result.value) {
-                    location.reload();
-                }
-            })
-          }
-        })
-        
-    },
     'click .print': function (e, value, row, index) {
             alert('You click del icon, row: ' + JSON.stringify(row));
         
@@ -174,7 +104,7 @@ window.actionEvents = {
 
 
 $(function () {
-    var $table = $('#tableregister');
+    var $table = $('#tablehistoryregister');
     $('#toolbar').find('select').change(function () {
     $table.bootstrapTable('refreshOptions', {
       exportDataType: $(this).val()
@@ -185,4 +115,3 @@ $(function () {
 window.icons = {
   export: 'fa-download'
 };
-console.log('manageregister.js');

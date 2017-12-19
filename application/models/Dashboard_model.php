@@ -53,7 +53,12 @@ class Dashboard_model extends CI_Model {
 		return $result;
 	}
 	function _countLawyer70(){
-		$result =	$this->db->count_all_results('lawyer');
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$date = date('Y-m-d', strtotime('-25386 day', strtotime($now)));
+		$result =	$this->db->join('registers','lawyer.registers_id = registers.registers_id','LEFT')
+		->join('information','information.information_id = registers.information_id','LEFT')
+		->where('information_birthday <', $date)
+		->count_all_results('lawyer');
 		return $result;
 	}
 	function _countRegister(){
@@ -231,6 +236,7 @@ class Dashboard_model extends CI_Model {
 	/* Manage Register */
 	// Get all Register JSON
 	function _getRegisterjson(){
+		$date = "'".(date('Y')-2).'-10-01'."'";
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
 				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
@@ -238,13 +244,14 @@ class Dashboard_model extends CI_Model {
 				LEFT JOIN information ON registers.information_id = information.information_id 
 				LEFT JOIN works ON works.information_id = information.information_id
 				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
-				WHERE registers.registers_status != 'ผ่าน'";
+				WHERE registers.registers_status != 'ผ่าน' AND registers.registers_timeregister >= $date";
 		$query = $this->db->query($sql)->result_array();
 		$data['data'] = json_encode($query);
 		$this->load->view('dashboard/home/content/json/register', $data);
 	}
 	// Get Register with Area JSON
 	function _getRegisterAreajson($area){
+		$date = "'".(date('Y')-2).'-10-01'."'";
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
 				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
@@ -252,13 +259,14 @@ class Dashboard_model extends CI_Model {
 				LEFT JOIN information ON registers.information_id = information.information_id 
 				LEFT JOIN works ON works.information_id = information.information_id
 				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
-				WHERE registers.registers_status != 'ผ่าน' AND clinic.area_id = $area";
+				WHERE registers.registers_status != 'ผ่าน' AND clinic.area_id = $area AND registers.registers_timeregister >= $date";
 		$query = $this->db->query($sql)->result_array();
 		$data['data'] = json_encode($query);
 		$this->load->view('dashboard/home/content/json/register', $data);
 	}
 	// Get Register with Clinic JSON
 	function _getRegisterClinicjson($clinic){
+		$date = "'".(date('Y')-2).'-10-01'."'";
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
 				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
@@ -266,7 +274,7 @@ class Dashboard_model extends CI_Model {
 				LEFT JOIN information ON registers.information_id = information.information_id 
 				LEFT JOIN works ON works.information_id = information.information_id
 				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
-				WHERE registers.registers_status != 'ผ่าน' AND registers.clinic_id = $clinic";
+				WHERE registers.registers_status != 'ผ่าน' AND registers.clinic_id = $clinic AND registers.registers_timeregister >= $date";
 		$query = $this->db->query($sql)->result_array();
 		$data['data'] = json_encode($query);
 		$this->load->view('dashboard/home/content/json/register', $data);
@@ -308,5 +316,49 @@ class Dashboard_model extends CI_Model {
 		->insert('lawyer');
 	}
 	/* ./Manage Register */
+
+	/* History Register */
+	// Get all Register JSON
+	function _getHistoryregisterjson(){
+		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
+				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
+				FROM registers 
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN works ON works.information_id = information.information_id
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/register', $data);
+	}
+	// Get Register with Area JSON
+	function _getHistoryregisterAreajson($area){
+		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
+				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
+				FROM registers 
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN works ON works.information_id = information.information_id
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE clinic.area_id = $area";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/register', $data);
+	}
+	// Get Register with Clinic JSON
+	function _getHistoryregisterClinicjson($clinic){
+		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber, works.ever_clinic_name,
+				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
+				FROM registers 
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN works ON works.information_id = information.information_id
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.clinic_id = $clinic";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/register', $data);
+	}
+	/* ./History Register */
 }
 ?>
