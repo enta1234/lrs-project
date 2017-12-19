@@ -1,4 +1,39 @@
 <script>
+    var base_url = window.location.origin+'/lrs-project/assets/'; // for loc
+    // var base_url = window.location.origin+'/assets/'; // for deploy
+    $.Thailand({
+        database: base_url+'jquery.Thailand.js/database/db.json', 
+
+        $district: $('[name="district"]'),
+        $amphoe: $('[name="amphoe"]'),
+        $province: $('[name="province"]'),
+        $zipcode: $('[name="zipcode"]'),
+
+        onDataFill: function(data){
+            console.info('Data Filled', data);
+        },
+
+        onLoad: function(){
+            console.info('Autocomplete is ready!');
+            $('#loader, .demo').toggle();
+        }
+    });
+
+    // watch on change
+
+    $('[name="district"]').change(function(){
+        console.log('ตำบล', this.value);
+    });
+    $('[name="amphoe"]').change(function(){
+        console.log('อำเภอ', this.value);
+    });
+    $('[name="province"]').change(function(){
+        console.log('จังหวัด', this.value);
+    });
+    $('[name="zipcode"]').change(function(){
+        console.log('รหัสไปรษณีย์', this.value);
+    });
+
     $('#formregiter').validator()
     // auto show modal
     $(window).on('load',function(){
@@ -209,18 +244,24 @@ jQuery(document).ready(function ($) {
     
     // cal age
         function submitBday() {
-        var Bdate = document.getElementById('year').value-543;
+        var year = document.getElementById('year').value-543;
+        var month = document.getElementById('month').value;
+        var day = document.getElementById('day').value;
+
         var currentTime = new Date();
-        var year = currentTime.getFullYear();
+        var getyear = currentTime.getFullYear();
 
-        var age = year-Bdate;
-
+        var age = getyear-year;
+        if (currentTime.getMonth() < month || (currentTime.getMonth() == month && currentTime.getDate() > day)) {
+            age--;
+        }
         var theBdayDis = document.getElementById('resultBdayDis');
-        theBdayDis.setAttribute("value", age);
-        console.log(theBdayDis.name+ " : " + age + "currentTime"+year);
-        var theBday = document.getElementById('resultBday');
-        theBday.setAttribute("value", age);
-        console.log(theBday.name+ " : " + age );
+        if(year>100){
+            theBdayDis.setAttribute("value", age);
+            console.log(theBdayDis.name+ " : " + age + "month" + month + "day" + day);
+        }else{
+            theBdayDis.setAttribute("value", '0');
+        }
     }
 
     // onChange of radio

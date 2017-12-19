@@ -8,6 +8,7 @@ class Register extends CI_Controller {
 		$this->load->helper(array('url','html','array','date','form'));
 		$this->load->library(array('form_validation','session'));
 		$this->load->model('Register_model','register');
+		$this->load->model('Clinic','clinc');
 	}
 	public function index()
 	{
@@ -51,26 +52,9 @@ class Register extends CI_Controller {
 	}
 // finis!!
 	public function formRegister(){
-		// Infomation
-		$this->form_validation->set_rules('name', 'ชื่อ', 'required|max_length[30]');
-		$this->form_validation->set_rules('lastname', 'นามสกุล', 'required|max_length[30]');
-		$this->form_validation->set_rules('idcard', 'เลขบัตรประชาชน', 'required|is_natural|callback_valid_citizen_id');
-		$this->form_validation->set_rules('age', 'อายุ', 'is_natural|callback_valid_age');
-		$this->form_validation->set_rules('nationalism', 'เชื่อชาติ', 'required|max_length[10]');
-		$this->form_validation->set_rules('nationality', 'สัญชาติ', 'required|max_length[10]');
-		$this->form_validation->set_rules('religion', 'ศาสนา', 'required|max_length[10]');
-		$this->form_validation->set_rules('status', 'สถานภาพ', 'required');
-		$this->form_validation->set_rules('address_number', 'ที่อยู่', 'required|max_length[10]');
-		$this->form_validation->set_rules('moo', 'หมู่ที/ซอย', 'max_length[40]');
-		$this->form_validation->set_rules('road', 'ถนน', 'max_length[50]');
-		$this->form_validation->set_rules('district', 'แขวง/ตําบล', 'required|max_length[50]');
-		$this->form_validation->set_rules('county', 'เขต/อําเภอ', 'required|max_length[50]');
-		$this->form_validation->set_rules('province', 'จังหวัด', 'required|max_length[25]');
-		$this->form_validation->set_rules('postcode', 'รหัสไปรษณีย์', 'required|max_length[5]|is_natural');
-		$this->form_validation->set_rules('phonenumber', 'หมายเลขโทรศัพท์ที่สามารถติดต่อได้', 'required|max_length[10]|is_natural');
 		// graduated
-		$this->form_validation->set_rules('bachalor_from', 'จบการศึกษานิติศาสตรบัณฑิต', 'required|max_length[50]');
-		$this->form_validation->set_rules('bachalor_year', 'ปีที่สําเร็จการศึกษา', 'required|max_length[4]|is_natural');
+		$this->form_validation->set_rules('bachalor_from', 'จบการศึกษานิติศาสตรบัณฑิต', 'max_length[50]');
+		$this->form_validation->set_rules('bachalor_year', 'ปีที่สําเร็จการศึกษา', 'max_length[4]|is_natural');
 		$this->form_validation->set_rules('master_form', 'ปริญญาโท', 'max_length[50]');
 		$this->form_validation->set_rules('bachalor_year', 'ปีที่สําเร็จการศึกษา', 'max_length[4]|is_natural');
 		$this->form_validation->set_rules('master_laws_form', 'ประกาศนียบัตรเนติบัณฑิต', 'max_length[50]');
@@ -94,6 +78,7 @@ class Register extends CI_Controller {
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
 
 		if ($this->form_validation->run()) {
+
 			// set information get data form post
 			$information['information_name'] = $this->input->post('afname').$this->input->post('name');
 			$information['information_lastname'] = $this->input->post('lastname');
@@ -102,7 +87,7 @@ class Register extends CI_Controller {
 			$year = $this->input->post('year')-543;
 			$dob = $year.'-'.$month.'-'.$day;
 			$information['information_birthday'] = $dob;
-			$information['information_age'] = $this->input->post('age');
+			// $information['information_age'] = $this->input->post('age');
 			$information['information_idcard'] = $this->input->post('idcard');
 			$information['information_nationalism'] = $this->input->post('nationalism');
 			$information['information_nationality'] = $this->input->post('nationality');
@@ -112,16 +97,15 @@ class Register extends CI_Controller {
 			$information['information_moo'] = $this->input->post('moo');
 			$information['information_road'] = $this->input->post('road');
 			$information['information_district'] = $this->input->post('district');
-			$information['information_county'] = $this->input->post('county');
+			$information['information_county'] = $this->input->post('amphoe');
 			$information['information_province'] = $this->input->post('province');
-			$information['information_postcode'] = $this->input->post('postcode');
+			$information['information_postcode'] = $this->input->post('zipcode');
 			$information['information_phonenumber'] = $this->input->post('phonenumber');
 			// send to model
 			if(isset($information)){
 				$infomation_id = $this->register->_information($information);
 				
 			}
-
 			// set graduated get data form post
 			$graduated['information_id'] = $infomation_id;
 			$graduated['graduated_bachalor_from'] = $this->input->post('bachalor_from');
@@ -139,11 +123,15 @@ class Register extends CI_Controller {
 
 			// set work get data form post
 			$work['information_id'] = $infomation_id;
-			$work['work_every'] = $this->input->post('ever_work');
-			$work['clinic_id'] = $this->input->post('selclinic');
+			if($this->input->post('ever_work') == 'เคย'){
+				$work['ever_clinic_name'] = $this->input->post('ever_work');
+			}else{
+				$work['ever_clinic_name']= $this->input->post('selectClinic');
+			}
 			if(isset($work)){
 				$work_id = $this->register->_work($work);
 			}
+
 			if($this->input->post('retire_date')!=null){
 				// set government_work get data form post
 				$government_work['work_id'] = $work_id;
@@ -158,6 +146,7 @@ class Register extends CI_Controller {
 					$this->register->_government_work($government_work);
 				}
 			}
+
 			if($this->input->post('lawyer_career')!=null){
 				// set lawyer_work get data form post
 				$lawyer_work['work_id'] = $work_id;
@@ -197,8 +186,7 @@ class Register extends CI_Controller {
 
 				if(isset($related_law_work)){
 					$this->register->_related_law_work($related_law_work);
-				}
-					
+				}					
 			}
 			
 			// set skill_person get data form post

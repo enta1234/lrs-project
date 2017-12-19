@@ -56,8 +56,8 @@ class Register_model extends CI_Model {
 		$row =	$this->db->where('information_idcard', $idcard)->get('information')->row();
 		return $row;
 	}
-	function _checkregistersclinic($registers_clinic_name,$information_idcard){
-		$count = $this->db->where('registers_clinic_name', $registers_clinic_name)
+	function _checkregistersclinic($clinic_id,$information_idcard){
+		$count = $this->db->where('clinic_id', $clinic_id)
 		->where('information_idcard', $information_idcard)
 		->count_all_results('registers');
 		if($count<1){
@@ -95,10 +95,11 @@ class Register_model extends CI_Model {
 	}
 	function _getregisters($data){
 		$sql = 'SELECT registers.registers_id, registers.information_idcard, information.information_name, 
-		information.information_lastname, registers.registers_clinic_name, registers.registers_status, registers.registers_timeregister
+		 clinic.clinic_name, registers.registers_status, registers.registers_timeregister
 		FROM registers
 		LEFT JOIN information ON registers.information_id = information.information_id
-		WHERE registers.information_idcard = '.$data;
+		LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+		WHERE registers.information_idcard ='.$data;
 
 		$query = $this->db->query($sql)->result_array();
 		$data2['data'] = json_encode($query);
@@ -106,7 +107,12 @@ class Register_model extends CI_Model {
 	}
 	// get infprmation_id
 	function _getInformation_id($idcard){
-		return $this->db->select('information_id')->where('information_idcard',$idcard)->get('information')->row();
+		$id = $this->db->select('information_id')->where('information_idcard',$idcard)->get('information')->row();
+		return $id;
+	}
+	// get id works
+	function _getWorks_id($information_id){
+		return $this->db->select('work_id')->where('information_id',$information_id)->get('works')->row();
 	}
 	// getinformation
 	function _getAllInformation($idcard){
@@ -128,9 +134,40 @@ class Register_model extends CI_Model {
 		}
 	}
 	// update
-	function _updateInformation($data, $idcard){
-		$this->db->set($data);
-		$this->db->where($idcard);
-		$this->db->update('information'); // gives UPDATE mytable SET field = field+1 WHERE id = 2
+	function _updateInformation($information_id, $work_id, $information, 
+									$graduated, $work, $government_work, $lawyer_work, $related_law_work
+									, $skill_person_com, $skill_person_lan){
+		
+		$this->db->set($information);
+		$this->db->where($information_id);
+		$this->db->update('information');
+
+		$this->db->set($graduated);
+		$this->db->where($information_id);
+		$this->db->update('graduated');
+
+		$this->db->set($work);
+		$this->db->where($information_id);
+		$this->db->update('work');
+
+		$this->db->set($government_work);
+		$this->db->where($work_id);
+		$this->db->update('government_work');
+
+		$this->db->set($lawyer_work);
+		$this->db->where($work_id);
+		$this->db->update('lawyer_work');
+		
+		$this->db->set($related_law_work);
+		$this->db->where($work_id);
+		$this->db->update('related_law_work');
+
+		$this->db->set($skill_person_com);
+		$this->db->where($information_id);
+		$this->db->update('skill_person_com');
+
+		$this->db->set($skill_person_lan);
+		$this->db->where($information_id);
+		$this->db->update('skill_person_lan');
 	}
 }

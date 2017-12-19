@@ -48,7 +48,7 @@
                 <div class="col">
                     <?php echo validation_errors(); ?>
                     <h2 class="display-5 topic-a ">ส่วนที่ ๑ ข้อมูลส่วนบุคคล</h2> <hr>
-                    <input type="hidden" name="information_id" value="<?= $getedit->information_id;?>">
+                    <input type="hidden" name="information_id" value="<?= $getinid->information_id;?>">
                 </div>
             </div>
             <!-- Body form -->
@@ -94,36 +94,58 @@
                                     <div class=" form-group">
                                         <label >วันเกิด</label>
                                         <div class="row dob">
-                                            <input type="text" id="birthday" name="day" class="form-control col-md-3" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
-                                            <select class="form-control selcet-2 col-md-4" name="month" id="" required>
-                                                <option value=""> เดือน </option>
-                                                <option value="01"> มกราคม </option>
-                                                <option value="02"> กุมภาพันธ์ </option>
-                                                <option value="03"> มีนาคม </option>
-                                                <option value="04"> เมษายน </option>
-                                                <option value="05"> พฤษภาคม </option>
-                                                <option value="06"> มิถุนายน </option>
-                                                <option value="07"> กรกฎาคม </option>
-                                                <option value="08"> สิงหาคม </option>
-                                                <option value="09"> กันยายน </option>
-                                                <option value="10"> ตุลาคม </option>
-                                                <option value="11"> พฤศจิกายน </option>
-                                                <option value="12"> ธันวาคม </option>
-                                            </select>
-                                            <select class="form-control selcet-2 col-md-4 " name="year" id="year" onchange="submitBday()"  required>
-                                                <option value=""> ปี </option>
+                                        <?php 
+                                            $y = substr($getedit->information_birthday, 0, 4);
+                                            $y+=543;
+                                            $m = substr($getedit->information_birthday, 5, 2);
+                                            $d = substr($getedit->information_birthday, 8, 2);
+                                        ?>
+                                            <input type="text" id="birthday" value="<?= $d; ?>" name="day" class="form-control col-md-3" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
+                                            <?php 
+                                                $month = array( 
+                                                    ''=>'-- เดือน --',
+                                                    '01'=>'มกราคม',
+                                                    '02'=>'กุมภาพันธ์',
+                                                    '03'=>'มีนาคม',
+                                                    '04'=>'เมษายน',
+                                                    '05'=>'พฤษภาคม',
+                                                    '06'=>'มิถุนายน',
+                                                    '07'=>'กรกฎาคม',
+                                                    '08'=>'สิงหาคม',
+                                                    '09'=>'กันยายน',
+                                                    '10'=>'ตุลาคม',
+                                                    '11'=>'พฤศจิกายน',
+                                                    '12'=>'ธันวาคม'
+                                                );
+                                                $attm = array(
+                                                    'class'=>'form-control selcet-2 col-md-4',
+                                                    'required'=>''
+                                                );
+                                                echo form_dropdown('month', $month, $m, $attm);
+                                            ?>
                                                 <?php
+                                                    $atty = array(
+                                                        'class'=>'form-control selcet-2 col-md-4',
+                                                        'required'=>'',
+                                                        'id'=>'year',
+                                                        'onchange'=>'submitBday()'
+                                                    );
+                                                    $year[''] = '-- ปี --';
                                                     for($i=2490;$i<2561;$i++){
-                                                        echo '<option value="'.$i.'">'.$i.'</option>';
-                                                    }
+                                                        $year[$i] = $i;
+                                                    } 
+                                                    echo form_dropdown('year', $year, $y, $atty);
                                                 ?>
-                                            </select>
+                                            
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>อายุ</label>
+                                        <?php 
+                                             date("Y-m-d")
+                                        ?>
                                         <input type="text" id="resultBdayDis" name="aged" class="form-control" disabled>
                                         <input type="hidden" id="resultBday" name="age" />
                                     </div>
@@ -388,12 +410,48 @@
         <div class="row form-name">
             <div class="col">
                 <h2 class="display-5 topic-a ">ส่วนที่ ๓ ประวัติการทำงาน</h2> <hr>
-                <input type="hidden" name="information_id" value="<?= $getedit->graduated_id;?>">
+                <input type="hidden" name="work_id" value="<?= $getworkid->work_id;?>">
             </div>
         </div>
         <!-- Body form -->
         <div class="row form-body">
             <div class="col">
+            <div class="row">
+                    <!-- left form -->
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label >เคยเป็นที่ปรึกษาประจำคลินิกยุติธรรม</label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <label class="label-radio">
+                                                <input type="radio" class="option-input radio" value="เคย" name="ever_work"/>
+                                                เคย
+                                            </label>
+                                            <select name="selclinic" class="form-control selcet-2" id="selectClinic" style="max-width:70%;" disabled>
+                                            <option value="">---- กรุณาเลือก -----</option>
+                                                <?php
+                                                    foreach($getClinic as $clinic){
+                                                        echo '<option value="'.$clinic->clinic_name.'>'.$clinic->clinic_name.'</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <label class="label-radio">
+                                        <input type="radio" class="option-input radio" value="ไม่เคย" name="ever_work"/>
+                                            ไม่เคย
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- row 2 -->
                 <div class="row">
                     <div class="col">
@@ -807,14 +865,7 @@
                                                 </div>
                                             </div>
                                         </div>
-<!-- 
-                                        <div class="row">
-                                            <div class="col">
-                                                <button type="button" class="btn btn-primary btn-block add-work-btn"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div> -->
                                     </div>
-                                    <!-- end form -->
                                 </div>
                             </div>
                         </div>
@@ -831,6 +882,8 @@
         <div class="row form-name">
             <div class="col">
                 <h2 class="display-5 topic-a ">ส่วนที่ ๔ ความสามารถพิเศษ</h2> <hr>
+                <input type="hidden" name="skill_person_com_id" value="<?= $getedit->skill_person_com_id;?>">
+                <input type="hidden" name="skill_person_lan_id" value="<?= $getedit->skill_person_lan_id;?>">
             </div>
         </div>
         <!-- Body form -->

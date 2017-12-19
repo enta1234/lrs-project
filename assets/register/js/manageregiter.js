@@ -22,7 +22,7 @@ $(function () {
             width: '23%',
 
         },{
-            field: 'registers_clinic_name',
+            field: 'clinic_name',
             title: 'คลินิกที่สมัคร',
             sortable: 'true',
             valign: 'middle',
@@ -56,10 +56,10 @@ $(function () {
 function actionFormatter(value, row, index) {
     return [
         '<a class="btn btn-info print" href="javascript:void(0)" title="Print">',
-        '<i class="fas fa-print" aria-hidden="true"></i>',
+        '<i class="fa fa-print" aria-hidden="true"></i>',
         '</a>&nbsp&nbsp&nbsp',
         '<a class="btn btn-danger del" href="javascript:void(0)" title="Delete">',
-        '<i class="far fa-trash-alt" aria-hidden="true"></i>',
+        '<i class="fa fa-trash-o" aria-hidden="true"></i>',
         '</a>',
     ].join('');
 }
@@ -103,5 +103,5 @@ window.actionEvents = {
    
 };
 window.icons = {
-        export: 'fa-refresh'
+        refresh: 'fa-refresh'
       };

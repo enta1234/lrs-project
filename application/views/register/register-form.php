@@ -42,15 +42,15 @@
                                     <div class="row">
                                         <div class="col-2 form-group">
                                             <label for="afname" class="control-label">คำนำหน้า</label>
-                                            <input type="text" name="afname" class="form-control" placeholder="นาย/นาง" required>
+                                            <input type="text" name="afname" class="form-control" placeholder="นาย/นาง" pattern="[ก-๙]+" maxlength="10" required>
                                         </div>
                                         <div class="col form-group">
                                             <label>ชื่อ</label>
-                                            <input type="text" name="name" class="form-control" placeholder="ชื่่อ" required>
+                                            <input type="text" name="name" class="form-control" placeholder="ชื่่อ" pattern="[ก-๙]+" maxlength="30" required>
                                         </div>
                                         <div class="col form-group">
                                         <label >นามสกุล</label>
-                                        <input type="text" name="lastname" class="form-control" placeholder="นามสกุล" required>
+                                        <input type="text" name="lastname" class="form-control" placeholder="นามสกุล" pattern="[ก-๙]+" maxlength="30" required>
                                     </div>
                                     </div>
                                 </div>
@@ -77,9 +77,16 @@
                                     <div class=" form-group">
                                         <label >วันเกิด</label>
                                         <div class="row dob">
-                                            <input type="text" id="birthday" name="day" class="form-control col-md-3" pattern="\d*" maxlength="2"  placeholder="วัดเกิด" required>
-                                            <select class="form-control selcet-2 col-md-4" name="month" id="" required>
-                                                <option value=""> เดือน </option>
+                                            <select class="form-control selcet-2 col-md-3" name="day" onchange="submitBday()" id="day" required>
+                                                <option value="">- วัน -</option>
+                                                <?php 
+                                                    for($i=1;$i<31;$i++){
+                                                        echo '<option value="'.$i.'">'.$i.'</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                            <select class="form-control selcet-2 col-md-3" name="month" onchange="submitBday()" id="month" required>
+                                                <option value="">- เดือน -</option>
                                                 <option value="01"> มกราคม </option>
                                                 <option value="02"> กุมภาพันธ์ </option>
                                                 <option value="03"> มีนาคม </option>
@@ -93,8 +100,8 @@
                                                 <option value="11"> พฤศจิกายน </option>
                                                 <option value="12"> ธันวาคม </option>
                                             </select>
-                                            <select class="form-control selcet-2 col-md-4 " name="year" id="year" onchange="submitBday()"  required>
-                                                <option value=""> ปี </option>
+                                            <select class="form-control selcet-2 col-md-3 " name="year" id="year" onchange="submitBday()"  required>
+                                                <option value="">- ปี -</option>
                                                 <?php
                                                     for($i=2490;$i<2561;$i++){
                                                         echo '<option value="'.$i.'">'.$i.'</option>';
@@ -118,19 +125,19 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="nationalism" class="control-label">เชื่อชาติ</label>
-                                        <input type="text" name="nationalism" class="form-control" placeholder="เชื่อชาติ" required>
+                                        <input type="text" name="nationalism" class="form-control" placeholder="เชื่อชาติ" pattern="[ก-๙]+" maxlength="10" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="nationality" class="control-label">สัญชาติ</label>
-                                        <input type="text" name="nationality" class="form-control" placeholder="สัญชาติ" required>
+                                        <input type="text" name="nationality" class="form-control" placeholder="สัญชาติ" pattern="[ก-๙]+" maxlength="10" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="religion" class="control-label">ศาสนา</label>
-                                        <input type="text" name="religion" class="form-control" placeholder="ศาสนา" required>
+                                        <input type="text" name="religion" class="form-control" placeholder="ศาสนา" pattern="[ก-๙]+" maxlength="10">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +181,7 @@
                         <div class="col">
                             <div class="form-group">
                                 <label>ที่อยู่ที่ติดต่อได้ เลขที่</label>
-                                <input type="text" name="address_number" class="form-control" placeholder="เลขที่่บ้าน" maxlength="10" required>
+                                <input type="text" name="address_number" class="form-control" placeholder="เลขที่่บ้าน" maxlength="50" required>
                             </div>
                         </div>
                     </div>
@@ -185,13 +192,13 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>หมู่ที่/ซอย</label>
-                                        <input type="text" name="moo" class="form-control" placeholder="หมู่ที่/ซอย" required>
+                                        <input type="text" name="moo" class="form-control" placeholder="หมู่ที่/ซอย" maxlength="40">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>ถนน</label>
-                                        <input type="text" name="road" class="form-control" placeholder="ถนน" required>
+                                        <input type="text" name="road" class="form-control" placeholder="ถนน" maxlength="50">
                                     </div>
                                 </div>
                             <!-- end row 1 -->
@@ -201,16 +208,16 @@
                         <!-- right form -->
                         <div class="col">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-5">
                                     <div class="form-group">
-                                        <label>แขวง/ตําบล </label>
-                                        <input type="text" name="district" class="form-control" placeholder="แขวง/ตําบล" required>
+                                        <label>ตำบล / แขวง</label>
+                                        <input name="district" class="form-control" type="text" required>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-5">
                                     <div class="form-group">
-                                        <label>เขต/อําเภอ</label>
-                                        <input type="text" name="county" class="form-control" placeholder="เขต/อําเภอ" required>
+                                        <label>เขต / อําเภอ</label>
+                                        <input name="amphoe" class="form-control" type="text" required>
                                     </div>
                                 </div>
                             <!-- end row 1 -->
@@ -225,13 +232,13 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label>จังหวัด</label>
-                                        <input type="text" name="province" class="form-control" placeholder="จังหวัด" required>
+                                        <input name="province" class="form-control" type="text" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>รหัสไปรษณีย์</label>
-                                        <input type="text" name="postcode" pattern="\d*" maxlength="5" class="form-control" placeholder="รหัสไปรษณีย์" required>
+                                        <input name="zipcode" class="form-control" type="text" required>
                                     </div>
                                 </div>
                                 <!-- end row 1 -->
@@ -383,19 +390,19 @@
                             <div class="col">
                                 <div class="row">
                                     <div class="col-4">
-                                        <label >เคยเป็นที่ปรึกษาประจำคลินิกยุติธรรม</label>
+                                        <label >เคยเป็นที่ปรึกษาประจำคลินิกยุติธรรม (กรุณาเลือก)</label>
                                     </div>
                                     <div class="col">
                                         <div class="row">
                                             <label class="label-radio">
-                                                <input type="radio" class="option-input radio" value="เคย" name="ever_work"/>
+                                                <input type="radio" class="option-input radio" value="เคย" name="ever_work" required/>
                                                 เคย
                                             </label>
-                                            <select name="selclinic" class="form-control selcet-2" id="selectClinic" style="max-width:70%;" disabled>
+                                            <select name="selclinic" class="form-control selcet-2" id="selectClinic" style="max-width:70%;" required disabled>
                                             <option value="">---- กรุณาเลือก -----</option>
                                                 <?php
                                                     foreach($getClinic as $clinic){
-                                                        echo '<option value="'.$clinic->clinic_id.'>'.$clinic->clinic_name.'</option>';
+                                                        echo '<option value="'.$clinic->clinic_name.'>'.$clinic->clinic_name.'</option>';
                                                     }
                                                 ?>
                                             </select>
@@ -403,7 +410,7 @@
                                     </div>
                                     <div class="col-2">
                                         <label class="label-radio">
-                                        <input type="radio" class="option-input radio" value="ไม่เคย" name="ever_work"/>
+                                        <input type="radio" class="option-input radio" value="ไม่เคย" name="ever_work" required/>
                                             ไม่เคย
                                         </label>
                                     </div>
@@ -1203,3 +1210,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
     <!-- Select2 -->
     <script src="<?php echo base_url('assets/dashboard/'); ?>select2/js/select2.min.js"></script>
+    <!-- auto complate -->
+    <script type="text/javascript" src="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dependencies/JQL.min.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/'); ?>./jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>

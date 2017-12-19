@@ -29,10 +29,10 @@
                 <!-- Links -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url('registed/editregister/'.$information->information_idcard.'/'.$information->information_name.'/'.$information->information_lastname); ?>"><i class="far fa-edit fa-3x" aria-hidden="true"></i>แก้ไข</a>
+                        <a class="nav-link" href="<?= base_url('registed/editregister/'.$information->information_idcard.'/'.$information->information_name.'/'.$information->information_lastname); ?>"><i class="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i>แก้ไข</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?= base_url(); ?>"><i class="fas fa-home fa-3x" aria-hidden="true"></i>หน้าแรก</a>
+                        <a class="nav-link" href="<?= base_url(); ?>"><i class="fa fa-home fa-3x" aria-hidden="true"></i>หน้าแรก</a>
                     </li>
                 </ul>
             </nav>
@@ -57,6 +57,8 @@
                         data-icons-prefix="fa"
                         data-icons="icons"
                         data-show-refresh="true"
+                        data-icons-prefix="fa"
+                        data-icons="icons"
                         data-sort-name="registers_id" 
                         data-sort-order="asc"
                         data-pagination="true"
@@ -92,7 +94,7 @@
                                         <option value="">---- กรุณาเลือก -----</option>
                                         <?php
                                             foreach($getClinic as $clinic){
-                                                echo '<option value="'.$clinic->clinic_name.'">'.$clinic->clinic_name.'</option>';
+                                                echo '<option value="'.$clinic->clinic_id.'">'.$clinic->clinic_name.'</option>';
                                             }
                                         ?>
                                     </select>
@@ -114,7 +116,7 @@
 <script src="<?php echo base_url('assets/web/'); ?>assets/jquery/jquery.min.js"></script>
 <script src="<?php echo base_url('assets/'); ?>popper/popper.min.js"></script>
 <!-- Font Awesome -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+<!-- <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script> -->
 <!-- <script type="text/javascript" src="js/SmoothScroll.js"></script>  -->
 <script src="<?php echo base_url('assets/register/'); ?>js/register-js.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
