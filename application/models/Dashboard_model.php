@@ -229,27 +229,55 @@ class Dashboard_model extends CI_Model {
 	/* ./ Manage Page */
 
 	/* Manage Register */
-	// Get all news JSON
+	// Get all Register JSON
 	function _getRegisterjson(){
 		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
-				information.information_idcard, information.information_phonenumber, registers.registers_clinic_name,
+				information.information_idcard, information.information_phonenumber, work.ever_clinic_name,
 				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
 				FROM registers 
 				LEFT JOIN information ON registers.information_id = information.information_id 
 				LEFT JOIN works ON works.information_id = information.information_id
-				LEFT JOIN clinic ON works.clinic_id = clinic.clinic_id
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
 				WHERE registers.registers_status != 'ผ่าน'";
 		$query = $this->db->query($sql)->result_array();
 		$data['data'] = json_encode($query);
 		$this->load->view('dashboard/home/content/json/register', $data);
 	}
-	// Delete Staff
+	// Get Register with Area JSON
+	function _getRegisterAreajson($area){
+		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber, work.ever_clinic_name,
+				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
+				FROM registers 
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN works ON works.information_id = information.information_id
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.registers_status != 'ผ่าน' AND clinic.area_id = $area";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/register', $data);
+	}
+	// Get Register with Clinic JSON
+	function _getRegisterClinicjson($clinic){
+		$sql = "SELECT registers.registers_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber, work.ever_clinic_name,
+				registers.lawyer_ban_status, registers.registers_timeregister, clinic.clinic_name, registers.registers_status
+				FROM registers 
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN works ON works.information_id = information.information_id
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.registers_status != 'ผ่าน' AND registers.clinic_id = $clinic";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/register', $data);
+	}
+	// Update register Fail
 	function _registerfail($registerid){
 		$this->db->set('registers_status', 'ไม่ผ่าน')
 		->where('registers_id',$registerid)
 		->update('registers');
 	}
-	// Delete Staff
+	// Update register Pass
 	function _registerpass($registerid,$banstatus,$idcard){
 		// Upddate Status
 		$this->db->set('registers_status', 'ผ่าน')
