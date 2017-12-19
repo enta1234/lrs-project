@@ -108,7 +108,6 @@ class Register extends CI_Controller {
 			// send to model
 			if(isset($information)){
 				$infomation_id = $this->register->_information($information);
-				
 			}
 			// set graduated get data form post
 			$graduated['information_id'] = $infomation_id;
@@ -193,40 +192,37 @@ class Register extends CI_Controller {
 				}					
 			}
 			
-			// set skill_person get data form post
-			if($this->input->post('skill_com_name1') != ""){
-				$skill_person['information_id'] = $infomation_id;
-				$skill_person['skill_person_com_name0'] = $this->input->post('skill_com_name[1]');
-				$skill_person['skill_person_com_level0'] = $this->input->post('skill_com_level[1]');
-				$skill_person['skill_person_com_name1'] = $this->input->post('skill_com_name[2]');
-				$skill_person['skill_person_com_level1'] = $this->input->post('skill_com_level[2]');
-				$skill_person['skill_person_com_name2'] = $this->input->post('skill_com_name[3]');
-				$skill_person['skill_person_com_level2'] = $this->input->post('skill_com_level[3]');
-				$skill_person['skill_person_com_name3'] = $this->input->post('skill_com_name[4]');
-				$skill_person['skill_person_com_level3'] = $this->input->post('skill_com_level[4]');
-				$skill_person['skill_person_com_name4'] = $this->input->post('skill_com_name[5]');
-				$skill_person['skill_person_com_level4'] = $this->input->post('skill_com_level[5]');
-				if(isset($skill_person)){
-					$this->register->_skill_person_com($skill_person);
+				// set skill_person get data form post
+				$skill_person_com['information_id'] = $infomation_id;
+				$skill_person_com['skill_person_com_name0'] = $this->input->post('skill_com_name[1]');
+				$skill_person_com['skill_person_com_level0'] = $this->input->post('skill_com_level[1]');
+				$skill_person_com['skill_person_com_name1'] = $this->input->post('skill_com_name[2]');
+				$skill_person_com['skill_person_com_level1'] = $this->input->post('skill_com_level[2]');
+				$skill_person_com['skill_person_com_name2'] = $this->input->post('skill_com_name[3]');
+				$skill_person_com['skill_person_com_level2'] = $this->input->post('skill_com_level[3]');
+				$skill_person_com['skill_person_com_name3'] = $this->input->post('skill_com_name[4]');
+				$skill_person_com['skill_person_com_level3'] = $this->input->post('skill_com_level[4]');
+				$skill_person_com['skill_person_com_name4'] = $this->input->post('skill_com_name[5]');
+				$skill_person_com['skill_person_com_level4'] = $this->input->post('skill_com_level[5]');
+				if(isset($skill_person_com)){
+					$this->register->_skill_person_com($skill_person_com);
 				}
-			}
-				
-			if($this->input->post('skill_lan_name0') != ""){
-				$skill_person['information_id'] = $infomation_id;
-				$skill_person['skill_person_lan_name0'] = $this->input->post('skill_lan_name[1]');
-				$skill_person['skill_person_lan_level0'] = $this->input->post('skill_lan_level[1]');
-				$skill_person['skill_person_lan_name1'] = $this->input->post('skill_lan_name[2]');
-				$skill_person['skill_person_lan_level1'] = $this->input->post('skill_lan_level[2]');
-				$skill_person['skill_person_lan_name2'] = $this->input->post('skill_lan_name[3]');
-				$skill_person['skill_person_lan_level2'] = $this->input->post('skill_lan_level[3]');
-				$skill_person['skill_person_lan_name3'] = $this->input->post('skill_lan_name[4]');
-				$skill_person['skill_person_lan_level3'] = $this->input->post('skill_lan_level[4]');
-				$skill_person['skill_person_lan_name4'] = $this->input->post('skill_lan_name[5]');
-				$skill_person['skill_person_lan_level4'] = $this->input->post('skill_lan_level[5]');
-			if(isset($skill_person)){
-				$this->register->_skill_person_lan($skill_person);
+
+				$skill_person_lan['information_id'] = $infomation_id;
+				$skill_person_lan['skill_person_lan_name0'] = $this->input->post('skill_lan_name[1]');
+				$skill_person_lan['skill_person_lan_level0'] = $this->input->post('skill_lan_level[1]');
+				$skill_person_lan['skill_person_lan_name1'] = $this->input->post('skill_lan_name[2]');
+				$skill_person_lan['skill_person_lan_level1'] = $this->input->post('skill_lan_level[2]');
+				$skill_person_lan['skill_person_lan_name2'] = $this->input->post('skill_lan_name[3]');
+				$skill_person_lan['skill_person_lan_level2'] = $this->input->post('skill_lan_level[3]');
+				$skill_person_lan['skill_person_lan_name3'] = $this->input->post('skill_lan_name[4]');
+				$skill_person_lan['skill_person_lan_level3'] = $this->input->post('skill_lan_level[4]');
+				$skill_person_lan['skill_person_lan_name4'] = $this->input->post('skill_lan_name[5]');
+				$skill_person_lan['skill_person_lan_level4'] = $this->input->post('skill_lan_level[5]');
+				if(isset($skill_person_lan)){
+					$this->register->_skill_person_lan($skill_person_lan);
 				} 
-			}
+
 			// goto new page
 			$idcard = $this->input->post('idcard');
 			$check = $this->register->_checkIdcard($idcard);
@@ -272,11 +268,13 @@ class Register extends CI_Controller {
 
 	public function valid_age($age){
 		if(isset($age)){
-			if($age > 70 || $age < 30){
+			if($age >= 70 || $age < 30){
 				$this->form_validation->set_message('valid_age','"%s" อายุไม่ผ่านเกณฑ์');
 				return false;
-			}else if($age > 69 && $age < 70){
+			}else if($age==69){
 				$this->form_validation->set_message('valid_age','"%s" ท่านจะมีอายุงาน 1 ปี');
+				return true;
+			}else{
 				return true;
 			}
 		}else{

@@ -33,7 +33,7 @@ class Dashboard extends CI_Controller {
 			$data['numLawyer70'] = $this->db_model->_countLawyer70();
 			$data['numRegister'] = $this->db_model->_countRegister();
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -43,6 +43,15 @@ class Dashboard extends CI_Controller {
 			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
 			$this->load->view('dashboard/loginPage');
 		}
+	}
+	public function debug()
+	{
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$year = substr($now, 0, 4);
+		$datecount = ((date('Y')+543)-69).'-05-01';
+		$test = date('Y-m-d', strtotime('-25386 day', strtotime($now)));
+		// $year2 = ;
+		echo $test;
 	}
 	// ./ Home
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
@@ -56,7 +65,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
@@ -94,7 +103,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/profile');
 			}else {
 				$data['error'] = $this->upload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
-				$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -139,7 +148,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -185,7 +194,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -224,7 +233,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_emailright', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -265,7 +274,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/home');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$check = $this->input->post('check');
 			if($getUser['User']->officer_status =='superadmin'){
 				$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -320,7 +329,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$area = $this->input->post('area');
 			$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -380,7 +389,7 @@ class Dashboard extends CI_Controller {
 			if ($getUser['User']->officer_status =='staff') {
 				redirect('Dashboard/home');
 			}
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -432,7 +441,7 @@ class Dashboard extends CI_Controller {
 			if ($getUser['User']->officer_status =='staff') {
 				redirect('Dashboard/home');
 			}
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -471,7 +480,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_left', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/staffedit');
 			}else {
-				$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -520,7 +529,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'active','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'active','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->db_model->_updateLogin($Username);
 			$officer_id = $getUser['User']->officer_id;
 			$topic = $this->input->post('topic');
@@ -604,7 +613,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -641,7 +650,7 @@ class Dashboard extends CI_Controller {
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
-			$active = array('ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -671,7 +680,7 @@ class Dashboard extends CI_Controller {
 			$newsid = $this->input->post('newsid');
 			$topic = $this->input->post('topic');
 			$detail = $this->input->post('detail');
-			$active = array('ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
 			if ($this->form_validation->run()) {
 				$this->db_model->_editNewcontent($newsid, $topic, $detail);
@@ -700,7 +709,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
 			$configuppic['upload_path'] = './assets/upload/news/pic';
 			$configuppic['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -738,7 +747,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
 			$configupfile['upload_path'] = './assets/upload/news/file';
 			$configupfile['allowed_types'] = 'pdf|txt|doc|docx|csv|ppt|pptx|pps|xls|xlsx|7z|zip|zipx|rar';
@@ -766,8 +775,7 @@ class Dashboard extends CI_Controller {
 	}
 	/* ./ Manage Website */
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
-  /* Manage Register */
-	// Manage News
+  	/* Manage Register */
 	public function register()
 	{
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
@@ -778,7 +786,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_register'=>'active','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_historyregister'=>'','ac_register'=>'active','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -825,15 +833,7 @@ class Dashboard extends CI_Controller {
 	}
 	// Update fail status
 	public function registerpass()
-	{	
-		// $now = unix_to_human(now('+7'),TRUE,'eu');
-		// echo $now;
-		// $year	 = substr($now, 0, 4);
-		// $m = substr($now, 5, 2);
-		// // $year = $year+2;
-		// echo '<br>'.($year+2);
-		// echo '<br>'.$m;
-
+	{
 		if($this->session->userdata('Logged')||$this->input->cookie('username')){
 			$data = json_decode($_POST['data'],true);
 			$registerid = $data['registers_id'];
@@ -846,7 +846,54 @@ class Dashboard extends CI_Controller {
 		}
 	}
   
-  /* ./ Manage Register */
+  	/* ./ Manage Register */
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+	/* History */
+	public function historyRegister()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_historyregister'=>'active','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/historyregister');
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Make json
+	public function getHistoryregisterjson()
+	{	
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status=='superadmin') {
+				$this->db_model->_getHistoryregisterjson();
+			}elseif ($getUser['User']->officer_status=='admin') {
+				$this->db_model->_getHistoryregisterAreajson($getUser['User']->area_id);
+			}else{
+				$this->db_model->_getHistoryregisterClinicjson($getUser['User']->clinic_id);
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+
+	/* ./History */
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 	// Login 
 	public function logincheck()

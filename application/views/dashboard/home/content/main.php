@@ -21,7 +21,7 @@
               <p>เจ้าหน้าที่</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-stalker"></i>
+              <i class="fa fa-users"></i>
             </div>
             <a href="<?php echo base_url() ?>Dashboard/staff" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>

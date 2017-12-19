@@ -29,8 +29,11 @@
 <?php if ($ac_news=='active'): ?>	
 	<script src="<?php echo base_url('assets/dashboard/'); ?>js/managenews.js"></script>
 <?php endif ?>
-<?php if ($ac_register=='active'): ?>	
-	<script src="<?php echo base_url('assets/dashboard/'); ?>js/manageregister.js"></script>
+<?php if ($ac_register=='active'): ?>   
+    <script src="<?php echo base_url('assets/dashboard/'); ?>js/manageregister.js"></script>
+<?php endif ?>
+<?php if ($ac_historyregister=='active'): ?>	
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/historyregister.js"></script>
 <?php endif ?>
 <script>
 	$(document).ready(function() {
