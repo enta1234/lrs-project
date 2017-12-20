@@ -1,4 +1,5 @@
-var base_url = window.location.origin+'/lrs-project';
+// var base_url = window.location.origin+'/lrs-project';
+var base_url = window.location.origin;
 $(function () {
     $('#tablelawyerban').bootstrapTable({
         url: base_url+'/Dashboard/getLawyerbanpagejson',
