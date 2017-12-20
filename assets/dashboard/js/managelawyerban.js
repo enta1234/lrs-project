@@ -1,79 +1,89 @@
 var base_url = window.location.origin+'/lrs-project';
 $(function () {
-    $('#table').bootstrapTable({
-        url: base_url+'/Dashboard/getofficerjson',
+    $('#tablelawyerban').bootstrapTable({
+        url: base_url+'/Dashboard/getLawyerbanpagejson',
         columns: [{
             field: 'state',
             checkbox: 'true',
             valign: 'middle',
         }, {
-            field: 'officer_id',
-            title: 'รหัสเจ้าหน้าที่',
+            field: 'lawyer_id',
+            title: 'ลำดับ',
             sortable: 'true',
             valign: 'middle',
             align: 'center'
         }, {
-            field: 'clinic_name',
-            title: 'พื้นที่รับผิดชอบ',
+            field: 'information_idcard',
+            title: 'บัตรประชาชน',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '25%',
         }, {
-            field: 'officer_name',
+            field: 'information_name',
             title: 'ชื่อ',
             sortable: 'true',
             valign: 'middle',
             halign: 'center',
-            width: '25%',
+            width: '20%',
 
         }, {
-            field: 'officer_lastname',
+            field: 'information_lastname',
             title: 'นามสกุล',
-            sortable: 'true',
-            valign: 'middle',
-            halign: 'center',
-            width: '25%'
-        }, {
-            field: 'officer_username',
-            title: 'อีเมล',
             sortable: 'true',
             valign: 'middle',
             halign: 'center',
             width: '20%'
         }, {
-            field: 'officer_status',
-            title: 'สิทธ์ผู้ใช้งาน',
+            field: 'information_phonenumber',
+            title: 'เบอร์',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
         }, {
+            field: 'lawyer_ban_detail',
+            title: 'เหตุผลทของแบล็คลิสต์',
+            sortable: 'true',
+            valign: 'middle',
+            halign: 'center',
+            width: '25%'
+        }, {
+            field: 'clinic_name',
+            title: 'ประจำที่',
+            sortable: 'true',
+            valign: 'middle',
+            align: 'center',
+            width: '20%'
+        }, {
             field: 'action',
-            title: 'จัดการพนักงาน',
+            title: 'จัดการที่ปรึกษา',
             valign: 'middle',
             align: 'center',
             formatter: 'actionFormatter',
             events: 'actionEvents',
+            width: '12%'
         }]
     });
 });
 
 function actionFormatter(value, row, index) {
     return [
-        '<a class="btn btn-info edit" href="javascript:void(0)" title="Edit">',
-        '<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>',
+        '<a class="btn btn-success ban" href="javascript:void(0)" title="แบล็คลิสต์">',
+        '<i class="fa fa-unlock fa-lg" aria-hidden="true"></i>',
         '</a>&nbsp&nbsp&nbsp',
-        '<a class="btn btn-danger del" href="javascript:void(0)" title="Del">',
-        '<i class="fa fa-trash fa-lg" aria-hidden="true"></i>',
+        '<a class="btn btn-danger remove" href="javascript:void(0)" title="พ้นสภาพ">',
+        '<i class="fa fa-calendar-times-o fa-lg" aria-hidden="true"></i>',
+        '</a>&nbsp&nbsp&nbsp',
+        '<a class="btn btn-primary print" href="javascript:void(0)" title="พิมพ์">',
+        '<i class="fa fa-print fa-lg" aria-hidden="true"></i>',
         '</a>',
     ].join('');
 }
 
 window.actionEvents = {
-    'click .del': function (e, value, row, index) {
+    'click .ban': function (e, value, row, index) {
         swal({
-          title: 'ต้องการลบใช่ไหม',
-          text: "คุณไม่สามารถย้อนกลับได้!",
+          title: 'ยกเลิกสถานะแบล็คลิสต์',
+          text: "คุณไม่สามารถแก้ไขได้!",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -84,13 +94,13 @@ window.actionEvents = {
           if (result.value) {
             $.ajax({
                 type:"POST",
-                url: base_url+"/Dashboard/staffdelete",
+                url: base_url+"/Dashboard/lawyerunban",
                 data: {data: JSON.stringify(row)},
                 dataType: 'json',
                 complete: function(){
                   swal({
                     title: 'สำเร็จ',
-                    text: 'ลบรายชื่อจ้าหน้าที่สำเร็จ',
+                    text: '',
                     type: 'success',
                     confirmButtonText: 'ปิด'
                   }).then((result) => {
@@ -98,16 +108,15 @@ window.actionEvents = {
                           location.reload();
                       }
                   })
-                }
+               }
             });
           }
-        })
-        
+        })    
     },
-    'click .edit': function (e, value, row, index) {
+    'click .remove': function (e, value, row, index) {
         swal({
-          title: 'ต้องการแก้ไขใช่ไหม',
-          text: "",
+          title: 'ต้องการให้พ้นสภาพ',
+          text: "คุณไม่สามารถแก้ไขได้!",
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -116,24 +125,36 @@ window.actionEvents = {
           cancelButtonText: 'ยกเลิก'
         }).then((result) => {
           if (result.value) {
-            // alert('You click del icon, row: ' + JSON.stringify(row));
             $.ajax({
                 type:"POST",
-                url: base_url+"/Dashboard/staffedit",
+                url: base_url+"/Dashboard/lawyerremove",
                 data: {data: JSON.stringify(row)},
                 dataType: 'json',
                 complete: function(){
-                  window.location.href = base_url+'/Dashboard/staffedit';
-                }
+                  swal({
+                    title: 'สำเร็จ',
+                    text: '',
+                    type: 'success',
+                    confirmButtonText: 'ปิด'
+                  }).then((result) => {
+                      if (result.value) {
+                          location.reload();
+                      }
+                  })
+               }
             });
           }
         })    
+    },
+    'click .print': function (e, value, row, index) {
+            alert('You click del icon, row: ' + JSON.stringify(row));
+        
     }
 };
 
 
 $(function () {
-    var $table = $('#table');
+    var $table = $('#tablelawyerban');
     $('#toolbar').find('select').change(function () {
     $table.bootstrapTable('refreshOptions', {
       exportDataType: $(this).val()

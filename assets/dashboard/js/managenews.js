@@ -51,7 +51,7 @@ $(function () {
 
 function actionFormatter(value, row, index) {
     return [
-        '<a class="edit ml10" href="javascript:void(0)" title="Edit">',
+        '<a class="btn btn-info edit" href="javascript:void(0)" title="Edit">',
         '<i class="fa fa-pencil fa-lg" aria-hidden="true"></i>',
         '</a>',
     ].join('');
@@ -74,9 +74,12 @@ window.actionEvents = {
                 type:"POST",
                 url: base_url+"/Dashboard/editnews",
                 data: {data: JSON.stringify(row)},
-                dataType: 'json'
+                dataType: 'json',
+                complete: function(){
+                 window.location.href = base_url+'/Dashboard/editnews';
+               }
             });
-            window.location.href = base_url+'/Dashboard/editnews';
+            // window.location.href = base_url+'/Dashboard/editnews';
           }
         })    
     }

@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage Register
+        Manage Lawyer
       </h1>
     </section>
 
@@ -13,7 +13,7 @@
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">จัดการที่ผู้สมัคร</h3>
+              <h3 class="box-title">ที่ปรึกษาที่อายุใกล้ถึง 70 ปี</h3>
             </div>
             <!-- ./ box-header -->
             <div class="box-body">
@@ -24,14 +24,14 @@
                   <option value="selected">Export Selected</option>
                 </select>
               </div>
-              <table id="tableregister" 
+              <table id="tablelawyer70" 
                 data-toolbar="#toolbar"
                 data-search="true"
                 data-show-columns="true"
                 data-show-export="true"
                 data-icons-prefix="fa"
                 data-icons="icons"
-                data-sort-name="registers_id" 
+                data-sort-name="lawyer_id" 
                 data-sort-order="asc" 
                 data-pagination="true" 
                 data-side-pagination="client"

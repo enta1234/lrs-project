@@ -25,14 +25,14 @@ $(function () {
             sortable: 'true',
             valign: 'middle',
             halign: 'center',
-            width: '25%',
+            width: '20%',
         }, {
             field: 'information_lastname',
             title: 'นามสกุล',
             sortable: 'true',
             valign: 'middle',
             halign: 'center',
-            width: '25%',
+            width: '20%',
 
         }, {
             field: 'information_phonenumber',
@@ -47,14 +47,14 @@ $(function () {
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '25%'
+            width: '20%'
         }, {
             field: 'ever_clinic_name',
             title: 'เคยเป็นที่ปรึกษาที่',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '25%'
+            width: '5%'
         }, {
             field: 'lawyer_ban_status',
             title: 'สถานะแบล็กลิสต์',
@@ -74,28 +74,28 @@ $(function () {
             title: 'ผลการสมัคร',
             sortable: 'true',
             valign: 'middle',
-            align: 'center',
-            width: '5%'
+            align: 'center'
         }, {
             field: 'action',
-            title: 'จัดการพนักงาน',
+            title: 'จัดการผู้สมัคร',
             valign: 'middle',
             align: 'center',
             formatter: 'actionFormatter',
             events: 'actionEvents',
+            width: '14%'
         }]
     });
 });
 
 function actionFormatter(value, row, index) {
     return [
-        '<a class="pass ml10" href="javascript:void(0)" title="ผ่าน">',
+        '<a class="btn btn-success pass" href="javascript:void(0)" title="ผ่าน">',
         '<i class="fa fa-check fa-lg" aria-hidden="true"></i>',
         '</a>&nbsp&nbsp&nbsp',
-        '<a class="fail" href="javascript:void(0)" title="ไม่ผ่าน">',
+        '<a class="btn btn-danger fail" href="javascript:void(0)" title="ไม่ผ่าน">',
         '<i class="fa fa-times fa-lg" aria-hidden="true"></i>',
         '</a>&nbsp&nbsp&nbsp',
-        '<a class="print" href="javascript:void(0)" title="พิมพ์">',
+        '<a class="btn btn-primary print" href="javascript:void(0)" title="พิมพ์">',
         '<i class="fa fa-print fa-lg" aria-hidden="true"></i>',
         '</a>',
     ].join('');
@@ -118,18 +118,20 @@ window.actionEvents = {
                 type:"POST",
                 url: base_url+"/Dashboard/registerpass",
                 data: {data: JSON.stringify(row)},
-                dataType: 'json'
-            });
-            swal({
-              title: 'สำเร็จ',
-              text: 'เพิ่มที่ปรึกษาเรียบร้อย',
-              type: 'success',
-              confirmButtonText: 'ปิด'
-            }).then((result) => {
-                if (result.value) {
-                    location.reload();
+                dataType: 'json',
+                complete: function(){
+                    swal({
+                      title: 'สำเร็จ',
+                      text: 'เพิ่มที่ปรึกษาเรียบร้อย',
+                      type: 'success',
+                      confirmButtonText: 'ปิด'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })   
                 }
-            })
+            });
           }
         })
         
@@ -150,18 +152,20 @@ window.actionEvents = {
                 type:"POST",
                 url: base_url+"/Dashboard/registerfail",
                 data: {data: JSON.stringify(row)},
-                dataType: 'json'
+                dataType: 'json',
+                complete: function(){
+                    swal({
+                      title: 'สำเร็จ',
+                      text: 'ไม่ผ่านการสัมภาษณ์',
+                      type: 'error',
+                      confirmButtonText: 'ปิด'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+               }
             });
-            swal({
-              title: 'สำเร็จ',
-              text: 'ไม่ผ่านการสัมภาษณ์',
-              type: 'error',
-              confirmButtonText: 'ปิด'
-            }).then((result) => {
-                if (result.value) {
-                    location.reload();
-                }
-            })
           }
         })
         
@@ -183,6 +187,6 @@ $(function () {
 });
 
 window.icons = {
-  export: 'fa-download'
+  export: 'fa-download',
+  columns: 'fa-eye'
 };
-console.log('manageregister.js');
