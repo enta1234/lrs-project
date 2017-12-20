@@ -244,21 +244,25 @@ jQuery(document).ready(function ($) {
     
     // cal age
         function submitBday() {
-        var year = document.getElementById('year').value-543;
-        var month = document.getElementById('month').value;
+        // get time from select
         var day = document.getElementById('day').value;
-
+        var month = document.getElementById('month').value;
+        var year = document.getElementById('year').value-543;
+        
+        // get currenttime
         var currentTime = new Date();
-        var getyear = currentTime.getFullYear();
-
+        var getyear = currentTime.getFullYear(); //get current year
+        // 
         var age = getyear-year;
-        if (currentTime.getMonth() < month || (currentTime.getMonth() == month && currentTime.getDate() > day)) {
+        if (((currentTime.getMonth()+1)-month) < 0 || ((currentTime.getMonth()+1) == month && currentTime.getDate() < day)) {
             age--;
         }
+
         var theBdayDis = document.getElementById('resultBdayDis');
         if(year>100){
             theBdayDis.setAttribute("value", age);
-            console.log(theBdayDis.name+ " : " + age + "month" + month + "day" + day);
+            console.log("Age :" + age + " month :" + (month-currentTime.getMonth()+1) + " day:" + (day-currentTime.getDate()));
+            console.log('Mouth: '+((currentTime.getMonth()+1)-month));
         }else{
             theBdayDis.setAttribute("value", '0');
         }

@@ -351,7 +351,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label >ปริญญาโท</label>
-                                        <input type="text" value="<?= $getedit->graduated_master_form;?>" name="master_form" class="form-control" placeholder="สถานศึกษา">
+                                        <input type="text" value="<?= $getedit->graduated_master_form;?>" name="master_form" class="form-control" maxlength="50" placeholder="สถานศึกษา">
                                     </div>
                                 </div>
                             </div>
@@ -359,10 +359,10 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                <div class="form-group">
-                                    <label >ปีที่สําเร็จการศึกษา </label>
-                                    <input type="text" value="<?= $getedit->graduated_master_year;?>" name="master_year" pattern="\d*" maxlength="4" class="form-control" placeholder="ปีพ.ศ. เช่น 2560">
-                                </div>
+                                    <div class="form-group">
+                                        <label >ปีที่สําเร็จการศึกษา เมื่อ </label>
+                                        <input type="text" value="<?= $getedit->graduated_master_year;?>" name="master_year" pattern="\d*" maxlength="4" class="form-control" placeholder="ปีพ.ศ. เช่น 2560">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -371,21 +371,11 @@
                     <div class="row">
                         <div class="col">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-6">
                                     <div class="form-group">
-                                        <label >ประกาศนียบัตรเนติบัณฑิต</label>
-                                        <input type="text" value="<?= $getedit->graduated_master_laws_form;?>" name="master_laws_form" class="form-control" placeholder="สถานศึกษา">
+                                        <label >ประกาศนียบัตรเนติบัณฑิต เมื่อปี</label>
+                                        <input type="text" value="<?= $getedit->graduated_master_laws_year;?>" pattern="\d*" maxlength="4" name="master_laws_year" class="form-control" placeholder="ปีพ.ศ. เช่น 2560">
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="row">
-                                <div class="col">
-                                <div class="form-group">
-                                    <label >ปีทีสําเร็จการศึกษา </label>
-                                    <input type="text" value="<?= $getedit->graduated_master_laws_year;?>" name="master_laws_year" pattern="\d*" maxlength="4" class="form-control" placeholder="ปีพ.ศ. เช่น 2560">
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -395,8 +385,14 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
-                                        <label >ประกาศนียบัตรว่าความ</label>
-                                        <input type="text" value="<?= $getedit->graduated_certificate_form;?>" name="certificate_form" class="form-control" placeholder="สถานศึกษา">
+                                        <label >ประกาศนียบัตรวิชาว่าความ ประเภท</label>
+                                        <input type="text" value="<?= $getedit->graduated_certificate_type;?>" name="certificate_type" maxlength="50" class="form-control" placeholder="ประเภท">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label >ใบอนุญาตให้เป็นทนายความเลขที่ </label>
+                                        <input type="text" value="<?= $getedit->graduated_certificate_no;?>" name="certificate_no" maxlength="15" class="form-control" placeholder="เลขที่ใบอนุญาต">
                                     </div>
                                 </div>
                             </div>
@@ -404,10 +400,16 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col">
-                                <div class="form-group">
-                                    <label >ปีที่สําเร็จการศึกษา </label>
-                                    <input type="text" value="<?= $getedit->graduated_certificate_year;?>" name="certificate_year" pattern="\d*" maxlength="4" class="form-control" placeholder="ปีพ.ศ. เช่น 2560">
+                                    <div class="form-group">
+                                        <label>วันออกบัตร</label>
+                                        <input type="text" value="<?= $getedit->graduated_certificate_start;?>" name="certificate_start" maxlength="10" class="form-control" placeholder="เช่น 01/5/2560">
+                                    </div>
                                 </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>วันหมดอายุ</label>
+                                        <input type="text" value="<?= $getedit->graduated_certificate_exp;?>" name="certificate_exp" maxlength="10" class="form-control" placeholder="เช่น 11/5/2565">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -473,7 +475,7 @@
                 <div class="row">
                     <div class="col">
                         <h4 class="display-5 topic-a">กรุณาระบุประสบการณ์ด้านการทํางาน (เลือกเพียงข้อเดียว)</h4>
-                        <p>(ด้านกฏหมายหรือ ด้านคดีในหน่วยงานของรัฐหรือ รัฐวิสาหกิจหรือ องค์กรอิสระตามรัฐธรรมนูญหรือ หน่วยงานเอกชนแล้วไม่น้อยกว่า 10 ปี) </p>
+                        <p>(ด้านกฏหมายหรือ ด้านคดีในหน่วยงานของรัฐหรือ รัฐวิสาหกิจหรือ องค์กรอิสระตามรัฐธรรมนูญหรือ หน่วยงานเอกชน) </p>
                     </div>
                 </div>
                 <div class="row">
@@ -481,7 +483,7 @@
                         <div class="row flip-head">
                             <div class="col">
                                 <div class="row flip flip-1">
-                                    <h4>ประเภทคดีที่มีความเชียวชาญ</h4>
+                                    <h4>กรณีประกอบอาชีพทนายความ</h4>
                                     <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
                                     <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
                                 </div>
@@ -491,7 +493,7 @@
                                             <div class="col">
                                                     <div class="row">
                                                         <label class="same-line-label">ประเภทอาชีพทนาย</label>
-                                                        <input type="text" value="<?= $getedit->lawyer_work_lawyer_career;?>" id="lawyer_career" name="lawyer_career" class="form-control col" placeholder="ประเภทอาชีพทนาย" maxlength="45" disabled>
+                                                        <input type="text" value="<?= $getedit->lawyer_work_lawyer_career;?>" id="lawyer_career" name="lawyer_career" class="form-control col" placeholder="ทนายความอิสระ / ทนายความสังกัดสำนักงาน" maxlength="45" disabled>
                                                     </div>
                                             </div>
                                             <div class="col">
@@ -504,7 +506,7 @@
                                         <div class="row">
                                             <div class="form-group col">
                                                 <label>ที่อยู่ </label>
-                                                <input type="text" value="<?= $getedit->lawyer_work_company_address;?>" id="company_address" name="company_address" class="form-control" placeholder="ที่อยู่เลขที่" disabled>
+                                                <input type="text" value="<?= $getedit->lawyer_work_company_address;?>" id="company_address" name="company_address" class="form-control" placeholder="ที่อยู่ เลขที่" disabled>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -548,7 +550,7 @@
                         <div class="row flip-head">
                             <div class="col">
                                 <div class="row flip flip-2">
-                                    <h4>ประกอบอาชีพรับราชการ</h4>
+                                    <h4>กรณีประกอบอาชีพรับราชการ</h4>
                                     <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
                                     <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
                                 </div>
@@ -615,7 +617,7 @@
                         <div class="row flip-head">
                             <div class="col">
                                 <div class="row flip flip-3">
-                                    <h4>ประกอบอาชีพทนายความ</h4>
+                                    <h4>กรณีเป็นผู้มีประสบการณ์ในการทำงานที่เกี่ยวข้องกับงานด้านกฎหมาย ไม่น้อยกว่า ๑๐ ปี</h4>
                                     <i class="fa fa-plus-circle fa-2x icon-right" aria-hidden="true"></i>
                                     <i class="fa fa-minus-circle fa-2x icon-right" aria-hidden="true" style="display:none"></i>
                                 </div>

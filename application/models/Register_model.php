@@ -57,18 +57,21 @@ class Register_model extends CI_Model {
 		return $row;
 	}
 	function _checkregistersclinic($clinic_id,$information_idcard){
-		$count = $this->db->where('clinic_id', $clinic_id)
+		return $count = $this->db->where('clinic_id', $clinic_id)
+		// ->where('register_clinic_no', $register_clinic_no)
+		->where('registers_timeregister', $registers_timeregister)
+		->count_all_results('registers');
+	}
+	function _countRgisterId(){
+		$count = $this->db
+		->where('clinic_id', $clinic_id)
 		->where('information_idcard', $information_idcard)
 		->count_all_results('registers');
-		if($count<1){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
 	}
 	function _registers($registers){
 		$this->db->insert('registers', $registers);
 	}
+
 	function _get_lawyer_ban_status($data){
 		// check by information_idcard
 		$count = $this->db->where('information_idcard',$data)->count_all_results('lawyer');
