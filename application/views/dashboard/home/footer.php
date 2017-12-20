@@ -32,8 +32,20 @@
 <?php if ($ac_register=='active'): ?>   
     <script src="<?php echo base_url('assets/dashboard/'); ?>js/manageregister.js"></script>
 <?php endif ?>
-<?php if ($ac_historyregister=='active'): ?>	
-	<script src="<?php echo base_url('assets/dashboard/'); ?>js/historyregister.js"></script>
+<?php if ($ac_historyregister=='active'): ?>    
+    <script src="<?php echo base_url('assets/dashboard/'); ?>js/historyregister.js"></script>
+<?php endif ?>
+<?php if ($ac_historylawyer=='active'): ?>    
+    <script src="<?php echo base_url('assets/dashboard/'); ?>js/historylawyer.js"></script>
+<?php endif ?>
+<?php if ($ac_lawyer=='active'): ?> 
+    <script src="<?php echo base_url('assets/dashboard/'); ?>js/managelawyer.js"></script>
+<?php endif ?>
+<?php if ($ac_lawyer70=='active'): ?>   
+    <script src="<?php echo base_url('assets/dashboard/'); ?>js/managelawyer70.js"></script>
+<?php endif ?>
+<?php if ($ac_lawyerban=='active'): ?>	
+	<script src="<?php echo base_url('assets/dashboard/'); ?>js/managelawyerban.js"></script>
 <?php endif ?>
 <script>
 	$(document).ready(function() {

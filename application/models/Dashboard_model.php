@@ -54,10 +54,10 @@ class Dashboard_model extends CI_Model {
 	}
 	function _countLawyer70(){
 		$now = unix_to_human(now('+7'),TRUE,'eu');
-		$date = date('Y-m-d', strtotime('-25386 day', strtotime($now)));
+		$date = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
 		$result =	$this->db->join('registers','lawyer.registers_id = registers.registers_id','LEFT')
 		->join('information','information.information_id = registers.information_id','LEFT')
-		->where('information_birthday <', $date)
+		->where('information_birthday <=', $date)
 		->count_all_results('lawyer');
 		return $result;
 	}
@@ -301,9 +301,6 @@ class Dashboard_model extends CI_Model {
 			$bandetail = $this->db->select('lawyer_ban_detail')->where('lawyer_id', $max->lawyer_id)->get('lawyer')->row();
 			$bandetail = $bandetail->lawyer_ban_detail;
 		}else{
-			if ($banstatus == '-') {
-				$banstatus = 'ไม่เคย';
-			}
 			$bandetail = '-';
 		}
 		$this->db->set('registers_id', $registerid)
@@ -360,5 +357,223 @@ class Dashboard_model extends CI_Model {
 		$this->load->view('dashboard/home/content/json/register', $data);
 	}
 	/* ./History Register */
+
+	/* History Lawyer*/
+	// Get all Lawyer JSON
+	function _getHistorylawyerjson(){
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, lawyer.lawyer_ban_detail, lawyer.lawyer_status,clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer with Area JSON
+	function _getHistorylawyerAreajson($area){
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, lawyer.lawyer_ban_detail, lawyer.lawyer_status,clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE clinic.area_id = $area";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer with Clinic JSON
+	function _getHistorylawyerClinicjson($clinic){
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, lawyer.lawyer_ban_detail, lawyer.lawyer_status,clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.clinic_id = $clinic";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	/* ./History Lawyer*/
+
+	/* Manage Lawyer */
+	// Get all Lawyer JSON
+	function _getLawyerjson(){
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer with Area JSON
+	function _getLawyerAreajson($area){
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE clinic.area_id = $area AND lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer with Clinic JSON
+	function _getLawyerClinicjson($clinic){
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.clinic_id = $clinic AND lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get all Lawyer70 JSON
+	function _getLawyer70json(){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง' AND information.information_birthday <= $age";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer70 with Area JSON
+	function _getLawyer70Areajson($area){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE clinic.area_id = $area AND lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง' AND information.information_birthday <= $age";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer70 with Clinic JSON
+	function _getLawyer70Clinicjson($clinic){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.clinic_id = $clinic AND lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง' AND information.information_birthday <= $age";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get all Lawyer in Blacklists JSON
+	function _getLawyerbanpagejson(){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, lawyer.lawyer_ban_detail, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง' AND lawyer.lawyer_ban_status = 'มีสถานะ'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer in Blacklists with Area JSON
+	function _getLawyerbanpageAreajson($area){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, lawyer.lawyer_ban_detail, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE clinic.area_id = $area AND lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง' AND lawyer.lawyer_ban_status = 'มีสถานะ'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Get Lawyer in Blacklists with Clinic JSON
+	function _getLawyerbanpageClinicjson($clinic){
+		$now = unix_to_human(now('+7'),TRUE,'eu');
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
+		$date = "'".(date('Y')-2).'-10-01'."'";
+		$sql = "SELECT lawyer.lawyer_id, information.information_name, information.information_lastname, 
+				information.information_idcard, information.information_phonenumber,
+				lawyer.lawyer_ban_status, lawyer.lawyer_ban_detail, clinic.clinic_name, lawyer.lawyer_date_start, lawyer.lawyer_date_exp
+				FROM lawyer 
+				LEFT JOIN registers ON registers.registers_id = lawyer.registers_id
+				LEFT JOIN information ON registers.information_id = information.information_id 
+				LEFT JOIN clinic ON registers.clinic_id = clinic.clinic_id
+				WHERE registers.clinic_id = $clinic AND lawyer.lawyer_date_start >= $date AND lawyer.lawyer_status = 'ดำรงตำแหน่ง' AND lawyer.lawyer_ban_status = 'มีสถานะ'";
+		$query = $this->db->query($sql)->result_array();
+		$data['data'] = json_encode($query);
+		$this->load->view('dashboard/home/content/json/lawyer', $data);
+	}
+	// Lawyer Remove
+	function _lawyerRemove($lawyerid){
+		$this->db->set('lawyer_status', 'พ้นสภาพ')
+		->where('lawyer_id',$lawyerid)
+		->update('lawyer');
+	}
+	// Lawyer Ban
+	function _lawyerBan($lawyerid,$reason){
+		$this->db->set('lawyer_ban_status', 'มีสถานะ')->set('lawyer_ban_detail', $reason)
+		->where('lawyer_id',$lawyerid)
+		->update('lawyer');
+	}
+	// Lawyer Unban
+	function _lawyerUnban($lawyerid){
+		$this->db->set('lawyer_ban_status', '-')->set('lawyer_ban_detail', '-')
+		->where('lawyer_id',$lawyerid)
+		->update('lawyer');
+	}
+	/* ./Manage Lawyer */
 }
 ?>

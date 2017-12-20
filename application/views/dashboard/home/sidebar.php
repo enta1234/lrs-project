@@ -36,7 +36,7 @@
         <li class="header">Main Menu</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="<?php echo $ac_home; ?>" ><a href="<?php echo base_url() ?>Dashboard/home"><i class="fa fa-tachometer fa-lg"></i><span><?php echo nbs(2); ?>Dashboard</span></a></li>
-        <li class="treeview <?php echo $ac_addnews.$ac_news; ?>">
+        <li class="treeview <?php echo $ac_lawyer.$ac_lawyer70.$ac_lawyerban; ?>">
           <a href="">
             <i class="fa fa-address-book-o fa-lg"></i> 
             <span><?php echo nbs(2); ?>จัดการที่ปรึกษา</span>
@@ -45,8 +45,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><?php echo anchor('Dashboard/#','ที่ปรึกษาปัจจุบัน'); ?></li>
-            <li><?php echo anchor('Dashboard/#','ที่ปรึกษาอายุใกล้ถึง 70 ปี'); ?></li>
+            <li class="<?php echo $ac_lawyer; ?>" ><?php echo anchor('Dashboard/lawyer','ที่ปรึกษาปัจจุบัน'); ?></li>
+            <li class="<?php echo $ac_lawyer70; ?>" ><?php echo anchor('Dashboard/lawyer70','ที่ปรึกษาอายุใกล้ถึง 70 ปี'); ?></li>
+            <li class="<?php echo $ac_lawyerban; ?>" ><?php echo anchor('Dashboard/lawyerbanpage','ที่ปรึกษาที่มีสถานะแบล็คลิสต์'); ?></li>
           </ul>
         </li>
         <li class="<?php echo $ac_register; ?>"><a href="<?php echo base_url() ?>Dashboard/register"><i class="fa fa-user fa-lg"></i> <span><?php echo nbs(2); ?>จัดการผู้สมัคร</span></a></li>
@@ -78,7 +79,7 @@
           </ul>
         </li>
         <?php } ?>
-        <li class="treeview <?php echo $ac_historyregister; ?>">
+        <li class="treeview <?php echo $ac_historyregister.$ac_historylawyer; ?>">
           <a href="#">
             <i class="fa fa-history fa-lg"></i> 
             <span><?php echo nbs(2); ?>ประวัติ</span>
@@ -87,7 +88,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class=""><?php echo anchor('Dashboard/#','ผู้ที่เคยเป็นที่ปรึกษา'); ?></li>
+            <li class="<?php echo $ac_historylawyer; ?>"><?php echo anchor('Dashboard/historyLawyer','ผู้ที่เคยเป็นที่ปรึกษา'); ?></li>
             <li class="<?php echo $ac_historyregister; ?>"><?php echo anchor('Dashboard/historyRegister','ผู้ที่เคยสมัคร'); ?></li>
           </ul>
         </li>

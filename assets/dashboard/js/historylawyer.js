@@ -1,84 +1,73 @@
 var base_url = window.location.origin+'/lrs-project';
 $(function () {
-    $('#tablehistoryregister').bootstrapTable({
-        url: base_url+'/Dashboard/getHistoryregisterjson',
+    $('#tablehistorylawyer').bootstrapTable({
+        url: base_url+'/Dashboard/getHistorylawyerjson',
         columns: [{
             field: 'state',
             checkbox: 'true',
             valign: 'middle',
         }, {
-            field: 'registers_id',
-            title: 'เลขที่',
+            field: 'lawyer_id',
+            title: 'ลำดับ',
             sortable: 'true',
             valign: 'middle',
-            align: 'center',
-            width: '1%',
+            align: 'center'
         }, {
             field: 'information_idcard',
             title: 'บัตรประชาชน',
             sortable: 'true',
             valign: 'middle',
-            align: 'center'
+            align: 'center',
         }, {
             field: 'information_name',
             title: 'ชื่อ',
             sortable: 'true',
             valign: 'middle',
             halign: 'center',
-            width: '25%',
+            width: '20%',
+
         }, {
             field: 'information_lastname',
             title: 'นามสกุล',
             sortable: 'true',
             valign: 'middle',
             halign: 'center',
-            width: '25%',
-
+            width: '20%'
         }, {
             field: 'information_phonenumber',
-            title: 'เบอร์ติดต่อ',
+            title: 'เบอร์',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '5%'
+        }, {
+            field: 'lawyer_ban_detail',
+            title: 'แบล็คลิสต์',
+            sortable: 'true',
+            valign: 'middle',
+            align: 'center',
+            width: '25%'
         }, {
             field: 'clinic_name',
-            title: 'คลินิกที่สมัคร',
+            title: 'ประจำที่',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '25%'
+            width: '20%'
         }, {
-            field: 'ever_clinic_name',
-            title: 'เคยเป็นที่ปรึกษาที่',
+            field: 'lawyer_status',
+            title: 'สถานะที่ปรึกษา',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '25%'
         }, {
-            field: 'lawyer_ban_status',
-            title: 'สถานะแบล็กลิสต์',
+            field: 'lawyer_date_start',
+            title: 'วันที่เริ่มงาน',
             sortable: 'true',
             valign: 'middle',
             align: 'center',
-            width: '5%'
-        }, {
-            field: 'registers_timeregister',
-            title: 'วันที่สมัคร',
-            sortable: 'true',
-            valign: 'middle',
-            align: 'center',
-            width: '5%'
-        }, {
-            field: 'registers_status',
-            title: 'ผลการสมัคร',
-            sortable: 'true',
-            valign: 'middle',
-            align: 'center',
-            width: '5%'
         }, {
             field: 'action',
-            title: 'จัดการผู้สมัคร',
+            title: 'จัดการี่ปรึกษา',
             valign: 'middle',
             align: 'center',
             formatter: 'actionFormatter',
@@ -104,7 +93,7 @@ window.actionEvents = {
 
 
 $(function () {
-    var $table = $('#tablehistoryregister');
+    var $table = $('#tablehistorylawyer');
     $('#toolbar').find('select').change(function () {
     $table.bootstrapTable('refreshOptions', {
       exportDataType: $(this).val()

@@ -33,7 +33,7 @@ class Dashboard extends CI_Controller {
 			$data['numLawyer70'] = $this->db_model->_countLawyer70();
 			$data['numRegister'] = $this->db_model->_countRegister();
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => 'active', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -46,12 +46,16 @@ class Dashboard extends CI_Controller {
 	}
 	public function debug()
 	{
+		// $now = unix_to_human(now('+7'),TRUE,'eu');
+		// $year = substr($now, 0, 4);
+		// $datecount = ((date('Y')+543)-69).'-05-01';
+		// $test = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+
 		$now = unix_to_human(now('+7'),TRUE,'eu');
-		$year = substr($now, 0, 4);
-		$datecount = ((date('Y')+543)-69).'-05-01';
-		$test = date('Y-m-d', strtotime('-25386 day', strtotime($now)));
+		$age = date('Y-m-d', strtotime('-25537 day', strtotime($now)));
+		$age = "'".$age."'";
 		// $year2 = ;
-		echo $test;
+		echo $age;
 	}
 	// ./ Home
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
@@ -65,7 +69,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
@@ -103,7 +107,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/profile');
 			}else {
 				$data['error'] = $this->upload->display_errors('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
-				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -148,7 +152,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_inforleft', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -194,7 +198,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_right', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -233,7 +237,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_emailright', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/profile');
 			}else {
-				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+				$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -274,7 +278,7 @@ class Dashboard extends CI_Controller {
 				redirect('Dashboard/home');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$check = $this->input->post('check');
 			if($getUser['User']->officer_status =='superadmin'){
 				$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -329,7 +333,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$this->db_model->_updateLogin($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => 'active', 'ac_staff' => '');
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$area = $this->input->post('area');
 			$getClinicArea['getArea'] = $this->db_model->_getArea();
@@ -389,7 +393,7 @@ class Dashboard extends CI_Controller {
 			if ($getUser['User']->officer_status =='staff') {
 				redirect('Dashboard/home');
 			}
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -441,7 +445,7 @@ class Dashboard extends CI_Controller {
 			if ($getUser['User']->officer_status =='staff') {
 				redirect('Dashboard/home');
 			}
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -480,7 +484,7 @@ class Dashboard extends CI_Controller {
 				$this->session->set_flashdata('msg_success_left', 'บันทึกข้อมูลสำเร็จ');
 				redirect('Dashboard/staffedit');
 			}else {
-				$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
+				$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => 'active');
 				$this->load->view('dashboard/home/header');
 				$this->load->view('dashboard/home/navbar', $getUser);
 				$this->load->view('dashboard/home/sidebar', $active);
@@ -518,7 +522,7 @@ class Dashboard extends CI_Controller {
 	public function addnews()
 	{
 		$this->form_validation->set_rules('topic', 'หัวข้อข่าว', 'required|max_length[45]');
-		$this->form_validation->set_rules('detail', 'เนื้อหา', 'required');
+		// $this->form_validation->set_rules('detail', 'เนื้อหา', 'required');
 		$this->form_validation->set_message('required','กรุณาใส่ "%s"');
 		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
@@ -529,7 +533,7 @@ class Dashboard extends CI_Controller {
 				$Username = get_cookie('username');
 			}
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'active','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'active','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->db_model->_updateLogin($Username);
 			$officer_id = $getUser['User']->officer_id;
 			$topic = $this->input->post('topic');
@@ -613,7 +617,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -650,7 +654,7 @@ class Dashboard extends CI_Controller {
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -665,7 +669,7 @@ class Dashboard extends CI_Controller {
 	public function editNewcontent()
 	{
 		$this->form_validation->set_rules('topic', 'หัวข้อข่าว', 'required|max_length[45]');
-		$this->form_validation->set_rules('detail', 'เนื้อหา', 'required');
+		// $this->form_validation->set_rules('detail', 'เนื้อหา', 'required');
 		$this->form_validation->set_message('required','กรุณาใส่ "%s"');
 		$this->form_validation->set_message('max_length','"%s" ยาวเกินไป');
 		$this->form_validation->set_error_delimiters('<div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>','</div>');
@@ -680,11 +684,11 @@ class Dashboard extends CI_Controller {
 			$newsid = $this->input->post('newsid');
 			$topic = $this->input->post('topic');
 			$detail = $this->input->post('detail');
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
 			if ($this->form_validation->run()) {
 				$this->db_model->_editNewcontent($newsid, $topic, $detail);
-				$this->session->set_flashdata('msg_success', 'เพิ่มข่าวสำเร็จ');
+				$this->session->set_flashdata('msg_success', 'แก้ไขสำเร็จ');
 				redirect('Dashboard/editnews');
 			}else{
 				$this->load->view('dashboard/home/header');
@@ -709,7 +713,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
 			$configuppic['upload_path'] = './assets/upload/news/pic';
 			$configuppic['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -747,7 +751,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'active', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$data['news'] = $this->db_model->_getNews($this->session->userdata['editnews']['news_id']);
 			$configupfile['upload_path'] = './assets/upload/news/file';
 			$configupfile['allowed_types'] = 'pdf|txt|doc|docx|csv|ppt|pptx|pps|xls|xlsx|7z|zip|zipx|rar';
@@ -786,7 +790,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'','ac_register'=>'active','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'active','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -859,7 +863,7 @@ class Dashboard extends CI_Controller {
 			}
 			$this->db_model->_updateLogin($Username);
 			$getUser['User'] = $this->db_model->_getUser($Username);
-			$active = array('ac_historyregister'=>'active','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'active','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
 			$this->load->view('dashboard/home/header');
 			$this->load->view('dashboard/home/navbar', $getUser);
 			$this->load->view('dashboard/home/sidebar', $active);
@@ -892,8 +896,206 @@ class Dashboard extends CI_Controller {
 			$this->load->view('dashboard/loginPage');
 		}
 	}
+	public function historyLawyer()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'active','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/historylawyer');
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Make json
+	public function getHistorylawyerjson()
+	{	
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status=='superadmin') {
+				$this->db_model->_getHistorylawyerjson();
+			}elseif ($getUser['User']->officer_status=='admin') {
+				$this->db_model->_getHistorylawyerAreajson($getUser['User']->area_id);
+			}else{
+				$this->db_model->_getHistorylawyerClinicjson($getUser['User']->clinic_id);
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
 
 	/* ./History */
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+	/* Manage Lawyer */
+	public function lawyer()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'active','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/lawyer');
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Make json
+	public function getLawyerjson()
+	{	
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status=='superadmin') {
+				$this->db_model->_getLawyerjson();
+			}elseif ($getUser['User']->officer_status=='admin') {
+				$this->db_model->_getLawyerAreajson($getUser['User']->area_id);
+			}else{
+				$this->db_model->_getLawyerClinicjson($getUser['User']->clinic_id);
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	public function lawyer70()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_lawyerban'=>'','ac_lawyer70'=>'active','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/lawyer70');
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Make json
+	public function getLawyer70json()
+	{	
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status=='superadmin') {
+				$this->db_model->_getLawyer70json();
+			}elseif ($getUser['User']->officer_status=='admin') {
+				$this->db_model->_getLawyer70Areajson($getUser['User']->area_id);
+			}else{
+				$this->db_model->_getLawyer70Clinicjson($getUser['User']->clinic_id);
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	public function lawyerbanpage()
+	{
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$this->db_model->_updateLogin($Username);
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			$active = array('ac_lawyerban'=>'active','ac_lawyer70'=>'','ac_historylawyer'=>'','ac_lawyer'=>'','ac_historyregister'=>'','ac_register'=>'','ac_news'=>'', 'ac_addnews'=>'','ac_home' => '', 'ac_addStaff' => '', 'ac_staff' => '');
+			$this->load->view('dashboard/home/header');
+			$this->load->view('dashboard/home/navbar', $getUser);
+			$this->load->view('dashboard/home/sidebar', $active);
+			$this->load->view('dashboard/home/content/lawyerban');
+			$this->load->view('dashboard/home/footer');
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Make json
+	public function getLawyerbanpagejson()
+	{	
+		if($this->session->userdata('Logged')||$this->input->cookie('username')){
+			if($this->session->userdata('Logged')){
+				$Username = $this->session->userdata['username'];
+			}else{
+				$Username = get_cookie('username');
+			}
+			$getUser['User'] = $this->db_model->_getUser($Username);
+			if ($getUser['User']->officer_status=='superadmin') {
+				$this->db_model->_getLawyerbanpagejson();
+			}elseif ($getUser['User']->officer_status=='admin') {
+				$this->db_model->_getLawyerbanpageAreajson($getUser['User']->area_id);
+			}else{
+				$this->db_model->_getLawyerbanpageClinicjson($getUser['User']->clinic_id);
+			}
+		}else{
+			$this->session->set_flashdata('msg_error', 'กรุณาเข้าสู่ระบบ');
+			$this->load->view('dashboard/loginPage');
+		}
+	}
+	// Lawyer Remove
+	public function lawyerremove()
+	{
+		$data = json_decode($_POST['data'],true);
+		$lawyerid = $data['lawyer_id'];
+		$this->db_model->_lawyerRemove($lawyerid);
+	}
+	// Lawyer Ban
+	public function lawyerban()
+	{
+		$data = json_decode($_POST['data'],true);
+		$reason = $_POST['reason'];
+		$lawyerid = $data['lawyer_id'];
+		$this->db_model->_lawyerBan($lawyerid,$reason);
+	}
+	// Lawyer Unban
+	public function lawyerunban()
+	{
+		$data = json_decode($_POST['data'],true);
+		$lawyerid = $data['lawyer_id'];
+		$this->db_model->_lawyerUnban($lawyerid);
+	}
+	/* ./Manage Lawyer */
+
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 	// Login 
 	public function logincheck()
