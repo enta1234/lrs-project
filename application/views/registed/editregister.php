@@ -146,7 +146,7 @@
                                                         'onchange'=>'submitBday()'
                                                     );
                                                     $year[''] = '- ปี -';
-                                                    for($i = ((date('Y')+543)-69) ; $i < (date('Y')+543)-29; $i++){
+                                                    for($i = ((date('Y')+543)-70) ; $i < (date('Y')+543)-29; $i++){
                                                         $year[$i] = $i;
                                                     } 
                                                     echo form_dropdown('year', $year, $y, $atty);

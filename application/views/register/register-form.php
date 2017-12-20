@@ -103,7 +103,7 @@
                                             <select class="form-control selcet-2 col-md-3 " name="year" id="year" onchange="submitBday()"  required>
                                                 <option value="">- ปี -</option>
                                                 <?php
-                                                    for($i = ((date('Y')+543)-69) ; $i < (date('Y')+543)-29; $i++){
+                                                    for($i = ((date('Y')+543)-70) ; $i < (date('Y')+543)-29; $i++){
                                                         echo '<option value="'.$i.'">'.$i.'</option>';
                                                     }
                                                 ?>
