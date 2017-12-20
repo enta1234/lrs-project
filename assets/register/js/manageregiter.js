@@ -99,7 +99,7 @@ window.actionEvents = {
         
     },
     'click .print': function (e, value, row, index) {
-        window.print();
+        window.open(base_url+"/print_page",'_blank');
     }
    
 };

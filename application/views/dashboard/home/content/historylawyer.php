@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Manage Register
+        History Of Lawyer
       </h1>
     </section>
 
@@ -13,7 +13,7 @@
         <div class="col-md-12">
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">จัดการที่ผู้สมัคร</h3>
+              <h3 class="box-title">ผู้ที่เคยเป็นที่ปรึกษาทั้งหมด</h3>
             </div>
             <!-- ./ box-header -->
             <div class="box-body">
@@ -24,19 +24,19 @@
                   <option value="selected">Export Selected</option>
                 </select>
               </div>
-              <table id="tableregister" 
+              <table id="tablehistorylawyer" 
                 data-toolbar="#toolbar"
                 data-search="true"
                 data-show-columns="true"
                 data-show-export="true"
                 data-icons-prefix="fa"
                 data-icons="icons"
-                data-sort-name="registers_id" 
-                data-sort-order="asc" 
+                data-sort-name="lawyer_date_start" 
+                data-sort-order="desc" 
                 data-pagination="true" 
                 data-side-pagination="client"
                 data-page-size="20"
-                data-page-list="[10, 20, 50, 100]"
+                data-page-list="[10, 20, 50, 100, 200]"
                 ></table>
             </div>
             <!-- ./box-body -->

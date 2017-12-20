@@ -116,10 +116,11 @@ class Registed extends CI_Controller {
 		$graduated['graduated_bachalor_year'] = $this->input->post('bachalor_year');
 		$graduated['graduated_master_form'] = $this->input->post('master_form');
 		$graduated['graduated_master_year'] = $this->input->post('master_year');
-		$graduated['graduated_master_laws_form'] = $this->input->post('master_laws_form');
 		$graduated['graduated_master_laws_year'] = $this->input->post('master_laws_year');
-		$graduated['graduated_certificate_form'] = $this->input->post('certificate_form');
-		$graduated['graduated_certificate_year'] = $this->input->post('certificate_year');
+		$graduated['graduated_certificate_type'] = $this->input->post('certificate_type');
+		$graduated['graduated_certificate_no'] = $this->input->post('certificate_no');
+		$graduated['graduated_certificate_start'] = $this->input->post('certificate_start');
+		$graduated['graduated_certificate_exp'] = $this->input->post('certificate_exp');
 		// send to model
 		// if(isset($information_id)){
 			$this->register->_UpdateGraduated($information_id, $graduated);

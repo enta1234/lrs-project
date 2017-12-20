@@ -27,6 +27,7 @@
               <table id="table" 
                 data-toolbar="#toolbar"
                 data-search="true"
+                data-show-columns="true"
                 data-show-export="true"
                 data-icons-prefix="fa"
                 data-icons="icons"
