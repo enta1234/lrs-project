@@ -38,10 +38,12 @@
                                 <?php if(strchr($newsshow->news_otherfile,".")==".pdf"){ ?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <embed src="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" width="100%" height="900px" />
-                                <?php }else{ ?>
+                                <?php }elseif($newsshow->news_otherfile==""){ ?>
+                                    <br>
+                                <?php }else{?>
                                     <h4>เอกสารที่เกี่ยวข้อง</h4>
                                     <a href="<?= base_url('assets/upload/news/file/').$newsshow->news_otherfile;?>" class="btn btn-primary" >ดาวน์โหลดเอกสารแนบ</a>
-                                <?php }?>
+                                <?php } ?>
                             </article>    
                         </div>
                         <!-- nav -->
